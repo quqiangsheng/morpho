@@ -5,6 +5,12 @@ morpho是一款JAVAEE应用开发框架及脚手架
 自2015年10月份以来以成功运用于多个商业项目
 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 
+#有图有真相
+![整合监控页面](https://git.oschina.net/uploads/images/2017/0604/173621_649db9b4_61523.jpeg "整合监控页面")
+![session管理页面](https://git.oschina.net/uploads/images/2017/0604/173659_85615691_61523.jpeg "session管理页面")
+![权限管理页面](https://git.oschina.net/uploads/images/2017/0604/173722_78b6c63a_61523.jpeg "权限管理页面")
+![用户管理页面](https://git.oschina.net/uploads/images/2017/0604/173739_9adcbcca_61523.jpeg "用户管理页面")
+![登录页](https://git.oschina.net/uploads/images/2017/0604/173813_d1738ed6_61523.jpeg "登录页")
 
 #系统要求如下：
 1. jdk1.7及以上
@@ -98,12 +104,24 @@ apache2.0许可证
 - 11.工具-用于生成资源权限表的数据根据注解扫描 减轻开发完配置资源权限的工作量
 
 #开始使用
-下到本地后运行init sql
-配置config.properties
-放入tomcat运行
+
+
+1. 下到本地后运行init sql
+2. 配置config.properties
+3. 放入tomcat运行
 数据库中内置登录账号
 账号admin 密码admin 管理员用户
 账号less  密码admin 最小权限用户
 
+#参与进来
+
+
+- 请先start在此谢过
+- 问题请issue中提出 
+- 特别紧急的问题请在群里@我活着issue提出后给我发封邮件 请注明问题内容 以及联系方式
+- 欢迎fork
+
+
 ...........
 TO DO LIST
+文档逐步完善中
