@@ -1,7 +1,7 @@
 #morpho
 
 
-morpho是一款JAVAEE应用开发框架及脚手架
+ **morpho是一款JAVAEE应用开发框架及脚手架** 
 自2015年10月份以来以成功运用于多个商业项目
 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 
@@ -61,7 +61,7 @@ http://git.oschina.net/max256/morpho/wikis
 QQ群：210722852 请备注来自 开源中国morpho项目
 
 #项目作者:
-fbf: help@max256.com
+fbf: help~~~max256.com   ~~~替换成@
 
 #项目捐助者:
 to do list
@@ -70,7 +70,7 @@ to do list
 apache2.0许可证
 保留署名权
 您可以根据自己的需要修改源码 
-如果需要商业帮助请联系help@max256.com包括但不限于定制，咨询，培训，项目合作
+如果需要商业帮助请联系help~~~max256.com包括但不限于定制，咨询，培训，项目合作  ~~~替换成@
 
 
 
@@ -80,8 +80,7 @@ apache2.0许可证
 
 - 1.最新的框架依赖,帮助您学习最新的技术
 - 2.框架本身精简 不偏向依赖某些技术 您可以自由选择
-- 3.jsp el表达式 jquery这些传统技术，掌握的人多降低学习成本，同时引入了vue.js bootstrap-table等比较流行的插件也保持技术先进性，怎么使      
-    用就要看您的意图了
+- 3.jsp el表达式 jquery这些传统技术，掌握的人多降低学习成本，同时引入了vue.js bootstrap-table等比较流行的插件也保持技术先进性，怎么使用就要看您的意图了
 - 4.hibernate和mybatis同时支持 这应该可以囊括您之前的技术栈了 ORM随心换
 - 5.集成shiro权限控制支持AOP方法级权限控制  并对shiro相关bug作出处理
 - 6.注释完备！~
@@ -118,8 +117,30 @@ apache2.0许可证
 
 - 请先start在此谢过
 - 问题请issue中提出 
-- 特别紧急的问题请在群里@我活着issue提出后给我发封邮件 请注明问题内容 以及联系方式
+- 特别紧急的问题请在群里@我或者issue提出后给我发封邮件 请注明问题内容 以及联系方式
 - 欢迎fork
+
+#参考过的项目与特别鸣谢
+
+
+- 通用Mapper像hibernate丝绸般润滑的mybatis使用姿势 https://github.com/abel533/Mapper
+- llsfw项目     http://git.oschina.net/wangkang/llsfw
+- jeesite虽然不怎么更新了但具有价值 https://github.com/thinkgem/jeesite
+- LarvaFrame权限管理系统  http://git.oschina.net/sxjun1904/LarvaFrame
+- spring-shiro-training https://git.oschina.net/wangzhixuan/spring-shiro-training
+- spring一站式范例 http://git.oschina.net/chunanyong/springrain
+- jeecg参考了excel报表部分  http://www.jeecg.org/
+- springmore   https://github.com/tangyanbo/springmore
+- iBase4J    http://git.oschina.net/iBase4J/iBase4J
+- SpringWind  http://git.oschina.net/juapk/SpringWind
+- swagger-ui（即spring fox）  https://github.com/swagger-api/swagger-ui
+- SpringBlade  https://git.oschina.net/smallc/SpringBlade
+- s2jh  https://github.com/xautlx/s2jh
+- 国产ui良心之作layui  http://www.layui.com/
+- renren-security参考了vue.js部分（为数不多的vue.js企业级java应用示例，推荐）  http://git.oschina.net/babaio/renren-security
+- webside    https://git.oschina.net/wjggwm/webside
+- ip2region离线ip地址库  https://github.com/lionsoul2014/ip2region
+- shiro权限生成器  https://github.com/quqiangsheng/shiro-assistant
 
 
 ...........
