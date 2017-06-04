@@ -141,6 +141,7 @@ apache2.0许可证
 - webside    https://git.oschina.net/wjggwm/webside
 - ip2region离线ip地址库  https://github.com/lionsoul2014/ip2region
 - shiro权限生成器  https://github.com/quqiangsheng/shiro-assistant
+- 张开涛的es脚手架https://github.com/zhangkaitao/es
 
 
 ...........
