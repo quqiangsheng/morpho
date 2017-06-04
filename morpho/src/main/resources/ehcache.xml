@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+
+	<!-- version 2.5之前版本的Ehcache允许任意数量的名称相同的缓存管理器(相同的配置资源)存在于一个JVM。 Ehcache 
+		2.5和更高版本不允许存在多个名称相同的缓存管理器在相同的JVM。缓存管理器()构造函数创建单体缓存管理器可以违反这条规则 如果项目是hibernate的,
+		以前的时候ehcache可能不是单例的，因为shiro里面也使用到了ehcache做缓存， 
+		和hibernate的ehcache缓存配置有冲突，所以需要对hibernate的ehcache部分做些调整 
+		或者不使用hibernate缓存 自己实现aop缓存
+	-->
+
+	<diskStore path="java.io.tmpdir" />
+
+	<!-- name：Cache的唯一标识 maxElementsInMemory：内存中最大缓存对象数 maxElementsOnDisk：磁盘中最大缓存对象数，若是0表示无穷大 
+		eternal：Element是否永久有效，一但设置了，timeout将不起作用 overflowToDisk：配置此属性，当内存中Element数量达到maxElementsInMemory时，Ehcache将会Element写到磁盘中 
+		timeToIdleSeconds：设置Element在失效前的允许闲置时间。仅当element不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大 
+		timeToLiveSeconds：设置Element在失效前允许存活时间。最大时间介于创建时间和失效时间之间。仅当element不是永久有效时使用，默认是0.，也就是element存活时间无穷大 
+		diskPersistent：是否缓存虚拟机重启期数据 diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒 
+		diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区 
+		memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用） -->
+	<!-- 全局缓存策略 -->
+	<defaultCache maxElementsInMemory="10000" eternal="false"
+		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true"
+		maxElementsOnDisk="10000000" diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU" />
+	<!-- <cache name="resourceTypeServiceCache" maxElementsInMemory="10000" 
+		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true" diskSpoolBufferSizeMB="20" 
+		timeToIdleSeconds="300" timeToLiveSeconds="600" memoryStoreEvictionPolicy="LFU" 
+		/> <cache name="resourceTypeDaoCache" maxElementsInMemory="10000" maxElementsOnDisk="1000" 
+		eternal="false" overflowToDisk="true" diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" 
+		timeToLiveSeconds="600" memoryStoreEvictionPolicy="LFU" /> <cache name="bugTypeServiceCache" 
+		maxElementsInMemory="10000" maxElementsOnDisk="1000" eternal="false" overflowToDisk="true" 
+		diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600" 
+		memoryStoreEvictionPolicy="LFU" /> <cache name="bugTypeDaoCache" maxElementsInMemory="10000" 
+		maxElementsOnDisk="1000" eternal="false" overflowToDisk="true" diskSpoolBufferSizeMB="20" 
+		timeToIdleSeconds="300" timeToLiveSeconds="600" memoryStoreEvictionPolicy="LFU" 
+		/> -->
+	<!-- <diskStore>==========当内存缓存中对象数量超过maxElementsInMemory时,将缓存对象写到磁盘缓存中(需对象实现序列化接口) 
+		* <diskStore path="">==用来配置磁盘缓存使用的物理路径,Ehcache磁盘缓存使用的文件后缀名是*.data和*.index 
+		* name=================缓存名称,cache的唯一标识(ehcache会把这个cache放到HashMap里) * maxElementsOnDisk====磁盘缓存中最多可以存放的元素数量,0表示无穷大 
+		* maxElementsInMemory==内存缓存中最多可以存放的元素数量,若放入Cache中的元素超过这个数值,则有以下两种情况 * 1)若overflowToDisk=true,则会将Cache中多出的元素放入磁盘文件中 
+		* 2)若overflowToDisk=false,则根据memoryStoreEvictionPolicy策略替换Cache中原有的元素 * eternal==============缓存中对象是否永久有效,即是否永驻内存,true时将忽略timeToIdleSeconds和timeToLiveSeconds 
+		* timeToIdleSeconds====缓存数据在失效前的允许闲置时间(单位:秒),仅当eternal=false时使用,默认值是0表示可闲置时间无穷大,此为可选属性 
+		* 即访问这个cache中元素的最大间隔时间,若超过这个时间没有访问此Cache中的某个元素,那么此元素将被从Cache中清除 * timeToLiveSeconds====缓存数据在失效前的允许存活时间(单位:秒),仅当eternal=false时使用,默认值是0表示可存活时间无穷大 
+		* 即Cache中的某元素从创建到清楚的生存时间,也就是说从创建开始计时,当超过这个时间时,此元素将从Cache中清除 * overflowToDisk=======内存不足时,是否启用磁盘缓存(即内存中对象数量达到maxElementsInMemory时,Ehcache会将对象写到磁盘中) 
+		* 会根据标签中path值查找对应的属性值,写入磁盘的文件会放在path文件夹下,文件的名称是cache的名称,后缀名是data * diskPersistent=======是否持久化磁盘缓存,当这个属性的值为true时,系统在初始化时会在磁盘中查找文件名为cache名称,后缀名为index的文件 
+		* 这个文件中存放了已经持久化在磁盘中的cache的index,找到后会把cache加载到内存 * 要想把cache真正持久化到磁盘,写程序时注意执行net.sf.ehcache.Cache.put(Element 
+		element)后要调用flush()方法 * diskExpiryThreadIntervalSeconds==磁盘缓存的清理线程运行间隔,默认是120秒 
+		* diskSpoolBufferSizeMB============设置DiskStore（磁盘缓存）的缓存区大小,默认是30MB * memoryStoreEvictionPolicy========内存存储与释放策略,即达到maxElementsInMemory限制时,Ehcache会根据指定策略清理内存 
+		* 共有三种策略,分别为LRU(最近最少使用)、LFU(最常用的)、FIFO(先进先出) -->
+
+	<!-- 注意，以下缓存是永久有效，是系统初始化数据到缓存中，如果不需要永久有效，请另写，或在 -->
+	<cache name="cache" maxEntriesLocalHeap="10000"
+		maxEntriesLocalDisk="1000" eternal="true" diskSpoolBufferSizeMB="20"
+		timeToIdleSeconds="0" timeToLiveSeconds="0" memoryStoreEvictionPolicy="LFU"
+		transactionalMode="off">
+	</cache>
+
+
+	<!-- 登录密码输入错误重新输入的密码缓存区域 -->
+	<!-- name不能改需要和程序里的保持一致 -->
+	<!-- timeToIdleSeconds单位秒 代表账号输入错误锁定时间 仅对shiro-ehcahce环境下有效 -->
+	<cache name="passwordRetryCache" maxEntriesLocalHeap="10000"
+		eternal="false" timeToIdleSeconds="60" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+	
+	<!-- shiro授权时的缓存  默认60分钟-->
+	<cache name="authorizationCache" maxEntriesLocalHeap="10000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- shiro认证时的缓存 默认60分钟-->
+	<!-- Cache的唯一标识名称 maxEntriesLocalHeap:堆内存中最大缓存对象数，0没有限制 eternal:elements是否永久有效，如果为true，timeouts将被忽略，element将永不过期 
+		timeToIdleSeconds:失效前的空闲秒数，当eternal为false时，这个属性才有效，0为不限制 timeToLiveSeconds:失效前的存活秒数，创建时间到失效时间的间隔为存活时间，当eternal为false时，这个属性才有效，0为不限制 
+		memoryStoreEvictionPolicy:内存回收策略，默认回收策略：最近最少使用Least Recently Used，先进先出First 
+		In First Out，Less Frequently Used使用频率最低 -->
+	<cache name="authenticationCache" maxEntriesLocalHeap="10000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+
+
+	<!-- overflowToDisk="true" - 这确保当你溢出进程内存时，会话不丢失且能够被序列化到磁盘上。 -->
+	<!-- eternal="true" - 确保缓存项（Session 实例）永不过期或被缓存自动清除。这是很有必要的，因为 Shiro 基于 
+		计划过程完成自己的验证。如果我们关掉这项，缓存将会在 Shiro 不知道的情况下清扫这些 Sessions，这可能 引起麻烦。 -->
+	<!-- 在线的session缓存 -->
+	<!-- name不能修改需要和shiro-ehcache配合使用时和它里面的activeSessionsCacheName的值对应 -->
+	<cache name="shiro-activeSessionCache" maxEntriesLocalHeap="10000"
+		eternal="true" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="true" statistics="true">
+	</cache>
+	
+	<!-- 强踢缓存 暂时没有使用 -->
+	<cache name="shiro-kickout-session" maxEntriesLocalHeap="2000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+
+	<!-- spring cache缓存测试 -->
+	<cache name="sysUser" maxEntriesLocalHeap="2000" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="false"
+		statistics="true">
+	</cache>
+
+	<cache name="sysCode" maxEntriesLocalHeap="5000" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="false"
+		statistics="true">
+	</cache>
+
+	<cache name="sysRole" maxEntriesLocalHeap="2000" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="false"
+		statistics="true">
+	</cache>
+	<cache name="sysResource" maxEntriesLocalHeap="2000" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="false"
+		statistics="true">
+	</cache>
+	<cache name="sysOrganization" maxEntriesLocalHeap="2000" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="0" overflowToDisk="false"
+		statistics="true">
+	</cache>
+
+</ehcache>

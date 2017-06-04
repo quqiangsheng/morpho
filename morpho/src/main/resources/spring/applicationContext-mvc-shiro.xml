@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <description>shiro和springMVC整合部分</description>
+   
+    
+    <!-- 支持 Shiro对Controller的方法级AOP安全控制 -->
+    <!-- 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证 -->  
+	<!-- 用于开启Shiro Spring AOP权限注解的支持；
+		<aop:config proxy-target-class="true">表示全部使用cglib产生代理类。
+		对controller层增加代理因为没有实现接口所以spring判断后还是不会使用jdk的代理，再去使用基于cglib的代理
+		这里明确指出使用cglib代理减少了判断环节 提升性能	
+	 -->
+	<!-- 定义aop切面，用于代理如@RequiresPermissions注解的控制器，进行权限控制。 -->
+	<aop:config proxy-target-class="true"/>
+
+    
+    <!-- 配置以下两个bean即可实现此功能 -->  
+    <!-- Enable Shiro Annotations for Spring-configured beans. Only run after the lifecycleBeanProcessor has run -->        
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+    	 <property name="proxyTargetClass" value="true" />   
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+        <property name="securityManager" ref="securityManager"/>  
+    </bean>  
+
+</beans>

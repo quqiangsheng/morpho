@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<description>邮件发送</description>
+	<!-- spring提供的邮件发送器 -->
+	<bean id="javaMailSender " class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<!-- 参数设置 username邮件发送用户名，password邮件发送密码，host邮件发送服务器，JavaMailProperties其它属性， 
+		mail.smtp.auth是否需要通过密码验证，mail.smtp.timeout邮件发送延时时间。 -->
+	<property name="host" value="${mail.host}" />
+	<property name="port" value="${mail.port}" />
+	<property name="protocol" value="${mail.protocol}" />
+	<property name="username" value="${mail.username}" />
+	<property name="password" value="${mail.password}" />
+	<property name="javaMailProperties">
+		<props>
+			<prop key="mail.smtp.starttls.enable">${mail.starttls.enable}</prop>
+			<!-- 如果是网易邮箱， mail.smtp.starttls.enable 设置为 false -->
+			<prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+			<prop key="mail.smtp.timeout">${mail.timeout}</prop>
+			<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+		</props>
+	</property>
+</bean>
+</beans>

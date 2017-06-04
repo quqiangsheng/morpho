@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<description>此配置文件是数据源和mybatis相关 </description>
+	<!-- 此配置文件是数据源相关 -->
+	<!-- druid数据源拦截器 -->
+	<!-- 监控统计用的filter:stat -->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<!-- 慢查询3s以上属于慢查询 -->
+		<property name="slowSqlMillis" value="30000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+		<!-- 指定mysql -->
+		<property name="dbType" value="mysql" />
+	</bean>
+	<!-- 防御sql注入的filter:wall -->
+	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+		<property name="dbType" value="mysql" />
+		<property name="config" ref="wallConfig"></property>
+	</bean>
+	<!-- 数据库类型 目录 mysql META-INF/druid/wall/mysql Oracle META-INF/druid/wall/oracle 
+		sqlserver META-INF/druid/wall/sqlserver postgres META-INF/druid/wall/postgres -->
+	<bean id="wallConfig" class="com.alibaba.druid.wall.WallConfig">
+		<property name="dir" value="META-INF/druid/wall/mysql"></property>
+		<!-- 是否允许一次执行多条语句，缺省关闭,这里打开允许 -->
+		<property name="multiStatementAllow" value="true" />
+	</bean>
+
+	<!-- druid数据源 -->
+	<bean name="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${druid.jdbc.url}" />
+		<property name="username" value="${druid.jdbc.username}" />
+		<property name="password" value="${druid.jdbc.password}" />
+		<!-- driverClassName可不配，如果不配置druid会根据url自动识别dbType，然后选择相应的driverClassName -->
+		<property name="driverClassName" value="${druid.jdbc.driverClassName}" />
+		<property name="validationQuery" value="${druid.jdbc.validationQuery}" />
+		<property name="testOnBorrow" value="${druid.jdbc.testOnBorrow}" />
+		<property name="testOnReturn" value="${druid.jdbc.testOnReturn}" />
+		<property name="testWhileIdle" value="${druid.jdbc.testWhileIdle}" />
+		<!-- 在Druid-1.0.27之前的版本，DruidDataSource建议使用TestWhileIdle来保证连接的有效性，但仍有很多场景需要对连接进行保活处理。在1.0.28版本之后，新加入keepAlive配置，缺省关闭。 -->
+		<property name="keepAlive" value="${druid.jdbc.keepAlive}" />
+
+
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${druid.jdbc.initialSize}" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="${druid.jdbc.maxActive}" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${druid.jdbc.minIdle}" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${druid.jdbc.maxWait}" />
+
+		<!-- 是否缓存preparedStatement，也就是PSCache。 PSCache对支持游标的数据库性能提升巨大，比如说oracle。 
+			在mysql5.5以下的版本中没有PSCache功能，建议 关闭掉。 5.5及以上版本有PSCache，建议开启。 -->
+		<property name="poolPreparedStatements" value="true" />
+		<!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。 在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100 -->
+		<property name="maxOpenPreparedStatements" value="100" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+
+		<!-- 超过时间限制是否回收 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 超时时间；单位为秒。 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" />
+
+		<!-- 监控数据库 -->
+		<!-- druid的插件机制 stat为开启监控的filters -->
+		<!-- 拦截检测的时间不在StatFilter统计的SQL执行时间内。 如果希望检测的时间 在StatFilter统计的SQL执行时间内 这样配置<property 
+			name="filters" value="stat,wall"/> -->
+		<property name="filters" value="slf4j" />
+		<!-- 类型是List，如果同时配置了filters和proxyFilters，是组合关系，并非替换关系 -->
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<!-- 防火墙暂时关闭 -->
+				<!-- <ref bean="wall-filter"/> -->
+			</list>
+		</property>
+
+
+		<!-- 缺省多个DruidDataSource的监控数据是各自独立的，在Druid-0.2.17版本之后，支持配置公用监控数据，配置参数为useGloalDataSourceStat。 -->
+		<!-- <property name="useGlobalDataSourceStat" value="true" /> -->
+	</bean>
+
+	<!-- JNDI数据库访问 (需要的话放开注释) -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName"> <value></value> </property> </bean> -->
+
+
+	<!-- 配置MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 注入数据源 -->
+		<property name="dataSource" ref="druidDataSource" />
+		<property name="configLocation" value="classpath:mybatis.xml" />
+		<!-- dao(mapper)的位置 -->
+		<!-- 它表示我们的Mapper文件存放的位置，当我们的Mapper文件跟对应的Mapper接口处于同一位置的时候可以不用指定该属性的值。 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:dao/*.xml</value>
+			</array>
+		</property>
+		<!-- typeAliasesPackage：它一般对应我们的实体类所在的包， 这个时候会自动取对应包中不包括包名的简单类名作为包括包名的别名。 
+			多个package之间可以用逗号或者分号等来进行分隔。(value的值一定要是包的全名) -->
+
+		<!-- <property name="typeHandlers"> <array> <value>org.apache.ibatis.type.EnumTypeHandler</value> 
+			</array> </property> -->
+
+		<property name="typeAliasesPackage"
+			value="com.max256.morpho.common.entity
+				   ,com.max256.morpho.sys.entity" />
+
+		<!-- 插件配置 可以在这里配置也可以在mybatis的配置文件里配置 -->
+		<property name="plugins">
+			<array>
+				<!-- •拦截器 com.github.pagehelper.PageInterceptor •原来的 dialect 变成了 helperDialect 
+					，这是基于 PageHelper 方式的分页 -->
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+					<property name="properties">
+						<value>
+							helperDialect=mysql
+							reasonable=true
+							supportMethodsArguments=true
+							params=count=countSql
+							autoRuntimeDialect=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+
+	</bean>
+	<!-- mapper自动扫描 -->
+	<!-- 定义mybatis所要扫描的Mapper配置文件包路径，多个包用逗号或者分号隔开 -->
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 逗号分隔可以写多个 -->
+		<property name="basePackage"
+			value="com.max256.morpho.**.dao
+        									,tk.mybatis.mapper.common" />
+		<property name="markerInterface" value="tk.mybatis.mapper.common.Mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<!-- 3.2.2版本新特性，markerInterface可以起到mappers配置的作用，详细情况需要看Marker接口类 -->
+		<!-- 通用Mapper通过属性注入进行配置，默认不配置时会注册Mapper<T>接口 -->
+		<property name="properties">
+			<value>
+				mappers=tk.mybatis.mapper.common.Mapper
+			</value>
+		</property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+
+
+
+	<!-- 配置事务管理器spring数据源事务管理器 -->
+	<!-- 如果和hibernate同时使用 请注释掉本事务管理器 使用hibernate配置文件里的事务管理器！！！ -->
+<!-- 	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			注入数据源
+			<ref bean="druidDataSource" />
+		</property>
+	</bean> -->
+
+	<!-- 配置事务异常封装 -->
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+	<!-- 注解式事务的支持 其中order代表多个aop切面时的事务切面的先后问题越小越靠前执行 -->
+	<!-- 注解式事务可以和aop事务组合使用 但是不建议混合使用 如果使用请注意aop顺序注解事务在前aop事务在后 注意事务的传播属性配置,因为这属于嵌套事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"
+		order="0" />
+	<!-- 声明式事务 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!--Spring中常用事务类型： REQUIRED 支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。 SUPPORTS 
+				支持当前事务，如果当前没有事务，就以非事务方式执行。 MANDATORY 支持当前事务，如果当前没有事务，就抛出异常。 REQUIRES_NEW 
+				新建事务，如果当前存在事务，把当前事务挂起。 NOT_SUPPORTED 以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。 NEVER 
+				以非事务方式执行，如果当前存在事务，则抛出异常。 -->
+			<!-- 以下使用只读事务 -->
+			<tx:method name="get*" propagation="REQUIRED" rollback-for="Exception"
+				read-only="true" />
+			<tx:method name="select*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="query*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<tx:method name="sum*" propagation="REQUIRED" rollback-for="Exception"
+				read-only="true" />
+			<tx:method name="grant*" propagation="REQUIRED"
+				rollback-for="Exception" read-only="true" />
+			<!-- 以下开启事务 -->
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 声明式事务切面 ,只配置了common模块的,其他业务模块另写多个本配置 -->
+	<aop:config>
+		<!-- 第一个*代表所有的返回值类型；第二个*代表所有的类；第三个*代表类所有方法；..代表子或者孙子包；最后一个..代表所有的参数 -->
+		<!-- <aop:pointcut id="transactionPointcut" expression=" (execution(* com.max256.morpho.common.service..*Impl.*(..))) 
+			OR (execution(* com.max256.morpho.module.sys.service..*Impl.*(..))) OR 
+			(execution(* com.max256.morpho.module.reporter.service..*Impl.*(..))) 
+			" /> -->
+		<aop:pointcut id="transactionPointcut"
+			expression="
+			(execution(* com.max256.morpho..service..*Impl.*(..)))
+			" />
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" order="1" />
+	</aop:config>
+
+	<!--配置druid spring jdbc监控 -->
+	<bean id="druid-stat-interceptor"
+		class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+	</bean>
+	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut"
+		scope="prototype">
+		<property name="patterns">
+			<list>
+				<value>com.max256.morpho.*.service.*</value>
+			</list>
+		</property>
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor"
+			pointcut-ref="druid-stat-pointcut" />
+	</aop:config>
+
+
+</beans>

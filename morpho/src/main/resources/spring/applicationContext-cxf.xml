@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd
+	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	">
+	<!-- 
+		注意的是3.0以上的版本可以只用
+		<import resource="classpath:META-INF/cxf/cxf.xml"/>
+		但是3.0以下的版本需要全加上。
+	 -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<import resource="classpath*:META-INF/cxf/cxf-extension-*.xml" />
+
+	<http-conf:conduit name="*.http-conduit">
+		<http-conf:client ConnectionTimeout="3600000" ReceiveTimeout="3600000" />
+	</http-conf:conduit>
+
+	<!-- 配置文件中的设置可以覆盖类中的annotation, 如endpointName、serviceName等 -->
+	<jaxws:server id="ipService" serviceClass="com.max256.morpho.common.web.webservice.IpService" address="/ipService">
+		<jaxws:serviceBean>
+			<bean id="ipService" class="com.max256.morpho.common.web.webservice.IpServiceImpl">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:properties>
+			<!-- motm附件 -->
+			<entry key="mtom-enabled" value="fasle" />
+			<!-- 异常消息原因 -->
+			<entry key="exceptionMessageCauseEnabled" value="true" />
+			<!-- 错误堆栈追踪 -->
+			<entry key="faultStackTraceEnabled" value="true" />
+		</jaxws:properties><!-- 在此配置调用当前ws所触发的拦截器 -->
+		<jaxws:inInterceptors>
+			<ref bean="wss4jInInterceptor" />
+			<ref bean="authenticationInterceptor" />
+			<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+		</jaxws:inInterceptors>
+	</jaxws:server>
+
+	<!-- 以下是认证拦截器 -->
+	<bean id="authenticationInterceptor" class="com.max256.morpho.common.web.webservice.AuthenticationInterceptor"></bean>
+
+	<!-- 以下是cxf提供的加密拦截器 -->
+	<bean id="wss4jInInterceptor" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		<constructor-arg>
+			<map>
+				<!-- 设置加密类型 -->
+				<entry key="action" value="UsernameToken" />
+				<!-- 设置密码类型为明文 -->
+				<entry key="passwordType" value="PasswordText" />
+				<!-- 设置密码类型为加密 -->
+				<!-- <entry key="action" value="UsernameToken Timestamp" /> -->
+				<!-- <entry key="passwordType" value="PasswordDigest" /> -->
+				<entry key="passwordCallbackClass" value="com.max256.morpho.common.web.webservice.WssServerAuthHandler" />
+				<!-- <entry key="passwordCallbackRef" value="serverPasswordCallback" /> -->
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

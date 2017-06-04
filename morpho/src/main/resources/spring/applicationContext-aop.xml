@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd
+	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.2.xsd
+	">
+	 <description>spring aop配置(比如aop缓存) </description>
+	 
+	<!-- 配置druid监控spring bean -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+ 
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.max256.morpho.*.dao.*</value>
+                <value>com.max256.morpho.*.service.impl.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
+	 
+	 
+	 
+	 
+	 <!-- key生成策略 -->
+	 <!-- 
+	   默认的key生成策略是通过KeyGenerator生成的，其默认策略如下：
+		1  如果方法没有参数，则使用0作为key。
+		2  如果只有一个参数的话则使用该参数作为key。
+		3  如果参数多余一个的话则使用所有参数的hashCode作为key。
+	 
+	       如果我们需要指定自己的默认策略的话，那么我们可以实现自己的KeyGenerator，然后指定我们的Spring Cache使用的KeyGenerator为我们自己定义的KeyGenerator。
+	       使用基于注解的配置时是通过cache:annotation-driven指定的.
+	   <cache:annotation-driven key-generator="userKeyGenerator"/>
+	  
+	   <bean id="userKeyGenerator" class="com.xxx.cache.UserKeyGenerator"/>
+	 
+	       而使用基于XML配置时是通过cache:advice来指定的。
+	   <cache:advice id="cacheAdvice" cache-manager="cacheManager" key-generator="userKeyGenerator">
+	   </cache:advice>
+	 
+	       需要注意的是此时我们所有的Cache使用的Key的默认生成策略都是同一个KeyGenerator。
+	  -->
+	 
+	 
+	 
+	 
+	 <!--  配置CacheManager 在shiro配置文件中配置过这里直接引用 -->
+	 
+	 <!-- 这个是基于内存ConcurrentMap的简单实现 -->
+	 <!--  <bean id="concurrentMapCacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+	      <property name="caches">
+	         <set>
+	            <bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean" p:name="concurrentMapCacheFactoryBeanName"/>
+	         </set>
+	      </property>
+   	  </bean> -->
+   	  
+   	  <!-- 以下是基于ehcache缓存实现 -->
+   	  <!-- ehCacheCacheManager在shiro配置文件里配置过了 -->
+   	  <!-- 注解配置在service 不用在此配置 -->
+</beans>

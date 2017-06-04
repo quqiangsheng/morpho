@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<description>此配置文件是hibernate相关(本系统同时支持hibernate和mybatis 其中mybatis是必选 hibernate是可选 如果不需要hibernate可以把配置文件移除) </description>
+	<!-- 
+		特别说明 如果需要使用hibernate请注意 统一使用org.springframework.orm.hibernate5.HibernateTransactionManager事务管理器
+		该管理器同时用于mybatis和hibernate的aop切面事务管理 并且请在mybatis配置文件中注释掉数据源事务管理器！！！！！！
+	 -->
+	<!-- hibernate5 config-->
+	<!--hibernate5 sessionFactory 注意与mybatis的sqlSessionFactory的区别 不要冲突-->
+	<bean id="sessionFactory"  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">		
+	<!--
+
+			What is the portable way to annotate a byte[] property?
+
+			It depends on what you want. JPA can persist a non annotated byte[]. From the JPA 2.0 spec:
+
+			11.1.6 Basic Annotation
+
+			The Basic annotation is the simplest type of mapping to a database column. The Basic annotation can be applied to a persistent property or instance variable of
+			any
+			of the following types: Java primitive, types, wrappers of the primitive types, java.lang.String, java.math.BigInteger, java.math.BigDecimal, java.util.Date,
+			java.util.Calendar,
+			java.sql.Date, java.sql.Time, java.sql.Timestamp, byte[], Byte[], char[], Character[], enums, and any other type that implements Serializable. As described in
+			Section
+			2.8, the use of the Basic annotation is optional for persistent fields and properties of these types. If the Basic annotation is not specified for such a field
+			or
+			property, the default values of the Basic annotation will apply.
+
+			And Hibernate will map a it "by default" to a SQL VARBINARY (or a SQL LONGVARBINARY depending on the Column size?) that PostgreSQL handles with a bytea.
+
+			But if you want the byte[] to be stored in a Large Object, you should use a @Lob. From the spec:
+
+			11.1.24 Lob Annotation
+
+			A Lob annotation specifies that a persistent property or field should be persisted as a large object to a database-supported large object type. Portable applications
+			should use the Lob annotation when mapping to a database Lob type. The Lob annotation may be used in conjunction with the Basic annotation or with the ElementCollection
+			annotation when the element collection value is of basic type. A Lob may be either a binary or character type. The Lob type is inferred from the type of the persistent
+			field or property and, except for string and character types, defaults to Blob.
+
+			And Hibernate will map it to a SQL BLOB that PostgreSQL handles with a oid .
+
+			Is this fixed in some recent version of hibernate?
+
+			Well, the problem is that I don't know what the problem is exactly. But I can at least say that nothing has changed since 3.5.0-Beta-2 (which is where a changed
+			has been introduced)in the 3.5.x branch.
+
+			But my understanding of issues like HHH-4876, HHH-4617 and of PostgreSQL and BLOBs (mentioned in the javadoc of the PostgreSQLDialect) is that you are supposed
+			to
+			set the following property
+
+			hibernate.jdbc.use_streams_for_binary=false
+			if you want to use oid i.e. byte[] with @Lob (which is my understanding since VARBINARY is not what you want with Oracle). Did you try this?
+
+			As an alternative, HHH-4876 suggests using the deprecated PrimitiveByteArrayBlobType to get the old behavior (pre Hibernate 3.5).
+
+			References
+
+			JPA 2.0 Specification
+			Section 2.8 "Mapping Defaults for Non-Relationship Fields or Properties"
+			Section 11.1.6 "Basic Annotation"
+			Section 11.1.24 "Lob Annotation"
+			Resources
+
+			http://opensource.atlassian.com/projects/hibernate/browse/HHH-4876
+			http://opensource.atlassian.com/projects/hibernate/browse/HHH-4617
+			http://relation.to/Bloggers/PostgreSQLAndBLOBs
+		-->
+		<!-- druidDataSource在mybatis里配置过 -->
+		<property name="dataSource" ref="druidDataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+				<prop key="hibernate.jdbc.fetch_size">${hibernate.jdbc.fetch_size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${hibernate.jdbc.batch_size}</prop>
+				<prop key="hibernate.default_schema">${hibernate.default_schema}</prop>
+				<prop key="hibernate.default_catalog">${hibernate.default_catalog}</prop>
+				<!-- 如果开启, Hibernate将收集有助于性能调节的统计数据. 取值 true | false  -->
+				<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>
+				
+				<!-- 
+				Hibernate到5.1之后，之前版本支持的的
+				hibernate.ejb.naming_strategy将不再被支持，
+				而是被替换成了两个属性：
+				hibernate.physical_naming_strategy
+				hibernate.implicit_naming_strategy
+				 -->
+				<!-- 物理命名策略，用于转换“逻辑名称”(隐式或显式)的表或列成一个物理名称。 -->
+				<prop key="hibernate.physical_naming_strategy">${hibernate.physical_naming_strategy}</prop>
+				<!-- 隐式命名策略，使用此属性当我们使用的表或列没有明确指定一个使用的名称 。 -->
+				<prop key="hibernate.implicit_naming_strategy">${hibernate.implicit_naming_strategy}</prop>
+				
+				
+			</props>
+		</property>
+		
+		<!-- entity扫描,多个包扫描在这里加 -->
+		<!-- <property name="packagesToScan" value="com.xxx.entity." />(注意最后的点) ， 
+			会转换成"classpath*:com/xxx/entity/**/*.class"，
+			这个路径可以找出com/xxx/entity根目录下及其子孙目录下所有的类文件. 
+			一般来讲，这些就是我们要的文件。 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.max256.morpho.common.entity</value>
+				<value>com.max256.morpho.sys.entity</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dataSource" ref="druidDataSource" />
+	</bean>
+
+	<!--hibernateTemplate的配置-->  
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">  
+    	<property name="sessionFactory" ref="sessionFactory">
+    	</property>  
+    </bean>  
+
+
+
+
+</beans>

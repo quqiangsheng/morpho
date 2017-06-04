@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.max256.morpho.sys.dao.SysUserDao">
+	<!-- 示例 如果需要mybatis自定义sql在这里添加 这只是示例 本系统没有用上 可以删除 -->
+	<select id="queryObject" resultType="SysUser">
+		select * from sys_user where user_id = #{value}
+	</select>
+	
+	<select id="queryList" resultType="SysUser">
+		select * from sys_user order by user_id desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	
+</mapper>

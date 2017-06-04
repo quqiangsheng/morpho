@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	">
+	<!--Quartz非集群环境配置-->
+	<!--本配置文件是quartz任务调度相关信息  -->
+	
+	
+	<!--最新版的quartz2.2.2与    <groupId>org.apache.shiro</groupId>
+							<artifactId>shiro-quartz</artifactId>
+							<version>1.2.4</version> 
+		存在jar包冲突 暂时禁用掉了	shiro-quartz	
+		
+		以解决重新编译了shiro-quartz来支持	quartz2.2.2		
+							 -->
+	
+            
+    <!-- 集成方式：JobDetailFactoryBean，并且任务类需要继承QuartzJobBean-->
+    
+    <!-- 定义jobDetail 有两种方式 -->
+    <!-- A：使用 MethodInvokingJobDetailFactoryBean -->
+    <!-- For times when you just need to invoke a method on a specific object --> 
+  <!--   <bean id=simpleJobDetail class=org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean>   
+      <property name="targetObject" ref="myBean">     
+    	  <property name="targetMethod" value="printMessage">  </property>
+      </property>
+    </bean>  -->
+    <!-- 以上作业配置简单调用了 myBean 的 printMessage 方法，myBean 是一个简单的 POJO。 -->
+
+
+
+    <!-- B：使用 JobDetailFactoryBean
+		  如果你需要更高级的设置，需要给作业传递数据，想更加灵活的话就使用这种方式。
+     -->    
+     <!-- 定义jobDetail -->   
+	 <!-- jobClass 关联到一个继承自 QuartzJobBean 的类，它实现了 Quartz 作业接口。调用到这个作业的时候，它的 executeInternal 将被执行。
+			  jobDataMap 允许我们给相关作业 bean 传递一些数据。在这个例子里，我们将 ScheduledJob 将要使用到的 'anotherBean' 传递给它。	
+	 -->
+	 
+	 
+	<bean id="jobDetail"
+		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.max256.morpho.common.quartz.SpringQuartzTest"></property>
+		<!-- durability 表示任务完成之后是否依然保留到数据库，默认false -->
+		<property name="durability" value="false" />
+		<!-- 在这个例子中，jobDataAsMap没有用，此目标类中接受的参数 -->
+		<!-- 
+			<property name="jobDataAsMap"> 
+				<map>
+					 <entry key="service"><value>abc</value></entry> 
+				</map>
+		     </property> 
+		 -->
+
+	</bean>
+    
+    <!-- 定义simpleTrigger触发器 -->
+    <!--     
+    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+        <property name="jobDetail" ref="jobDetail"></property>
+        <property name="repeatCount">
+            <value>8</value>
+        </property>
+        <property name="repeatInterval">
+            <value>1000</value>
+        </property>
+        <property name="startDelay">
+            <value>4</value>
+        </property>
+    </bean> 
+    -->
+    
+    <!-- 另一种触发器是CornTrigger -->
+
+	<bean id="cronTriggerBean"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail"></property>
+		<!--corn表达式  -->
+       <property name="cronExpression" value="0/10 * * * * ?"/>
+	</bean>
+	
+	<!-- 定义核心调度器 -->
+	<bean id="trigger"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTriggerBean" />
+			</list>
+		</property>
+	</bean>
+<!-- 
+
+
+附：cronExpression配置说明
+
+字段   允许值   允许的特殊字符 
+秒    0-59    , - * / 
+分    0-59    , - * / 
+小时    0-23    , - * / 
+日期    1-31    , - * ? / L W C 
+月份    1-12 或者 JAN-DEC    , - * / 
+星期    1-7 或者 SUN-SAT    , - * ? / L C # 
+年（可选）    留空, 1970-2099    , - * / 
+
+
+表达式   意义 
+"0 0 12 * * ?"    每天中午12点触发 
+"0 15 10 ? * *"    每天上午10:15触发 
+"0 15 10 * * ?"    每天上午10:15触发 
+"0 15 10 * * ? *"    每天上午10:15触发 
+"0 15 10 * * ? 2005"    2005年的每天上午10:15触发 
+"0 * 14 * * ?"    在每天下午2点到下午2:59期间的每1分钟触发 
+"0 0/5 14 * * ?"    在每天下午2点到下午2:55期间的每5分钟触发  
+"0 0/5 14,18 * * ?"    在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发  
+"0 0-5 14 * * ?"    在每天下午2点到下午2:05期间的每1分钟触发 
+"0 10,44 14 ? 3 WED"    每年三月的星期三的下午2:10和2:44触发 
+"0 15 10 ? * MON-FRI"    周一至周五的上午10:15触发 
+"0 15 10 15 * ?"    每月15日上午10:15触发 
+"0 15 10 L * ?"    每月最后一日的上午10:15触发 
+"0 15 10 ? * 6L"    每月的最后一个星期五上午10:15触发   
+"0 15 10 ? * 6L 2002-2005"    2002年至2005年的每月的最后一个星期五上午10:15触发 
+"0 15 10 ? * 6#3"    每月的第三个星期五上午10:15触发  
+
+特殊字符   意义 
+*    表示所有值； 
+?    表示未说明的值，即不关心它为何值； 
+-    表示一个指定的范围； 
+,    表示附加一个可能值； 
+/    符号前表示开始时间，符号后表示每次递增的值； 
+L("last")    ("last") "L" 用在day-of-month字段意思是 "这个月最后一天"；用在 day-of-week字段, 它简单意思是 "7" or "SAT"。 如果在day-of-week字段里和数字联合使用，它的意思就是 "这个月的最后一个星期几" – 例如： "6L" means "这个月的最后一个星期五". 当我们用“L”时，不指明一个列表值或者范围是很重要的，不然的话，我们会得到一些意想不到的结果。 
+W("weekday")    只能用在day-of-month字段。用来描叙最接近指定天的工作日（周一到周五）。例如：在day-of-month字段用“15W”指“最接近这个月第15天的工作日”，即如果这个月第15天是周六，那么触发器将会在这个月第14天即周五触发；如果这个月第15天是周日，那么触发器将会在这个月第16天即周一触发；如果这个月第15天是周二，那么就在触发器这天触发。注意一点：这个用法只会在当前月计算值，不会越过当前月。“W”字符仅能在day-of-month指明一天，不能是一个范围或列表。也可以用“LW”来指定这个月的最后一个工作日。  
+#    只能用在day-of-week字段。用来指定这个月的第几个周几。例：在day-of-week字段用"6#3"指这个月第3个周五（6指周五，3指第3个）。如果指定的日期不存在，触发器就不会触发。  
+C    指和calendar联系后计算过的值。例：在day-of-month 字段用“5C”指在这个月第5天或之后包括calendar的第一天；在day-of-week字段用“1C”指在这周日或之后包括calendar的第一天 
+
+ -->
+	
+
+</beans>
