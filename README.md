@@ -4,7 +4,7 @@ morpho是一款JAVAEE应用开发框架及脚手架
 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 使用apache2.0许可证开源
 
-系统要求如下：
+#系统要求如下：
 jdk1.7及以上
 tomcat8.0及以上
 mysql5.5及以上
@@ -13,9 +13,9 @@ linux windows x86  32bit 64bit都支持
 容器要求servlet3.1规范及以上实现
 
 
-morpho的技术选型如下:
+#morpho的技术选型如下:
 
-后端技术
+##后端技术
 
 核心框架: Spring Framework4.3.8
 数据库访问: Mybatis3.4.4 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
@@ -31,7 +31,7 @@ morpho的技术选型如下:
 数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
 
 
-前端技术
+##前端技术
 
 JS框架： jquery
 CSS框架: Bootstrap3.X
@@ -42,19 +42,19 @@ CSS框架: Bootstrap3.X
 MVVC：vue.js
 
 
-WIKI
+#WIKI
 http://git.oschina.net/max256/morpho/wikis
 
-技术交流
+#技术交流
 QQ群：210722852 请备注来自 开源中国morpho项目
 
-项目作者:
+#项目作者:
 fbf: help@max256.com
 
-项目捐助者:
+#项目捐助者:
 to do list
 
-版权
+#版权
 apache2.0许可证
 保留署名权
 您可以根据自己的需要修改源码 
@@ -62,7 +62,7 @@ apache2.0许可证
 
 
 
-本项目的特点：
+#本项目的特点：
 
 1最新的框架依赖,帮助您学习最新的技术
 2框架本身精简 不偏向依赖某些技术 您可以自由选择
@@ -74,7 +74,7 @@ apache2.0许可证
 7内置一个加解密通信的模块 如果有需要可以直接使用
 8完成企业应用的常见功能，在此基础上加速您的开发进度
 
-已完成的功能
+#已完成的功能
 1用户管理
 2角色管理
 3资源权限管理
@@ -87,7 +87,7 @@ apache2.0许可证
 10基于easyui的代码生成器(上一代框架使用了easyui，写了一个生成器，不再维护，如果您使用了easyui可以用用，扩展也很简单)
 11工具-用于生成资源权限表的数据根据注解扫描 减轻开发完配置资源权限的工作量
 
-开始使用
+#开始使用
 下到本地后运行init sql
 配置config.properties
 放入tomcat运行
