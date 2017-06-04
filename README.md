@@ -1,45 +1,51 @@
 #morpho
+
+
 morpho是一款JAVAEE应用开发框架及脚手架
 自2015年10月份以来以成功运用于多个商业项目
 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
-使用apache2.0许可证开源
+
 
 #系统要求如下：
-jdk1.7及以上
-tomcat8.0及以上
-mysql5.5及以上
-oracle11g及以上
-linux windows x86  32bit 64bit都支持
-容器要求servlet3.1规范及以上实现
+1. jdk1.7及以上
+2. tomcat8.0及以上 8.5.x系列未经测试不保证
+3. mysql5.5及以上
+4. oracle11g及以上(如果您要使用mysql的话)
+5. linux windows x86  32bit 64bit都支持
+6. 容器要求servlet3.1规范及以上实现
 
 
 #morpho的技术选型如下:
 
 ##后端技术
 
-核心框架: Spring Framework4.3.8
-数据库访问: Mybatis3.4.4 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
-视图框架: Spring MVC
-页面视图: jsp
-日志组件: log4j2
-报表：jasperreport（支持中文）,poi,excel封装
-缓存：ehcahce redis(非强制依赖 如果您不需要可以移除)
-定时任务：quartz spring内置的调度器
-权限：shiro 1.3.2
-安全：esapi
-其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
-数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
+
+
+1. 核心框架: Spring Framework4.3.8
+2. 数据库访问: Mybatis3.4.4 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
+3. 视图框架: Spring MVC
+4. 页面视图: jsp
+5. 日志组件: log4j2
+6. 报表：jasperreport（支持中文）,poi,excel封装
+7. 缓存：ehcahce redis(非强制依赖 如果您不需要可以移除)
+8. 定时任务：quartz spring内置的调度器
+9. 权限：shiro 1.3.2
+10. 安全：esapi
+11. 其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
+12. 数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
 
 
 ##前端技术
 
-JS框架： jquery
-CSS框架: Bootstrap3.X
-富文本编辑器: UEditor
-树形组件: zTree
-日期控件: My97DatePicker laydate
-表格组件： bootstrap-table 同时也支持jqgrid和easyui的datagrid 后两者版权问题 不默认使用 根据您的情况自行选择
-MVVC：vue.js
+
+
+1. JS框架： jquery
+2. CSS框架: Bootstrap3.X
+3. 富文本编辑器: UEditor
+4. 树形组件: zTree
+5. 日期控件: My97DatePicker laydate
+6. 表格组件： bootstrap-table 同时也支持jqgrid和easyui的datagrid 后两者版权问题 不默认使用 根据您的情况自行选择
+7. MVVC：vue.js
 
 
 #WIKI
@@ -91,9 +97,9 @@ apache2.0许可证
 下到本地后运行init sql
 配置config.properties
 放入tomcat运行
-内置账号
-账号admin 密码admin
-账号less  密码admin
+数据库中内置登录账号
+账号admin 密码admin 管理员用户
+账号less  密码admin 最小权限用户
 
 ...........
 TO DO LIST
