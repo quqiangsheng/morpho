@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shirofilter>
+	<define>
+		<url>/logout</url>
+		<filter>logout</filter>
+		<desc>退出登陆</desc>
+	</define>
+	<define>
+		<url>/encrypt</url>
+		<filter>anon</filter>
+		<desc>加密模块</desc>
+	</define>
+	<define>
+		<url>/encrypt/encrypt</url>
+		<filter>anon,encrypt</filter>
+		<desc>加密模块 需要解密的url</desc>
+	</define>
+	
+	<define>
+		<url>/common/**</url>
+		<filter>anon</filter>
+		<desc>静态资源文件,引用文件</desc>
+	</define>
+	<define>
+		<url>/js/**</url>
+		<filter>anon</filter>
+		<desc>静态资源文件</desc>
+	</define>
+	<define>
+		<url>/jslib/**</url>
+		<filter>anon</filter>
+		<desc>静态资源文件</desc>
+	</define>
+	<define>
+		<url>/statics/**</url>
+		<filter>anon</filter>
+		<desc>静态资源文件</desc>
+	</define>
+	<define>
+		<url>/css/** </url>
+		<filter>anon</filter>
+		<desc>静态资源文件</desc>
+	</define>
+	<define>
+		<url>/error/**</url>
+		<filter>anon</filter>
+		<desc>错误页</desc>
+	</define>
+	<define>
+		<url>/errorpage</url>
+		<filter>anon</filter>
+		<desc>错误页</desc>
+	</define>
+	<define>
+		<url>/images/**</url>
+		<filter>anon</filter>
+		<desc>图片</desc>
+	</define>
+
+	<define>
+		<url>/test/**</url>
+		<filter>anon</filter>
+		<desc>测试</desc>
+	</define>
+	<define>
+		<url>/captchacode</url>
+		<filter>anon</filter>
+		<desc>验证码 不需要登录</desc>
+	</define>
+	<define>
+		<url>/login</url>
+		<filter>captchaValidate,authc</filter>
+		<desc>登录验证先验证验证码在进行账号匹配</desc>
+	</define>
+
+	<define>
+		<url>/index</url>
+		<filter>sysUser,forceLogout,authc</filter>
+		<desc>后台首页需要登录认证</desc>
+	</define>
+	<define>
+		<url>/sys/**</url>
+		<filter>sysUser,forceLogout,authc</filter>
+		<desc>系统模块 需要认证和授权</desc>
+	</define>
+	
+	<!-- 其他的放行 读取被文件由上到下匹配 注意这一点 -->
+	<define>
+		<url>/**</url>
+		<filter>anon</filter>
+		<desc></desc>
+	</define>
+</shirofilter>  

@@ -1,0 +1,6 @@
+进入bin目录下运行openssl.exe
+运行以下命令
+生成RSA私钥
+openssl genrsa -out server_private_key.pem 1024   
+根据RSA私钥生成RSA公钥
+rsa -in server_private_key.pem -pubout -out server_public_key.pem

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+    <!-- 系统自定义标签库 封装了shiro 菜单 系统常量 系统变量等 -->
+    <description>functions</description>
+    <tlib-version>3.0</tlib-version>
+    <!-- 短名 -->
+    <short-name>fns</short-name>
+    <!-- url -->
+    <uri>http://www.max256.com/morpho/tags/functions</uri>
+	<!-- 以下是el函数定义-->
+    <function>
+        <description>判断资源对象是否在资源字符串集合中</description>
+        <name>in</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>boolean in(java.lang.String,java.lang.Object)</function-signature>
+    </function>
+
+
+    <function>
+        <description>根据id显示角色名称</description>
+        <name>roleName</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>java.lang.String roleName(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <description>根据id列表显示多个角色名称</description>
+        <name>roleNames</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>java.lang.String roleNames(java.lang.String)</function-signature>
+    </function>
+
+    <function>
+        <description>根据id显示资源名称</description>
+        <name>resourceName</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>java.lang.String resourceName(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <description>根据id列表显示多个资源名称</description>
+        <name>resourceNames</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>java.lang.String resourceNames(java.lang.String)</function-signature>
+    </function>
+    <function>
+        <description>用户身份</description>
+        <name>principal</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>java.lang.String principal(org.apache.shiro.session.Session)</function-signature>
+    </function>
+    <function>
+        <description>是否强制退出</description>
+        <name>isForceLogout</name>
+        <function-class>com.max256.morpho.common.security.shiro.taglib.Functions</function-class>
+        <function-signature>boolean isForceLogout(org.apache.shiro.session.Session)</function-signature>
+    </function>
+    <!-- 以下是标签定义 -->
+    <tag>  
+        <name>table</name>  <!--BootstrapTable-->
+        <tagclass>com.max256.morpho.common.web.tag.BootstrapTableTag</tagclass>  
+        <bodycontent>JSP</bodycontent>  
+        <info>bootstrap-table表格实例</info>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>id</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的id</description>
+        </attribute>    
+    </tag>  
+    <tag>  
+        <name>button</name>  <!-- 按钮 -->
+        <tagclass>com.max256.morpho.common.web.tag.BootstrapButtonTag</tagclass>  
+        <bodycontent>JSP</bodycontent>  
+        <info>bootstrap-table表格实例</info>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>id</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的id</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>btnType</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>(default-灰色,primary-绿色,success-蓝色,info-淡蓝色,warning-黄色,danger-红色,white-白色)默认灰色</description>
+        </attribute>   
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>space</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>按钮左侧是否有间隔(true/false)默认true</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>icon</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>按钮的图标</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>name</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>按钮的名字</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>clickFun</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>点击按钮所执行的方法名字</description>
+        </attribute>      
+    </tag> 
+    <tag>  
+        <name>textInputQuery</name>  <!--构建查询框-->
+        <tagclass>com.max256.morpho.common.web.tag.InputQueryTag</tagclass>  
+        <bodycontent>JSP</bodycontent>  
+        <info>构建查询框</info>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>id</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的id</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>name</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>input的name名字</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>placeHolder</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>当没有输入时的提示字符,可以为空</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>readonly</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>只读不能编辑 可选取值 readonly或者空字符串 默认空字符串 </description>
+        </attribute>   
+    </tag>   
+	<tag>  
+        <name>dateInputQuery</name>  <!--构建查询框-->
+        <tagclass>com.max256.morpho.common.web.tag.BootstrapDateInputTag</tagclass>  
+        <bodycontent>JSP</bodycontent>  
+        <info>构建查询框日期类型</info>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>id</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的id</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>name</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>input的name名字</description>
+        </attribute>    
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>isTime</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>是否允许勾选时间默认是false即只有日期没有时间 值可以是true或者false</description>
+        </attribute> 
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>pattern</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>日期格式默认YYYYMMDD 如果需要其他格式请在这里输入格式</description>
+        </attribute>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>placeHolder</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>当没有输入时的提示字符,可以为空</description>
+        </attribute>   
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>readonly</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>只读不能编辑 可选取值 readonly或者空字符串 默认空字符串 </description>
+        </attribute>   
+    </tag>  
+    <tag>  
+        <name>selectInputQuery</name>  <!--BootstrapSelectQueryTag-->
+        <tagclass>com.max256.morpho.common.web.tag.BootstrapSelectQueryTag</tagclass>  
+        <bodycontent>JSP</bodycontent>  
+        <info>BootstrapSelectQueryTag表格实例</info>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>id</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的id</description>
+        </attribute>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>name</name>  <!--这个参数的名字-->  
+            <required>true</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>元素的name</description>
+        </attribute>  
+        <attribute>  <!---这里表示的是这个tag的一个参数-->  
+            <name>disabled</name>  <!--这个参数的名字-->  
+            <required>false</required>  <!--是否是必填选项-->  
+            <rtexprvalue>true</rtexprvalue>  <!--这个参数的值是否可以写入，换句话说 就是这个参数是否可以动态赋值-->  
+            <description>disabled效果为只读，没有点击和下拉，字体变为灰色默认为false 可选true 或者false</description>
+        </attribute>   
+    </tag>  
+</taglib>

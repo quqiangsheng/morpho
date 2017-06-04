@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 本项目全部使用log4j2性能上有很大提升 -->
+<!-- log4j.properties用于处理历史遗留问题 -->
+<!-- 注意代码中的logger正确的应为
+	org.apache.logging.log4j.LogManager.getLogger(XXX.class); 
+	如果使用了老版本的 org.apache.log4j.Logger.getLogger(XXX.class)
+	得到的结果是能写入控制台，但不能写入对应的文件。-->
+	
+<!--monitorInterval="60" 自动检测配置文件更改时间 单位为秒 最小值为5 -->
+<!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出。 -->
+<configuration monitorInterval="20" status="OFF">
+	<!--日志变量  -->
+	<properties>  
+	   	<!-- 日志主目录 ，需要保存到文件时请自己配置-->  
+        <property name="LOG_HOME">c:/logs</property>  
+        <!-- 日志备份目录 -->  
+        <property name="BACKUP_HOME">c:/logs/backup</property>
+        <!-- 日志输出级别 -->
+		<property name="OUTPUT_LOG_LEVEL">info</property>
+		<!-- 日志输出格式 -->
+		<property name="LOG_PATTERN">
+			<!-- 输出格式%d{HH:mm:ss}时间24小时制  -->
+			<!-- %-5p日志级别 5位左对齐 [%t]线程名 [%c]类名 -->
+			<!--%l：输出日志事件的发生位置，相当于%c.%M(%F:%L)的组合，包括类全名、方法、文件名以及在代码中的行数。例如：test.TestLog4j.main(TestLog4j.java:10)。  -->
+			<!-- 另一种输出风格<PatternLayout pattern="级别%-5p [%d{YYYY-MM-dd HH:mm:ss}] [%t] 位置[%l] - 信息:%msg%n" /> -->
+			<!-- [%-5p][%d{yy-MM-dd HH:mm:ss}][%t]==>%m==>%c==>%L%n -->
+		[%-5p]  HTTP_SESSION_ID[%X{SESSION_ID}] 用户主键[%X{USER_UUID}]  用户名[%X{USER_NAME}]  时间[%d{YYYY-MM-dd HH:mm:ss}]  线程[%t]  位置[%l] - :%msg%n
+		</property>  
+		<!-- 日志保留天数 -->
+		<property name="EVERY_FILE_COUNT">31</property>
+		<!-- 日志切割的最小单位 -->
+		<property name="EVERY_FILE_SIZE">20M</property>
+    </properties>  
+
+
+	<appenders>
+		<!--控制台输出  -->
+		<console name="console" target="SYSTEM_OUT">
+				<PatternLayout  pattern="${LOG_PATTERN}" />
+		</console>
+		
+		<!-- console_log级别日志文件 -->
+		<!--每次大小超过size，则这size大小的日志会自动进行压缩，作为存档 -->
+		<rollingFile name="console_log" fileName="${LOG_HOME}/console/console.log" filePattern="${LOG_HOME}/console/console-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}" />
+			<!-- 日志切割的最小单位 -->
+			<SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+			<!-- 默认的日志保留天数 -->
+			<DefaultRolloverStrategy max="${EVERY_FILE_COUNT}" />
+		</rollingFile>
+
+		<!-- info级别日志文件 -->
+		<!--每次大小超过size，则这size大小的日志会自动进行压缩，作为存档 -->
+		<rollingFile name="app_info" fileName="${LOG_HOME}/info/info.log" filePattern="${LOG_HOME}/info/info-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+				<ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" />
+				<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}" />
+			<SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+			<DefaultRolloverStrategy max="${EVERY_FILE_COUNT}" />
+		</rollingFile>
+
+		<!-- error级别日志文件 -->
+		<rollingFile name="app_error" fileName="${LOG_HOME}/error/error.log" filePattern="${LOG_HOME}/error/error-%d{yyyy-MM-dd}-%i.log.gz">
+			<Filters>
+				<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+			<PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}" />
+			<SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+			<DefaultRolloverStrategy max="${EVERY_FILE_COUNT}" />
+		</rollingFile>
+
+		<!-- 按包/类输出日志(有需要监控某些类的日志时可以使用) -->
+		<!--每次大小超过size，则这size大小的日志会自动进行压缩，作为存档 -->
+		<!-- <RollingFile name="service" fileName="${log-path}/com_llsfw_demo_service/service.log" 
+				filePattern="${log-path}/com_llsfw_demo_service/service-%d{yyyy-MM-dd}-%i.log.gz">
+				 <PatternLayout pattern="${LOG_PATTERN}" /> 
+				 <SizeBasedTriggeringPolicy size="${EVERY_FILE_SIZE}" />
+				 <DefaultRolloverStrategy max="${EVERY_FILE_COUNT}" /> 
+			</RollingFile> -->
+
+			
+		<!--日志文件  -->
+		<!-- <File name="LogFile" filename="${LOG_HOME}/corelog.log" filePattern="${LOG_HOME}/%d{yyyy-MM-dd}.log" >
+  			<PatternLayout pattern="级别%-5p [%d{YYYY-MM-dd HH:mm:ss}] [%t] 位置[%l] - 信息:%msg%n" />
+    	</File> -->
+	</appenders>
+	
+	<!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
+	<Loggers>	
+	
+		<root level="${OUTPUT_LOG_LEVEL}">
+			<appender-ref ref="console" />
+			<appender-ref ref="console_log" />
+			<appender-ref ref="app_info" />
+			<appender-ref ref="app_error" />
+		</root>
+		<Logger name="com.max256.morpho.sys.dao" additivity="false" level="DEBUG">
+			<!-- 输出mybatis的sql日志 到控制台 不需要的话注释掉或者改为info  debug之追踪sql trace追踪详细结果-->
+	        <AppenderRef ref="console"/>
+  	    </Logger>
+	
+		
+	</Loggers>
+
+</configuration>

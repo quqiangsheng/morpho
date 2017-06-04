@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- db配置 -->
+	<bean id="dbConfig" class="com.max256.morpho.common.util.ip2region.DbConfig" />
+	<!-- ip搜索模块配置 -->
+	<bean id="ipSearcher" class="com.max256.morpho.common.util.ip2region.DbSearcher">
+		<constructor-arg name="dbConfig" ref="dbConfig" />
+		<constructor-arg name="dbFile" value="/ip2regiondata/ip2region.db" />
+	</bean>
+
+</beans>

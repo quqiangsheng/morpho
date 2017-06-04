@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd
+	http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+	http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+	http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+	">
+	
+	
+	<!-- 引入其他spring的配置模块 -->
+	<!-- ip地址搜索器 -->
+	<import resource="spring/applicationContext-ip2region.xml"/>
+	<!-- spring aop -->
+	<import resource="spring/applicationContext-aop.xml"/>
+	<!-- spring cache缓存配置 底层用ehcache实现 -->
+	<import resource="spring/applicationContext-ehcache.xml"/>
+	<!-- redis模块 -->
+	<import resource="spring/applicationContext-redis.xml"/>
+	<!-- mybatis -->
+	<import resource="spring/applicationContext-mybatis.xml"/>
+	<!-- hibernate -->
+	<import resource="spring/applicationContext-hibernate.xml"/>
+	<!-- shiro redis 管理session 分布式session 
+		如果使用这个 请确保spring/applicationContext-redis.xml同时生效-->
+	<!-- <import resource="spring/applicationContext-shiro-redis.xml"/> -->
+	<!-- shiro 管理session 本地session -->
+	<import resource="spring/applicationContext-shiro-ehcache.xml"/>
+	<!-- webservice相关配置 cxf具体实现 -->
+	<import resource="spring/applicationContext-cxf.xml"/>
+	
+	
+	<!-- spring提供的邮件发送器 更复杂的需求可以使用本项目util.mail下的工具类 -->
+	<!-- <import resource="spring/applicationContext-email.xml"/> -->
+	
+	<!-- javamelody监控Spring bean的整合 需要和  id= "facadeMonitoringAdvisor"的bean配合使用-->
+	<!-- 如果你的所有spring管理的bean没有实现接口,需要引入这个配置文件(这样将使用cglib代理) 否则会出错 -->
+	<import resource="classpath:net/bull/javamelody/monitoring-spring-aspectj.xml" />
+	
+
+	
+	<!--  quartz任务调度模块  可以用 需要的话放开配置 -->
+	<!-- <import resource="spring/applicationContext-quartz.xml"/> -->
+
+	<!-- 开启AOP监听 只对当前配置文件有效 -->
+	<!-- <aop:aspectj-autoproxy 
+		/>有一个proxy-target-class属性，默认为false，表示使用jdk动态代理织入增强，当配为<aop:aspectj-autoproxy  
+		poxy-target-class="true"/>时，表示使用CGLib动态代理技术织入增强。不过即使proxy-target-class设置为false，如果目标类没有声明接口，则spring将自动使用CGLib动态代理。 
+	 -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+    
+    <!--javamelody监控Spring bean的整合 通过AOP监控Spring bean的方法 -->
+    <bean id= "facadeMonitoringAdvisor" class="net.bull.javamelody.MonitoringSpringAdvisor" >
+         <property name ="pointcut" >
+                 <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut" >
+                         <property name ="pattern" value="com.max256.*.*" />
+                         <!--正则表达式　com.max256.*.* 意思是对应com.max256.*.*包下的所有类的所有方法-->
+                 </bean>
+         </property>
+	</bean>
+
+
+	<!-- 引入项目配置文件classpath:config.properties -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+		<!-- systemPropertiesModeName意味着可以从jvm虚拟机的参数中获得配置信息 -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+		<!-- 当这个文件不存在时忽略，我们这里不忽略，当系统在启动时缺少东西报错要比运行中保存更好 -->
+        <!-- <property name="ignoreUnresolvablePlaceholders" value="true" /> -->
+		<property name="locations">  
+			<list>  
+                 <value>classpath:config.properties</value>  
+            </list>  
+        </property>  
+        
+	</bean> 
+
+
+	<!-- 组件扫描不扫描controller层  这层交由springMVC单独扫描-->
+	<context:component-scan base-package="com.max256.morpho">
+   		 <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+	<!-- 这个工具类目前仅用于shiro标签库的属性注入使用 特此标记 -->
+	<bean class="com.max256.morpho.common.security.shiro.taglib.SpringUtils"/>
+	
+	<!-- springfox配置类加入ioc容器 -->
+	<bean class="com.max256.morpho.common.config.SpringfoxConfig"/>  
+
+</beans>
