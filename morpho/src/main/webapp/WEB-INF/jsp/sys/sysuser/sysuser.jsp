@@ -34,10 +34,11 @@ MgrUser.initColumn = function () {
         {title: '用户编号', field: 'userId', align: 'center', valign: 'middle'},
         {title: '用户名', field: 'userName', align: 'center', valign: 'middle'},
  		{title: '昵称', field: 'userNickname', align: 'center', valign: 'middle'},
-		{title: '角色', field: 'sysRoleIds', align: 'center', valign: 'middle',formatter: function(value, row, index){					
-						for(var i in MgrUser.sysRoleList){
-							if(MgrUser.sysRoleList[i].roleId==value){
-								return '<span class="label label-success">'+MgrUser.sysRoleList[i].roleName+'</span>';
+		{title: '角色', field: 'sysRoleIds', align: 'center', valign: 'middle',formatter: function(value, row, index){	
+						var codeArray=$.getSysCodeArray('sysRoleList', value,'sys/sysrole/list','get');		
+						for(var i in codeArray){
+							if(codeArray[i].roleId==value){
+								return '<span class="label label-success">'+codeArray[i].roleName+'</span>';
 							}
 						}
 					//没有找到要翻译的值
@@ -141,28 +142,6 @@ $(function () {
     var table = new BSTable("sysUserTable", "/sys/sysuser/list", defaultColunms);
     table.setPaginationType("server");
     MgrUser.table = table.init();
-
-	//缓存角色字典
-	$.ajax({
-    				type: "GET",
-    			    url: "sys/sysrole/list",
-					async:false,
-    			    data:{
-    			    	pageNumber:'1',
-    			    	pageSize:'999999'
-        			},
-    			   
-    			    success: function(r){
-        			    
-    			    	if(r.status === "1"){
-    			    		//
-        					MgrUser.sysRoleList = r.rows;
-							
-    					}else{
-    						
-    					}
-    				}
-     });
 
 
 });
