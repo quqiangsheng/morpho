@@ -127,7 +127,8 @@ apache2.0许可证
 #开始使用
 
 
-1. 下到本地后运行init sql
+1. 下到本地后运行init sql 默认使用的是mysql5.6及以上版本innodb引擎
+   如果您需要使用oralce请导入oracle版本基于11g制作内容和mysql版本一样 并且修改配置文件中的url schema dialect 
 2. 配置config.properties
 3. 放入tomcat运行
 数据库中内置登录账号
