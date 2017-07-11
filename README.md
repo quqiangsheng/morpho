@@ -43,6 +43,8 @@
 6. 容器要求servlet3.1规范及以上实现
 
 
+7.新增支持 sqlserver2008及以上版本 win7及以上（中文版本）系统 
+
 #morpho的技术选型如下:
 
 ##后端技术
@@ -134,6 +136,26 @@ apache2.0许可证
 数据库中内置登录账号
 账号admin 密码admin 管理员用户
 账号less  密码admin 最小权限用户
+
+
+#关于使用sqlserver配置的注意事项 
+请手动建库morpho(或者根据您的情况自行决定)
+运行初始化脚本 前半部分为建表 后半部分为插入数据 运行这个sql脚本
+在配置文件中配置
+druid.jdbc.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+druid.jdbc.url=jdbc:sqlserver://localhost:1433;DatabaseName=morpho
+以下两项根据实际情况配置
+hibernate.default_catalog=
+hibernate.default_schema=
+根据实际情况配置
+hibernate.dialect=org.hibernate.dialect.SQLServer2008Dialect
+或者
+hibernate.dialect=org.hibernate.dialect.SQLServer2012Dialect
+
+配置/morpho/src/main/resources/spring/applicationContext-mybatis.xml
+中的分页插件dialect为sqlserver或者sqlserver2012  前者适用2005、2008版本后者适用2012版本
+ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所以在非中文版本windows中乱码 请您明知这一点 如果需要nvarchar请自行修改表结构
+平且配置hibernate注解类型明确nvarchar 或者继承sqlserver驱动注册string到nvarchar的默认映射 请您考虑并解决
 
 #参与进来
 
