@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- mybatis通用mapper专用代码生成器配置文件 文件名不可更改 文件内容不建议更改 建议更改config.properties除非您明确知道您在修改什么 -->
+<generatorConfiguration>
+    <properties resource="config.properties"/>
+	<!-- 默认逆向生成mysql源 -->
+	<!-- 在MBG的配置中，至少需要有一个<context>元素。 -->
+	<!-- defaultModelType:这个属性很重要，这个属性定义了MBG如何生成实体类。
+		这个属性有以下可选值：
+		conditional:这是默认值,这个模型和下面的hierarchical类似，除了如果那个单独的类将只包含一个字段，将不会生成一个单独的类。 因此,如果一个表的主键只有一个字段,那么不会为该字段生成单独的实体类,会将该字段合并到基本实体类中。
+		flat:该模型为每一张表只生成一个实体类。这个实体类包含表中的所有字段。这种模型最简单，推荐使用。
+		hierarchical:如果表有主键,那么该模型会产生一个单独的主键实体类,如果表还有BLOB字段， 则会为表生成一个包含所有BLOB字段的单独的实体类,然后为所有其他的字段生成一个单独的实体类。 MBG会在所有生成的实体类之间维护一个继承关系。 -->
+	<!-- 
+	targetRuntime:此属性用于指定生成的代码的运行时环境。该属性支持以下可选值：
+	MyBatis3:这是默认值
+	MyBatis3Simple  使用MyBatis3Simple可以避免在后面的<table>中逐个进行配置（后面会提到）。
+	Ibatis2Java2
+	Ibatis2Java5 一般情况下使用默认值即可，有关这些值的具体作用以及区别请查看中文文档的详细内容。
+	 -->
+	<!-- 
+	如果你希望不生成和Example查询有关的内容，那么可以按照如下进行配置:
+	<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+	 -->
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    	<!-- 由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为反单引号 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- <plugin type="${mapper.plugin}">
+          <property name="mappers" value="${mapper.Mapper}"/>
+        </plugin> -->
+        <!-- 
+	    commentGenerator该元素有一个可选属性type,可以指定用户的实现类，
+	            该类需要实现org.mybatis.generator.api.CommentGenerator接口。而且必有一个默认的构造方法。这个属性接收默认的特殊值DEFAULT，会使用默认的实现类org.mybatis.generator.internal.DefaultCommentGenerator。     
+		默认的实现类中提供了两个可选属性，需要通过<property>属性进行配置。
+		suppressAllComments:阻止生成注释，默认为false
+		suppressDate:阻止生成的注释包含时间戳，默认为false
+ 		-->
+        <commentGenerator>
+		    <property name="suppressAllComments" value="false"/>
+		    <property name="suppressDate" value="true"/>
+		</commentGenerator>
+		<!-- jdbc信息 -->
+        <jdbcConnection driverClass="${druid.jdbc.driverClassName}"
+                        connectionURL="${druid.jdbc.url}"
+                        userId="${druid.jdbc.username}"
+                        password="${druid.jdbc.password}">
+        </jdbcConnection>
+		<!-- 
+			<javaModelGenerator> 元素。该元素必须配置一个，并且最多一个。
+			该元素用来控制生成的实体类，根据<context>中配置的defaultModelType，一个表可能会对应生成多个不同的实体类。
+			一个表对应多个类实际上并不方便，所以前面也推荐使用flat，这种情况下一个表对应一个实体类。
+		 -->
+        <javaModelGenerator targetPackage="${mybatis.mapper.generator.targetModelPackage}" targetProject="${mybatis.mapper.generator.targetJavaProject}"/>
+
+        <sqlMapGenerator targetPackage="${mybatis.mapper.generator.targetXMLPackage}"  targetProject="${mybatis.mapper.generator.targetResourcesProject}"/>
+
+        <!--  <javaClientGenerator targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}" type="XMLMAPPER" /> -->
+        
+		<!-- 该元素用来配置要通过内省的表。只有配置的才会生成实体类和其他文件。 -->
+		<!-- 该元素有一个必选属性：
+			tableName：指定要生成的表名，可以使用SQL通配符匹配多个表。
+			例如要生成全部的表，可以按如下配置：
+			<table tableName="%" /> 
+		-->
+        <table tableName="%" >
+          <!-- 这个元素用来指定自动生成主键的属性（identity字段或者sequences序列）。如果指定这个元素，MBG在生成insert的SQL映射文件中插入一个<selectKey>元素。 这个元素非常重要，这个元素包含下面两个必选属性： -->
+          <!-- identity:当设置为true时,该列会被标记为identity列， 并且<selectKey>元素会被插入在insert后面。 当设置为false时， <selectKey>会插入到insert之前（通常是序列）。重要: 即使您type属性指定为post，您仍然需要为identity列将该参数设置为true。 这将标志MBG从插入列表中删除该列。默认值是false。 -->
+          <!-- <generatedKey column="id" sqlStatement="Mysql" identity="true"/> -->
+        </table>
+    </context>
+</generatorConfiguration>
