@@ -165,7 +165,7 @@ ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所�
 
 
 #开发步骤
-todo 
+参见wiki http://git.oschina.net/max256/morpho/wikis/%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3
 
 
 #参与进来
