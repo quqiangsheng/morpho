@@ -42,9 +42,9 @@
 		<!-- java版本1.8以上 -->
 		<java.version>1.8</java.version>
 		<!-- CXF版本 -->
-		<cxf.version>3.1.10</cxf.version>
+		<cxf.version>3.1.12</cxf.version>
 		<!-- Jackson版本 -->
-		<jackson.version>2.8.8</jackson.version>
+		<jackson.version>2.8.9</jackson.version>
 		<!-- POI版本 -->
 		<poi.version>3.15</poi.version>
 		<!-- log4j2版本    Log4j 2.4 and greater requires Java 7-->
@@ -54,28 +54,28 @@
 		<!-- Ant版本 -->
 		<ant.version>1.9.9</ant.version>
 		<!-- hibernate-validator版本 -->
-		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
 		<!-- shiro版本 -->
 		<shiro.version>1.3.2</shiro.version>
 		<!-- servlet版本 -->
 		<servlet.version>3.1.0</servlet.version>
 		<!-- Spring版本 -->
-		<spring.version>4.3.8.RELEASE</spring.version>
+		<spring.version>4.3.10.RELEASE</spring.version>
 		<!-- jodd邮件工具 -->
-		<jodd.version>3.8.5</jodd.version>
+		<jodd.version>3.8.6</jodd.version>
 		<!-- mybatis版本 -->
 		<mybatis.version>3.4.4</mybatis.version>
 		<!-- mybatis-spring版本 -->
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<!-- mybatis通用mapper版本 -->
-		<mapper.version>3.4.0</mapper.version>
+		<mapper.version>3.4.2</mapper.version>
 		<!-- mybatis 分页插件版本 -->
-		<pagehelp.version>5.0.0</pagehelp.version>
+		<pagehelp.version>5.0.4</pagehelp.version>
 		<!-- mysql驱动版本 -->
 		<!-- Connector/J version	Driver Type	JDBC version	MySQL Server version	Status
 		5.1	4	3.0, 4.0, 4.1, 4.2	4.1, 5.0, 5.1, 5.5, 5.6, 5.7	Recommended version -->
-		<mysql.version>5.1.42</mysql.version>
-		<postgresql.version>42.1.1</postgresql.version>
+		<mysql.version>5.1.43</mysql.version>
+		<postgresql.version>42.1.4</postgresql.version>
 		<sqlserver.version>4.0</sqlserver.version>
 		<!-- hibernate版本 -->
 		<hibernate.version>5.2.10.Final</hibernate.version>
@@ -84,30 +84,30 @@
 		<!-- A Java-based implementation of XPath 1.0 that, in addition to XML processing, 
 		    can inspect/modify Java object graphs (the library's explicit purpose) and even mixed Java/XML structures.  -->
 		<commons-jxpath.version>1.3</commons-jxpath.version>
-		<pdfbox.version>2.0.6</pdfbox.version>
+		<pdfbox.version>2.0.7</pdfbox.version>
 		<protobuf.version>2.6.1</protobuf.version>
-		<antlr-runtime.version>3.5</antlr-runtime.version>
+		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 		<antlr.version>2.7.7</antlr.version>
 		<xstream.version>1.4.10</xstream.version>
-		<fastjson.version>1.2.32</fastjson.version>
+		<fastjson.version>1.2.36</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<guava.version>21.0</guava.version>
 		<joda-time.version>2.9.9</joda-time.version>
 		<jedis.version>2.9.0</jedis.version>
-		<spring-data-redis.version>1.8.3.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>1.8.6.RELEASE</spring-data-redis.version>
 		<jboss-logging.version>3.3.1.Final</jboss-logging.version>
 		<aspectjweaver.version>1.8.10</aspectjweaver.version>
 		<pinyin4j.version>2.5.1</pinyin4j.version>
 		<jxls.version>1.0.6</jxls.version>
-		<jxl.version>2.6</jxl.version>
+		<jxl.version>2.6.12</jxl.version>
 		<ehcache.version>2.10.4</ehcache.version>
 		<ehcache-web.version>2.0.4</ehcache-web.version>
 		<slf4j-api.version>1.7.25</slf4j-api.version>
-		<wss4j-ws-security.version>2.1.4</wss4j-ws-security.version>
+		<wss4j-ws-security.version>2.1.10</wss4j-ws-security.version>
 		<dom4j.version>1.6.1</dom4j.version>
 		<xml-apis.version>1.4.01</xml-apis.version>
 		<commons-digester.version>2.1</commons-digester.version>
-		<commons-fileupload.version>1.3.2</commons-fileupload.version>
+		<commons-fileupload.version>1.3.3</commons-fileupload.version>
 		<commons-lang3.version>3.4</commons-lang3.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
 		<commons-net.version>3.6</commons-net.version>
@@ -122,17 +122,17 @@
 		<tagsoup.version>1.2.1</tagsoup.version>
 		<xalan.version>2.7.2</xalan.version>
 		<nekohtml.version>1.9.22</nekohtml.version>
-		<druid.version>1.0.31</druid.version>
+		<druid.version>1.1.2</druid.version>
 		<sigar.version>1.6.4</sigar.version>
 		<jsoup.version>1.9.2</jsoup.version>
 		<mail.version>1.4.7</mail.version>
 		<metadata-extractor.version>2.8.1</metadata-extractor.version>
-		<javamelody-core.version>1.62.0</javamelody-core.version>
+		<javamelody-core.version>1.68.1</javamelody-core.version>
 		<springfox-swagger2.version>2.7.0</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.7.0</springfox-swagger-ui.version>
 		<jodconverter-core.version>1.0.5</jodconverter-core.version>
 		<classmate.version>1.3.3</classmate.version>
-		<netty-all.version>4.1.11.Final</netty-all.version>
+		<netty-all.version>4.1.14.Final</netty-all.version>
 		<disruptor.version>3.3.6</disruptor.version>
 		<easypoi.version>3.0.1-SNAPSHOT</easypoi.version>
 		<!-- jstl版本 -->
