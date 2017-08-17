@@ -47,8 +47,7 @@ public class LoginController extends AbstractBaseController {
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String goIndex(HttpServletRequest request, HttpSession session) {
 
-		SysUser sessionUser = (SysUser) SecurityUtils.getSubject()
-				.getPrincipal();
+		//SysUser sessionUser = (SysUser) SecurityUtils.getSubject().getPrincipal();
 		// 根据当前登陆的用户名查找他所拥有的权限
 		/*Set<String> permissions = sysUserService
 				.findPermissionsByUserName(sessionUser.getUserName());*/
@@ -57,7 +56,7 @@ public class LoginController extends AbstractBaseController {
 		// 把菜单放入session中
 		/*session.setAttribute(Constants.SESSION_MENUS, menus);*/
 		//当前用户角色名字放入到session中
-		if(StringUtils.isNotBlank(sessionUser.getSysRoleIds())||!sessionUser.getSysRoleIds().equals("null")){
+		/*if(StringUtils.isNotBlank(sessionUser.getSysRoleIds())||!sessionUser.getSysRoleIds().equals("null")){
 			//查询出的中文名称拼串
 			String names="";
 			//拆分ids 
@@ -79,7 +78,7 @@ public class LoginController extends AbstractBaseController {
 				
 			session.setAttribute(Constants.CURRENT_ROLES_NAME, names);
 		}
-
+		*/
 		//当前用户所属组织机构名字放入到session中
 		/*if(StringUtils.isNotBlank(sessionUser.getSysOrganizationId())){
 			SysOrganization findSysOrganization=sysOrganizationService.getByHql("from SysOrganization where id='"+sessionUser.getSysOrganizationId()+"'");
