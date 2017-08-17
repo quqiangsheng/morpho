@@ -28,6 +28,7 @@ import com.max256.morpho.common.config.Constants;
 import com.max256.morpho.common.dto.GeneralReturnData;
 import com.max256.morpho.common.dto.R;
 import com.max256.morpho.common.entity.SysLog;
+import com.max256.morpho.common.util.AjaxUtils;
 import com.max256.morpho.common.util.IPUtils;
 import com.max256.morpho.common.util.JsonUtils;
 import com.max256.morpho.common.util.UUIDUtils;
@@ -71,7 +72,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		}
 		sysLogService.insert(sysLog);
 		//判断请求方式 如果是ajax或者http接口形式的登陆 返回json 不重定向
-		Boolean isAjaxFlag=isAjax((HttpServletRequest)request, (HttpServletResponse)response);
+		Boolean isAjaxFlag=AjaxUtils.isAjax((HttpServletRequest)request, (HttpServletResponse)response);
 		if(isAjaxFlag){
 			//返回json信息
 			GeneralReturnData<String> returnData= R.data();
@@ -116,7 +117,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 		param.put(Constants.LOGIN_FAILURE_KEY, error);
  
         //判断请求方式 如果是ajax或者http接口形式的登陆 返回json 不重定向
-  		Boolean isAjaxFlag=isAjax((HttpServletRequest)request, (HttpServletResponse)response);
+  		Boolean isAjaxFlag=AjaxUtils.isAjax((HttpServletRequest)request, (HttpServletResponse)response);
   		if(isAjaxFlag){
   			//返回json信息
   			GeneralReturnData<String> returnData= R.data();
@@ -147,28 +148,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 
 	}
 	
-	/**
-	 * 判断当前请求是否为异步请求.
-	 * 综合两种判断方法
-	 * 1.根据客户端的http请求头判断
-	 * 2.根据访问controller是否有ResponseBody注解判断
-	 */
-	private boolean isAjax(HttpServletRequest request, HttpServletResponse response){
-		//判断请求头
-		String flagHeader=request.getHeader("X-Requested-With");
-		if (flagHeader != null && !flagHeader.equals("") && !flagHeader.equals("null")) {
-			return (true);
-		}
-		String acceptHeader=request.getHeader("Accept");
-		if (acceptHeader != null 
-				&& !acceptHeader.equals("")
-				&& !acceptHeader.equals("null")
-				//表明带json字符
-				&&acceptHeader.toLowerCase().indexOf("json")!=-1) {
-			return (true);
-		}
-		return (false);
-	}
+	
 	
 
 
