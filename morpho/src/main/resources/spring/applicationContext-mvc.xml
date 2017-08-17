@@ -37,6 +37,10 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
+	<!-- beanName解析器  级别高过默认的视图解析器 寻找bean对象进行二次处理-->
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0" />
+	</bean>
 	<!-- 字符串转换时间戳 -->
     <bean id="stringToTimestamp" class="com.max256.morpho.common.web.converter.StringToTimestamp"></bean>
     <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -97,7 +101,7 @@
 		
 	 </mvc:annotation-driven>
 	 
-	<!-- 跨域设置spring4.2.0以上版本支持 -->
+	<!-- 跨域设置spring4.2.0以上版本支持 默认开启 如果您不需要跨域比如如果不是前后端分离并分开部署的话 您没必要打开跨域 请根据您的实际情况和安全考虑合理控制跨域设置 -->
 	<mvc:cors>
        <mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>  
 	</mvc:cors>	
@@ -122,7 +126,7 @@
 	
     
    	<!-- 组件扫描只扫描controller层 -->
-	<context:component-scan base-package="com.max256.morpho" use-default-filters="false">
+	<context:component-scan base-package="com.max256.morpho;cn.afterturn.easypoi.view" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	    <!-- 即把@ControllerAdvice注解内部使用@ExceptionHandler、@InitBinder、@ModelAttribute注解的方法应用到所有的 @RequestMapping注解的方法。
 	    	  非常简单，不过只有当使用@ExceptionHandler最有用，另外两个用处不大。 -->
