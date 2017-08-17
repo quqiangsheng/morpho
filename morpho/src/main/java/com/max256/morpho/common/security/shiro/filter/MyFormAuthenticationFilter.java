@@ -11,6 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -28,11 +30,14 @@ import com.max256.morpho.common.config.Constants;
 import com.max256.morpho.common.dto.GeneralReturnData;
 import com.max256.morpho.common.dto.R;
 import com.max256.morpho.common.entity.SysLog;
+import com.max256.morpho.common.entity.SysRole;
+import com.max256.morpho.common.entity.SysUser;
 import com.max256.morpho.common.util.AjaxUtils;
 import com.max256.morpho.common.util.IPUtils;
 import com.max256.morpho.common.util.JsonUtils;
 import com.max256.morpho.common.util.UUIDUtils;
 import com.max256.morpho.sys.service.SysLogService;
+import com.max256.morpho.sys.service.SysRoleService;
 
 
 /**
@@ -47,6 +52,8 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 	
 	@Resource
 	private SysLogService sysLogService;
+	@Resource
+	private SysRoleService sysRoleService;
 
 	Logger log=LoggerFactory.getLogger(this.getClass());
 	/*
@@ -71,6 +78,44 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 			log.info("登录日志:"+sysLog);
 		}
 		sysLogService.insert(sysLog);
+		//相关信息
+		SysUser sessionUser = (SysUser) SecurityUtils.getSubject()
+				.getPrincipal();
+		// 根据当前登陆的用户名查找他所拥有的权限
+		/*Set<String> permissions = sysUserService
+				.findPermissionsByUserName(sessionUser.getUserName());*/
+		// 根据权限查找拥有的菜单资源
+		/*List<SysResource> menus = sysResourceService.findMenus(permissions);*/
+		// 把菜单放入session中
+		/*session.setAttribute(Constants.SESSION_MENUS, menus);*/
+		//当前用户角色名字放入到session中
+		if(StringUtils.isNotBlank(sessionUser.getSysRoleIds())||!sessionUser.getSysRoleIds().equals("null")){
+			//查询出的中文名称拼串
+			String names="";
+			//拆分ids 
+			String[] idsplit =sessionUser.getSysRoleIds().split(",");
+			//依次查询
+			for (int i = 0; i < idsplit.length; i++) {
+				if(StringUtils.isNotBlank(idsplit[i])){
+					SysRole find=sysRoleService.findSysRoleById(idsplit[i]);
+					if(null!=find){
+						names=names+find.getRoleName()+",";
+					}
+				}
+			}
+			//查询完毕 删除最后一个符号
+			if(names.length()>0){
+				names=names.substring(0, names.length()-1);
+			}
+			SecurityUtils.getSubject().getSession().setAttribute(Constants.CURRENT_ROLES_NAME, names);
+		}
+		
+		//当前用户所属组织机构名字放入到session中
+		/*if(StringUtils.isNotBlank(sessionUser.getSysOrganizationId())){
+			SysOrganization findSysOrganization=sysOrganizationService.getByHql("from SysOrganization where id='"+sessionUser.getSysOrganizationId()+"'");
+			session.setAttribute(Constants.CURRENT_ORGANIZATION_NAME, findSysOrganization.getName());
+		}*/
+		
 		//判断请求方式 如果是ajax或者http接口形式的登陆 返回json 不重定向
 		Boolean isAjaxFlag=AjaxUtils.isAjax((HttpServletRequest)request, (HttpServletResponse)response);
 		if(isAjaxFlag){
