@@ -23,6 +23,11 @@
  */
 package com.max256.morpho.common.util;
 
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -40,11 +45,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Mybatis - 获取Mybatis查询sql工具
@@ -68,8 +68,10 @@ import java.util.Map;
  * @author liuzh/abel533/isea533
  */
 public class SqlHelper {
-    private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
-    private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
+    @SuppressWarnings("unused")
+	private static final ObjectFactory DEFAULT_OBJECT_FACTORY = new DefaultObjectFactory();
+    @SuppressWarnings("unused")
+	private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
 
     /**
      * 通过接口获取sql
@@ -79,7 +81,8 @@ public class SqlHelper {
      * @param args
      * @return
      */
-    public static String getMapperSql(Object mapper, String methodName, Object... args) {
+    @SuppressWarnings("rawtypes")
+	public static String getMapperSql(Object mapper, String methodName, Object... args) {
         MetaObject metaObject = SystemMetaObject.forObject(mapper);
         SqlSession session = (SqlSession) metaObject.getValue("h.sqlSession");
         Class mapperInterface = (Class) metaObject.getValue("h.mapperInterface");
@@ -99,7 +102,8 @@ public class SqlHelper {
      * @param args
      * @return
      */
-    public static String getMapperSql(SqlSession session, String fullMapperMethodName, Object... args) {
+    @SuppressWarnings("rawtypes")
+	public static String getMapperSql(SqlSession session, String fullMapperMethodName, Object... args) {
         if (args == null || args.length == 0) {
             return getNamespaceSql(session, fullMapperMethodName, null);
         }
@@ -122,7 +126,8 @@ public class SqlHelper {
      * @param args
      * @return
      */
-    public static String getMapperSql(SqlSession session, Class mapperInterface, String methodName, Object... args) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static String getMapperSql(SqlSession session, Class mapperInterface, String methodName, Object... args) {
         String fullMapperMethodName = mapperInterface.getCanonicalName() + "." + methodName;
         if (args == null || args.length == 0) {
             return getNamespaceSql(session, fullMapperMethodName, null);
@@ -209,7 +214,8 @@ public class SqlHelper {
      * @param javaType
      * @return
      */
-    private static String replaceParameter(String sql, Object value, JdbcType jdbcType, Class javaType) {
+    @SuppressWarnings("rawtypes")
+	private static String replaceParameter(String sql, Object value, JdbcType jdbcType, Class javaType) {
         String strValue = String.valueOf(value);
         if (jdbcType != null) {
             switch (jdbcType) {
@@ -250,7 +256,8 @@ public class SqlHelper {
      * @param methodName
      * @return
      */
-    private static Method getDeclaredMethods(Class clazz, String methodName) {
+    @SuppressWarnings("rawtypes")
+	private static Method getDeclaredMethods(Class clazz, String methodName) {
         Method[] methods = clazz.getDeclaredMethods();
         for (Method method : methods) {
             if (method.getName().equals(methodName)) {

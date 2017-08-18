@@ -5,7 +5,7 @@
 	<groupId>com.max256</groupId>
 	<artifactId>morpho</artifactId>
 	<packaging>war</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0-Release</version>
 	<name>morpho</name>
 	<url>http://www.max256.com</url>
 	<!-- 项目的组织信息 -->
@@ -141,6 +141,11 @@
 		<taglibs.version>1.1.2</taglibs.version>
 		<!-- freemarker模版引擎版本 -->
 		<freemarker.version>2.3.23</freemarker.version>
+		<esapi.version>2.1.0.1</esapi.version>
+		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
+		<itextpdf.version>5.5.11</itextpdf.version>
+		<ureport2-console.version>2.0.8</ureport2-console.version>
+		<fst.version>2.52</fst.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
  
@@ -152,7 +157,7 @@
 			<id>public</id>
 			<name>aliyun nexus</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<!--<url>https://oss.sonatype.org/content/groups/public/</url> -->
+		<!--	<url>https://oss.sonatype.org/content/groups/public/</url>-->
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -309,7 +314,7 @@
 		<dependency>
 			<groupId>org.owasp.esapi</groupId>
 			<artifactId>esapi</artifactId>
-			<version>2.1.0.1</version>
+			<version>${esapi.version}</version>
 		</dependency>
 		<!-- PDF操作转换提取工具包 -->
 		<!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
@@ -1014,7 +1019,7 @@
 			<artifactId>log4j-web</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		<!--log4j-jcl 把 jcl 转发到 log4j2 , 被 jcl-over-slf4j 替代 不需要这个了 -->
+		<!--log4j-jcl 把 jcl 转发到 log4j2 , 被 jcl-over-slf4j 替代 不需要这个了 注释掉不删除 以示注意 -->
 		<!-- <dependency> <groupId>org.apache.logging.log4j</groupId> <artifactId>log4j-jcl</artifactId> 
 			<version>${log4j.version}</version> <exclusions> <exclusion> <artifactId>commons-logging</artifactId> 
 			<groupId>commons-logging</groupId> </exclusion> </exclusions> </dependency> -->
@@ -1324,64 +1329,25 @@
 			<version>${disruptor.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/com.asprise.ocr/java-ocr-api -->
-		<!-- ocr识别 -->
-		<dependency>
-		    <groupId>com.asprise.ocr</groupId>
-		    <artifactId>java-ocr-api</artifactId>
-		    <version>15.3.0.3</version>
-		</dependency>
-		
-		<!-- 工作流模块 -->
-		<dependency>
-	      <groupId>org.activiti</groupId>
-	      <artifactId>activiti-engine</artifactId>
-	      <version>5.22.0</version>
-	    </dependency>
-	    <dependency>
-	      <groupId>org.activiti</groupId>
-	      <artifactId>activiti-spring</artifactId>
-	      <version>5.22.0</version>
-	    </dependency>
+
 	    <dependency>
 		    <groupId>com.fasterxml.uuid</groupId>
 		   	<artifactId>java-uuid-generator</artifactId>
-		    <version>3.1.4</version>
+		    <version>${java-uuid-generator.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-rest -->
-		<dependency>
-		    <groupId>org.activiti</groupId>
-		    <artifactId>activiti-rest</artifactId>
-		    <version>5.22.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.activiti/activiti-json-converter -->
-		<dependency>
-		    <groupId>org.activiti</groupId>
-		    <artifactId>activiti-json-converter</artifactId>
-		    <version>5.22.0</version>
-		</dependency>
-
-		
-		
-		
-		
-	    <!-- 工作流模块 结束 -->
 
 		<!-- PDF -->
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itextpdf</artifactId>
-			<version>5.5.6</version>
-			<optional>true</optional>
+			<version>${itextpdf.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>itext-asian</artifactId>
 			<version>5.2.0</version>
-			<optional>true</optional>
 		</dependency>
 		<!-- excel pdf word html表格工具 -->
 		<dependency>
@@ -1399,6 +1365,20 @@
             <artifactId>easypoi-annotation</artifactId>
              <version>${easypoi.version}</version>
         </dependency>
+		<!--ureport2报表-->
+		<!-- https://mvnrepository.com/artifact/com.bstek.ureport/ureport2-core -->
+		<dependency>
+			<groupId>com.bstek.ureport</groupId>
+			<artifactId>ureport2-console</artifactId>
+			<version>${ureport2-console.version}</version>
+		</dependency>
+		<!--高度兼容jdk序列化的第三方序列化框架-->
+		<!-- https://mvnrepository.com/artifact/de.ruedigermoeller/fst -->
+		<dependency>
+			<groupId>de.ruedigermoeller</groupId>
+			<artifactId>fst</artifactId>
+			<version>${fst.version}</version>
+		</dependency>
 		
 
 	</dependencies>
@@ -1477,8 +1457,6 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<!-- servlet3.1标准 -->
-					<version>3.1</version>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>

@@ -29,10 +29,12 @@ import com.google.common.collect.Lists;
 import com.max256.morpho.common.util.ReflectUtils;
 
 /**
+ * 过时的 不再维护 简单的导入导出还可以用 全部改为使用easypoi
  * 导入Excel文件（支持“XLS”和“XLSX”格式）
  * @author ThinkGem
  * @version 2013-03-10
  */
+@Deprecated
 public class ImportExcel {
 	
 	private static Logger log = LoggerFactory.getLogger(ImportExcel.class);

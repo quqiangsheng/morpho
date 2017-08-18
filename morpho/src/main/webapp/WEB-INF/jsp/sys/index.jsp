@@ -71,7 +71,8 @@
                     	<!--业务操作 -->
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">业务操作</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                     
+                            <li><a class="J_menuItem" href="${ctx}/ureport/designer">报表管理</a>
+                            </li>
                         </ul>
                     </li>
                     

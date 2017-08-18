@@ -6,11 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 过时的 不再维护 简单的导入导出还可以用 全部改为使用easypoi
  * Excel注解定义
  * @author ThinkGem
  */
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
 public @interface ExcelField {
 
 	/**

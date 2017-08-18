@@ -37,10 +37,12 @@ import com.max256.morpho.common.util.ReflectUtils;
 
 
 /**
+ * 过时的 不再维护 简单的导入导出还可以用 全部改为使用easypoi
  * 导出Excel文件（导出“XLSX”格式，支持大数据量导出   @see org.apache.poi.ss.SpreadsheetVersion）
  * @author ThinkGem
  * @version 2013-04-21
  */
+@Deprecated
 public class ExportExcel {
 	
 	private static Logger log = LoggerFactory.getLogger(ExportExcel.class);
