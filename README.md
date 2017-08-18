@@ -31,6 +31,7 @@
 7. 安全，内置大量加解密，认证授权，请求过滤等组件，您按需取用即可，当今网络，可不那么安全
 
 #有图有真相
+![中式报表在线设计](https://git.oschina.net/uploads/images/2017/0818/232502_117b9a66_61523.jpeg "中式报表在线设计")
 ![整合监控页面](https://git.oschina.net/uploads/images/2017/0604/173621_649db9b4_61523.jpeg "整合监控页面")
 ![session管理页面](https://git.oschina.net/uploads/images/2017/0604/173659_85615691_61523.jpeg "session管理页面")
 ![权限管理页面](https://git.oschina.net/uploads/images/2017/0604/173722_78b6c63a_61523.jpeg "权限管理页面")
