@@ -69,6 +69,17 @@
 	  <url-pattern>/druid/*</url-pattern>  
 	</servlet-mapping>
 
+	<!--ureport2报表设计器入口-->
+	<servlet>
+		<servlet-name>ureportServlet</servlet-name>
+		<servlet-class>com.bstek.ureport.console.UReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ureportServlet</servlet-name>
+		<!--<url-pattern>/ureport/*</url-pattern>不能改必须是这个-->
+		<url-pattern>/ureport/*</url-pattern>
+	</servlet-mapping>
+
 	<!--springMVC前端控制器，用于加载springMVC的核心配置文件applicationContext-mvc.xml  -->
 	<servlet>
 		<servlet-name>springMVC</servlet-name>

@@ -1,14 +1,8 @@
 package com.max256.morpho.common.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.nustaq.serialization.FSTConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,16 +10,19 @@ import org.slf4j.LoggerFactory;
  * 对象序列化
  * 使用jdk的对象流的方式序列化
  * 需要注意序列化id和序列化接口的设置
+ *
+ * 20170818更新 改为使用fst序列化 更搞笑的序列化效率 兼容jdk序列化 可以强行序列化没有实现序列化接口的对象
  * @author fbf
  * 
  */
 public class ObjectStreamSerializeUtils {
-
+	static FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
 	/**
 	 * <p>
 	 * Field log: slf4j日志
 	 * </p>
 	 */
+	@SuppressWarnings("unused")
 	private static final Logger LOG = LoggerFactory
 			.getLogger(ObjectStreamSerializeUtils.class);
 
@@ -40,7 +37,11 @@ public class ObjectStreamSerializeUtils {
 		if (isEmpty(bytes)) {
 			return null;
 		}
-		ByteArrayInputStream byteStream = null;
+		// read
+		Object object = conf.asObject(bytes);
+		return object;
+
+		/*ByteArrayInputStream byteStream = null;
 		ObjectInputStream objectInputStream=null;
 		try {
 			 byteStream = new ByteArrayInputStream(bytes);
@@ -53,7 +54,7 @@ public class ObjectStreamSerializeUtils {
 			close(byteStream);
 			close(objectInputStream);
 		}
-		return null;
+		return null;*/
 	}
 
 	/**
@@ -74,6 +75,12 @@ public class ObjectStreamSerializeUtils {
 	 */
 	public static byte[] serialize(Object object) {
 		if (object == null) {
+			return new byte[0];
+		}
+		conf.setForceSerializable(true);
+		return conf.asByteArray(object);
+
+		/*if (object == null) {
 			return new byte[0];
 		}
 		ByteArrayOutputStream byteStream=null;
@@ -100,7 +107,7 @@ public class ObjectStreamSerializeUtils {
 			close(objectOutputStream);
 		}
 		// 声明一个长度为0的byte数组，开发中为了防止nullPointerException才这样做的
-		return new byte[0];
+		return new byte[0];*/
 	}
 
 	private ObjectStreamSerializeUtils() {
@@ -108,15 +115,15 @@ public class ObjectStreamSerializeUtils {
 	
 
 	/**
-	 * 关闭流
+	 * 序列化关闭流
 	 * @param closeable
 	 */
-	private static void close(Closeable closeable) {
+	/*private static void close(Closeable closeable) {
 		if (closeable != null)
 			try {
 				closeable.close();
 			} catch (IOException e) {
 				throw new RuntimeException("close object serialize stream error");
 			}
-	}
+	}*/
 }

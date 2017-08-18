@@ -1,6 +1,5 @@
 package com.max256.morpho.common.util.email;
 
-import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +17,6 @@ import jodd.mail.MailException;
 import jodd.mail.SendMailSession;
 import jodd.mail.SmtpServer;
 import jodd.mail.SmtpSslServer;
-import jodd.mail.att.FileAttachment;
 
 /**
  * 
@@ -161,7 +159,7 @@ public class EmailUtils {
 		return true;
 	}
 	public static void main(String[] args) {
-		//测试
+	/*	//测试
 		EmailUtils mm=new EmailUtils();
 		mm.host="smtp.exmail.qq.com";
 		mm.password="";
@@ -189,6 +187,6 @@ public class EmailUtils {
 		} catch (AuthenticationFailedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
