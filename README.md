@@ -4,9 +4,12 @@
 
 
 -  **morpho是一款JAVAEE应用开发框架及脚手架** 
+
+#项目重大更新进程
 - 自2015年10月份以来以成功运用于多个商业项目
 - 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 - 20170804更新 增加了代码生成器 详见https://git.oschina.net/max256/morpho-code-help
+- 20170818更新 新增功能excel报表推荐使用easypoi以整合 新增整合ureport2报表引擎推荐使用 更新最新依赖 修复已知bug
 
 #项目名称来历
 
@@ -198,6 +201,8 @@ ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所�
 - ip2region离线ip地址库  https://github.com/lionsoul2014/ip2region
 - shiro权限生成器  https://github.com/quqiangsheng/shiro-assistant
 - 张开涛的es脚手架https://github.com/zhangkaitao/es
+- 锐道中间件出品的ureport2 https://github.com/youseries/ureport
+- easypoi  https://gitee.com/jueyue/easypoi
 
 
 ...........
