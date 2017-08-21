@@ -23,6 +23,8 @@
 	<!-- 引入其他spring的配置模块 -->
 	<!--ureport2报表引擎-->
 	<import resource="classpath:ureport-console-context.xml" />
+	<!-- uflo2流程引擎 -->
+	<import resource="classpath:uflo-console-context.xml" />
 	<!-- ip地址搜索器 -->
 	<import resource="spring/applicationContext-ip2region.xml"/>
 	<!-- spring aop -->

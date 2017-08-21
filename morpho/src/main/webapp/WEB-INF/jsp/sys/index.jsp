@@ -67,12 +67,38 @@
                         </div>
                     </li>
                     <!-- 菜单 -->
-                   <li>
+                    <li>
                     	<!--业务操作 -->
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">业务操作</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="${ctx}/ureport/designer">报表管理</a>
+                            
+                        </ul>
+                    </li>
+                    
+                    <li>
+                    	<!--报表管理 -->
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">报表管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="${ctx}/ureport/designer">报表设计器</a>
                             </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                    	<!--业务流程管理 -->
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">业务流程管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                        
+                        	<li><a class="J_menuItem" href="${ctx}/uflo/todo">待办任务</a>
+                            </li>
+                        	<li><a class="J_menuItem" href="${ctx}/uflo/central">流程监控</a>
+                            </li>
+                            <li><a class="J_menuItem" href="${ctx}/uflo/designer">流程设计器</a>
+                            </li>
+                            <li><a class="J_menuItem" href="${ctx}/uflo/calendar">日历管理</a>
+                            </li>
+                            
+                            
                         </ul>
                     </li>
                     
