@@ -109,8 +109,8 @@
 			一般来讲，这些就是我们要的文件。 -->
 		<property name="packagesToScan">
 			<list>
-				<value>com.max256.morpho.common.entity</value>
-				<value>com.max256.morpho.sys.entity</value>
+				<value>com.max256.</value>
+				<value>com.bstek.uflo.model*</value>
 			</list>
 		</property>
 	</bean>

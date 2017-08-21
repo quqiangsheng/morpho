@@ -145,6 +145,8 @@
 		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
 		<itextpdf.version>5.5.11</itextpdf.version>
 		<ureport2-console.version>2.0.8</ureport2-console.version>
+		<uflo-core.version>2.0.0</uflo-core.version>
+		<uflo-console.version>2.0.0</uflo-console.version>
 		<fst.version>2.52</fst.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
@@ -1379,7 +1381,17 @@
 			<artifactId>fst</artifactId>
 			<version>${fst.version}</version>
 		</dependency>
-		
+		<dependency>
+		  <groupId>com.bstek.uflo</groupId>
+		  <artifactId>uflo-core</artifactId>
+		  <version>${uflo-core.version}</version>
+		  <classifier>hibernate5</classifier>
+		</dependency>
+		<dependency>
+		    <groupId>com.bstek.uflo</groupId>
+		    <artifactId>uflo-console</artifactId>
+		    <version>${uflo-console.version}</version>
+		</dependency>
 
 	</dependencies>
 	<build>
