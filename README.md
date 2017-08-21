@@ -10,6 +10,9 @@
 - 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 - 20170804更新 增加了代码生成器 详见https://git.oschina.net/max256/morpho-code-help
 - 20170818更新 新增功能excel报表推荐使用easypoi以整合 新增整合ureport2报表引擎推荐使用 更新最新依赖 修复已知bug
+- 20170821更新 增加了工作流支持包括流程设计器请试用 流程和用户表的关联请您根据情况自行完成 使用
+                uflo2完成https://github.com/youseries/uflo文档http://wiki.bsdn.org/display/UFLO/UFLO+Home
+                注意第一次请修改config.properties中hbm2ddl生成流程模块的自动建表 系统其他表结构使用对应的sql文件建表
 
 #项目名称来历
 
@@ -32,6 +35,7 @@
 
 #有图有真相
 ![中式报表在线设计](https://git.oschina.net/uploads/images/2017/0818/232502_117b9a66_61523.jpeg "中式报表在线设计")
+![流程设计器](https://git.oschina.net/uploads/images/2017/0821/210100_c68f256b_61523.png "流程设计器")
 ![整合监控页面](https://git.oschina.net/uploads/images/2017/0604/173621_649db9b4_61523.jpeg "整合监控页面")
 ![session管理页面](https://git.oschina.net/uploads/images/2017/0604/173659_85615691_61523.jpeg "session管理页面")
 ![权限管理页面](https://git.oschina.net/uploads/images/2017/0604/173722_78b6c63a_61523.jpeg "权限管理页面")
@@ -56,7 +60,7 @@
 
 
 1. 核心框架: Spring Framework4.3.8
-2. 数据库访问: Mybatis3.4.4 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
+2. 数据库访问: Mybatis3.4.5 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
 3. 视图框架: Spring MVC
 4. 页面视图: jsp
 5. 日志组件: log4j2
@@ -64,9 +68,12 @@
 7. 缓存：ehcahce redis(非强制依赖 如果您不需要可以移除)
 8. 定时任务：quartz spring内置的调度器
 9. 权限：shiro 1.3.2
-10. 安全：esapi
-11. 其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
-12. 数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
+10.安全：esapi
+11.其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
+12.数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
+13.报表:ureport2  easypoi
+14.流程:uflow2
+
 
 
 ##前端技术
@@ -204,6 +211,8 @@ ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所�
 - 张开涛的es脚手架https://github.com/zhangkaitao/es
 - 锐道中间件出品的ureport2 https://github.com/youseries/ureport
 - easypoi  https://gitee.com/jueyue/easypoi
+- uflo流程  https://github.com/youseries/uflo
+- ureport报表  https://github.com/youseries/ureport
 
 
 ...........
