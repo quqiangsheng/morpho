@@ -64,11 +64,11 @@
 		<!-- jodd邮件工具 -->
 		<jodd.version>3.8.6</jodd.version>
 		<!-- mybatis版本 -->
-		<mybatis.version>3.4.4</mybatis.version>
+		<mybatis.version>3.4.5</mybatis.version>
 		<!-- mybatis-spring版本 -->
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<!-- mybatis通用mapper版本 -->
-		<mapper.version>3.4.2</mapper.version>
+		<mapper.version>3.4.3</mapper.version>
 		<!-- mybatis 分页插件版本 -->
 		<pagehelp.version>5.0.4</pagehelp.version>
 		<!-- mysql驱动版本 -->
