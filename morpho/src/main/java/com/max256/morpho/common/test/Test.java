@@ -1,20 +1,5 @@
 package com.max256.morpho.common.test;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-
-import org.jsoup.Connection.Method;
-import org.jsoup.Connection.Response;
-import org.apache.commons.lang.StringUtils;
-import org.jsoup.Jsoup;
-
-import com.max256.morpho.common.config.HttpStatus;
-
 public class Test {
 
 /*	public static void main(String[] args) {

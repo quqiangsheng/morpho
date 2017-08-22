@@ -119,12 +119,17 @@ public class SysResourceServiceImpl extends BaseServiceImpl<SysResource> impleme
 	public void deleteSelfAndSubSysResource(SysResource sysResource) {
 		//先删除自己
 		this.delete(sysResource);
-		//删除子
+		//判断有没有子
 		Example example =new Example(SysResource.class);
 		example.createCriteria().andEqualTo("parentId", sysResource.getResourceId());
-		//删除
-		this.deleteByExample(example);
-		
+		//如果有子 则selectByExample.size()大于0
+		List<SysResource> selectByExample = this.selectByExample(example);
+		if(selectByExample!=null&&selectByExample.size()>0){
+			//递归删除
+			for (SysResource sysResource2 : selectByExample) {
+				deleteSelfAndSubSysResource(sysResource2);
+			}
+		}
 	}
 
 
