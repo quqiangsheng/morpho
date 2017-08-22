@@ -77,9 +77,11 @@
 
 
 	<!-- 引入项目配置文件classpath:config.properties -->
-	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >  
 		<!-- systemPropertiesModeName意味着可以从jvm虚拟机的参数中获得配置信息 -->
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+		<!-- 数小代表优先级高 这里要高过 uflo和ureport的优先级 他们的值是100 我们的值才可以覆盖他们-->
+		<property name="order" value="10"/>
 		<!-- 当这个文件不存在时忽略，我们这里不忽略，当系统在启动时缺少东西报错要比运行中保存更好 -->
         <!-- <property name="ignoreUnresolvablePlaceholders" value="true" /> -->
 		<property name="locations">  
