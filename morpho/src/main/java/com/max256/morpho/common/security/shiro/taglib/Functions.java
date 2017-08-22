@@ -12,6 +12,7 @@ import com.max256.morpho.common.config.Constants;
 import com.max256.morpho.common.entity.SysResource;
 import com.max256.morpho.common.entity.SysRole;
 import com.max256.morpho.common.entity.SysUser;
+import com.max256.morpho.common.util.SpringUtils;
 import com.max256.morpho.sys.service.SysResourceService;
 import com.max256.morpho.sys.service.SysRoleService;
 

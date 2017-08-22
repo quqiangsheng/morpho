@@ -20,19 +20,15 @@
 	">
 	
 	
-	<!-- 引入其他spring的配置模块 -->
-	<!--ureport2报表引擎-->
-	<import resource="classpath:ureport-console-context.xml" />
-	<!-- uflo2流程引擎 -->
-	<import resource="classpath:uflo-console-context.xml" />
+	<!-- 引入其他spring的配置模块   注意注入顺序 被依赖的在前边-->
+	<!-- spring cache缓存配置 底层用ehcache实现 -->
+	<import resource="spring/applicationContext-ehcache.xml"/>
+	<!-- redis模块   不使用时注释掉  避免可能因配置文件参数本身就不正确连接不上而报错启动不了-->
+	<!-- <import resource="spring/applicationContext-redis.xml"/> -->
 	<!-- ip地址搜索器 -->
 	<import resource="spring/applicationContext-ip2region.xml"/>
 	<!-- spring aop -->
 	<import resource="spring/applicationContext-aop.xml"/>
-	<!-- spring cache缓存配置 底层用ehcache实现 -->
-	<import resource="spring/applicationContext-ehcache.xml"/>
-	<!-- redis模块 -->
-	<import resource="spring/applicationContext-redis.xml"/>
 	<!-- mybatis -->
 	<import resource="spring/applicationContext-mybatis.xml"/>
 	<!-- hibernate -->
@@ -44,6 +40,10 @@
 	<import resource="spring/applicationContext-shiro-ehcache.xml"/>
 	<!-- webservice相关配置 cxf具体实现 -->
 	<import resource="spring/applicationContext-cxf.xml"/>
+	<!--ureport2报表引擎-->
+	<import resource="classpath:ureport-console-context.xml" />
+	<!-- uflo2流程引擎 -->
+	<import resource="classpath:uflo-console-context.xml" />
 	
 	
 	<!-- spring提供的邮件发送器 更复杂的需求可以使用本项目util.mail下的工具类 -->
@@ -97,7 +97,7 @@
     </context:component-scan>
     
 	<!-- 这个工具类目前仅用于shiro标签库的属性注入使用 特此标记 -->
-	<bean class="com.max256.morpho.common.security.shiro.taglib.SpringUtils"/>
+	<bean class="com.max256.morpho.common.util.SpringUtils"/>
 	
 	<!-- springfox配置类加入ioc容器 -->
 	<bean class="com.max256.morpho.common.config.SpringfoxConfig"/>  

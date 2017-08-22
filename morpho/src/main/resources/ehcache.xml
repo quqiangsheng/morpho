@@ -58,6 +58,17 @@
 		transactionalMode="off">
 	</cache>
 
+	<!-- ufloProcessDefinitionCache本地内存缓存  默认60分钟-->
+	<cache name="ufloProcessDefinitionCache" maxEntriesLocalHeap="10000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
+	
+	<!-- ufloContextCache本地内存缓存  默认60分钟-->
+	<cache name="ufloContextCache" maxEntriesLocalHeap="10000"
+		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		overflowToDisk="false" statistics="true">
+	</cache>
 
 	<!-- 登录密码输入错误重新输入的密码缓存区域 -->
 	<!-- name不能改需要和程序里的保持一致 -->

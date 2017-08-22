@@ -1,4 +1,4 @@
-package com.max256.morpho.common.security.shiro.taglib;
+package com.max256.morpho.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -6,10 +6,8 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 /**
- * 这里的SpringUtils专用于自定义标签库使用的类的 属性的实现注入 
- * 在这里仅此是shiro的自定义函数库的配合使用 所以暂时归到
- * com.max256.morpho.common.security.shiro.taglib包下
- * 
+ * SpringUtils
+ * 获取spring bean工具类 
  * @author fbf
  * 
  */
