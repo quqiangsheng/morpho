@@ -2,19 +2,18 @@ package com.max256.morpho.common.uflo;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.bstek.uflo.env.EnvironmentProvider;
+import com.max256.morpho.common.security.shiro.ShiroUtils;
 
 /**
  * SessionFactory及TransactionManager都是通过Spring环境注入；
- * getLoginUser方法用于返回当前登录用户，
- * 因为我们这里没有用户登录的概念，
- * 所以这里返回一个固定值“anonymous”；
- * getCategoryId方法返回null，
- * 表示不对流程进行分类处理。
+ * 
+ * 
  * @author fbf
  *
  */
@@ -42,11 +41,21 @@ public class UfloEnvironmentProvider implements EnvironmentProvider {
             PlatformTransactionManager platformTransactionManager) {
         this.platformTransactionManager = platformTransactionManager;
     }
+    /* getCategoryId方法返回null表示不对流程进行分类处理。只有该值为null 流程设计器里才也可以为空  该值主要用于saas多租户或者独立部署流程引擎时使用
+     */
     public String getCategoryId() {
         return null;
     }
+    /* getLoginUser方法用于返回当前登录用户
+     */
     public String getLoginUser() {
-        return "anonymous";
+    	//返回当前系统的登录用户
+    	String userName = ShiroUtils.getSysUser().getUserName();
+    	if(StringUtils.isBlank(userName)){
+    		return "anonymous";
+    	}else{
+    		return userName;
+    	}
     }
 
 }
