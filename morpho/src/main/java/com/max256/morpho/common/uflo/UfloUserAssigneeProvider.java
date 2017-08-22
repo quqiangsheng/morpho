@@ -1,10 +1,8 @@
 package com.max256.morpho.common.uflo;
 
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,9 +16,6 @@ import com.bstek.uflo.process.assign.Entity;
 import com.bstek.uflo.process.assign.PageQuery;
 import com.bstek.uflo.process.assign.impl.AbstractAssigneeProvider;
 import com.max256.morpho.common.entity.SysUser;
-import com.max256.morpho.common.util.PasswordData;
-import com.max256.morpho.common.util.PasswordUtils;
-import com.max256.morpho.common.util.UUIDUtils;
 import com.max256.morpho.sys.service.SysUserService;
 
 import tk.mybatis.mapper.entity.Example;
@@ -60,7 +55,7 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 		Example example =new Example(SysUser.class);
 		List<SysUser> findList=sysUserService.selectByExampleAndRowBounds
 				(example, new RowBounds((index-1)*size, size));
-		pageQuery.setRecordCount(findList.size());
+		pageQuery.setRecordCount(sysUserService.selectCountByExample(example));
 		
 		List<Entity> entitys=new ArrayList<Entity>();
 		for (SysUser sysUser : findList) {
