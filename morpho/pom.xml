@@ -1391,6 +1391,7 @@
 		    <groupId>com.bstek.uflo</groupId>
 		    <artifactId>uflo-console</artifactId>
 		    <version>${uflo-console.version}</version>
+		    <classifier>hibernate5</classifier>
 		</dependency>
 
 	</dependencies>
