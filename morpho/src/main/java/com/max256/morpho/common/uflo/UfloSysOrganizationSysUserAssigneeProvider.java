@@ -38,7 +38,7 @@ public class UfloSysOrganizationSysUserAssigneeProvider implements AssigneeProvi
 	}
 
 	public String getName() {
-		return "组织机构下的用户";
+		return "组织机构->用户";
 	}
 
 	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {
@@ -105,11 +105,13 @@ public class UfloSysOrganizationSysUserAssigneeProvider implements AssigneeProvi
 		return disabledSysOrganizationSysUserProvider;
 	}
 
-	public boolean isDisabledDeptAssigneeSysUserProvider() {
+
+
+	public boolean isDisabledSysOrganizationSysUserProvider() {
 		return disabledSysOrganizationSysUserProvider;
 	}
 
-	public void setDisabledDeptAssigneeSysUserProvider(boolean disabledSysOrganizationSysUserProvider) {
+	public void setDisabledSysOrganizationSysUserProvider(boolean disabledSysOrganizationSysUserProvider) {
 		this.disabledSysOrganizationSysUserProvider = disabledSysOrganizationSysUserProvider;
 	}
 
