@@ -49,10 +49,11 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @param pageQuery 用于包装分页信息的查询对象
 	 * @param parentId 上级实体对象的ID，可能为空
 	 */
-	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {		
+	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {	
 		int index=pageQuery.getPageIndex();
 		int size=pageQuery.getPageSize();
 		Example example =new Example(SysUser.class);
+		example.createCriteria().andEqualTo("isValid", "1");
 		List<SysUser> findList=sysUserService.selectByExampleAndRowBounds
 				(example, new RowBounds((index-1)*size, size));
 		pageQuery.setRecordCount(sysUserService.selectCountByExample(example));
