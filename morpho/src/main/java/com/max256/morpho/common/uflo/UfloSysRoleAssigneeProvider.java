@@ -20,6 +20,7 @@ import com.max256.morpho.sys.service.SysRoleService;
 import com.max256.morpho.sys.service.SysUserService;
 
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 /**
  * 与系统的角色岗位相关联
@@ -44,7 +45,19 @@ public class UfloSysRoleAssigneeProvider implements AssigneeProvider {
 	 * @return 返回当前任务处理人提供者名称，比如员工列表，部门列表等
 	 */
 	public String getName() {
-		return "角色列表";
+		return "角色";
+	}
+	/**
+	 * @return the disabledSysRoleProvider
+	 */
+	public boolean isDisabledSysRoleProvider() {
+		return disabledSysRoleProvider;
+	}
+	/**
+	 * @param disabledSysRoleProvider the disabledSysRoleProvider to set
+	 */
+	public void setDisabledSysRoleProvider(boolean disabledSysRoleProvider) {
+		this.disabledSysRoleProvider = disabledSysRoleProvider;
 	}
 	/**
 	 * 分页方式查询返回具体的任务处理人，可以是具体的人，也可以是部门等之类容器型对象
@@ -74,12 +87,21 @@ public class UfloSysRoleAssigneeProvider implements AssigneeProvider {
 	 * @return 返回一个或多个任务处理人的ID
 	 */
 	public Collection<String> getUsers(String entityId,Context context,ProcessInstance processInstance) {
-		//entituId是角色id根据角色id查找所有用户id
-		SysUser param=new SysUser();
-		param.setIsValid("1");
-		/*param.setSysRoleIds(sysRoleIds);*/
+		//根据角色id查找用户
 		List<String> users=new ArrayList<String>();
-		users.add(entityId);
+		Example example =new Example(SysUser.class);
+		Criteria createCriteria = example.createCriteria();
+		createCriteria.andEqualTo("isValid","1");
+		Criteria createCriteria2 = example.createCriteria();
+		createCriteria2.orLike("sysRoleIds", entityId);
+		createCriteria2.orLike("sysRoleIds", entityId+",%");
+		createCriteria2.orLike("sysRoleIds", "%,"+entityId+",%");
+		createCriteria2.orLike("sysRoleIds", "%,"+entityId);
+		example.and(createCriteria2);
+		List<SysUser> selectByExample = sysUserService.selectByExample(example);
+		for (SysUser sysUser : selectByExample) {				
+			users.add(sysUser.getUserId());
+		}	
 		return users;
 	}
 	/**

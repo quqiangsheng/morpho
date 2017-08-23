@@ -42,7 +42,7 @@ public class UfloSysUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @return 返回当前任务处理人提供者名称，比如员工列表，部门列表等
 	 */
 	public String getName() {
-		return "用户列表";
+		return "用户";
 	}
 	/**
 	 * 分页方式查询返回具体的任务处理人，可以是具体的人，也可以是部门等之类容器型对象
@@ -63,6 +63,12 @@ public class UfloSysUserAssigneeProvider extends AbstractAssigneeProvider{
 			entitys.add(new Entity(sysUser.getUserId(),sysUser.getUserName()));
 		}
 		pageQuery.setResult(entitys);
+	}
+	/**
+	 * @param disabledSysUserAssigneeProvider the disabledSysUserAssigneeProvider to set
+	 */
+	public void setDisabledSysUserAssigneeProvider(boolean disabledSysUserAssigneeProvider) {
+		this.disabledSysUserAssigneeProvider = disabledSysUserAssigneeProvider;
 	}
 	/**
 	 * 根据指定的处理人ID，返回具体的任务处理人用户名

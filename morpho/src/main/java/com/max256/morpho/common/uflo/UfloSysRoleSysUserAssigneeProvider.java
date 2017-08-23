@@ -44,7 +44,19 @@ public class UfloSysRoleSysUserAssigneeProvider implements AssigneeProvider {
 	 * @return 返回当前任务处理人提供者名称，比如员工列表，部门列表等
 	 */
 	public String getName() {
-		return "角色下的用户";
+		return "角色->用户";
+	}
+	/**
+	 * @return the disabledSysRoleSysUserProvider
+	 */
+	public boolean isDisabledSysRoleSysUserProvider() {
+		return disabledSysRoleSysUserProvider;
+	}
+	/**
+	 * @param disabledSysRoleSysUserProvider the disabledSysRoleSysUserProvider to set
+	 */
+	public void setDisabledSysRoleSysUserProvider(boolean disabledSysRoleSysUserProvider) {
+		this.disabledSysRoleSysUserProvider = disabledSysRoleSysUserProvider;
 	}
 	/**
 	 * 分页方式查询返回具体的任务处理人，可以是具体的人，也可以是部门等之类容器型对象
@@ -65,15 +77,16 @@ public class UfloSysRoleSysUserAssigneeProvider implements AssigneeProvider {
 			}
 		}else{
 			//根据角色id查找用户
-			//
-			//
 			Example example =new Example(SysUser.class);
-			Criteria createCriteria = example.createCriteria();			
-			createCriteria.orLike("sysRoleIds", parentId+",%");
-			createCriteria.orLike("sysRoleIds", "%,"+parentId+",%");
-			createCriteria.orLike("sysRoleIds", "%,"+parentId);
-		
-			List<SysUser> selectByExample = sysUserService.selectByExample(createCriteria);
+			Criteria createCriteria = example.createCriteria();
+			createCriteria.andEqualTo("isValid","1");
+			Criteria createCriteria2 = example.createCriteria();
+			createCriteria2.orLike("sysRoleIds", parentId);
+			createCriteria2.orLike("sysRoleIds", parentId+",%");
+			createCriteria2.orLike("sysRoleIds", "%,"+parentId+",%");
+			createCriteria2.orLike("sysRoleIds", "%,"+parentId);
+			example.and(createCriteria2);
+			List<SysUser> selectByExample = sysUserService.selectByExample(example);
 			for (SysUser sysUser : selectByExample) {				
 				entitys.add(new Entity(sysUser.getUserId(), sysUser.getUserName()));
 			}	
