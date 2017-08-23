@@ -21,13 +21,13 @@ import com.max256.morpho.sys.service.SysUserService;
 import tk.mybatis.mapper.entity.Example;
 
 /**
- * 与系统的组织机构相关联
+ * 部门->用户分配
  * @author fbf
  * @since 2017年8月23日
  */
 @Component
-public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
-	private boolean disabledSysOrganizationProvider=false;//默认启用
+public class UfloSysOrganizationSysUserAssigneeProvider implements AssigneeProvider {
+	private boolean disabledSysOrganizationSysUserProvider=false;//默认启用
 	@Resource
 	private SysUserService sysUserService;
 	@Resource
@@ -38,7 +38,7 @@ public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
 	}
 
 	public String getName() {
-		return "组织机构";
+		return "组织机构下的用户";
 	}
 
 	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {
@@ -65,20 +65,30 @@ public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
     			Integer selectCountByExample = sysOrganizationService.selectCountByExample(example1);
     			if(selectCountByExample==0){
     				//是叶子节点
-    				entity.setChosen(true);
+    				entity.setChosen(false);
     			}else{
     				//非叶子节点只能展开
     				entity.setChosen(false);
     			}
     			list.add(entity);
     		}
-    		pageQuery.setResult(list);
-    		pageQuery.setTree(true);
-    	}else{
-    		return;
+    		
     	}
+    	
+        if(parentId != null) {
+        	SysUser param=new SysUser();
+        	param.setIsValid("1");
+        	param.setSysOrganizationId(parentId);
+            List<SysUser> select = sysUserService.select(param);
+            if (select != null) {
+              for (SysUser user : select) {
+                list.add(new Entity(user.getUserId(), user.getUserName()));
+              }
+            }
+         }
+        pageQuery.setResult(list);
+		pageQuery.setTree(true);
 
-		
 	}
 
 	/* 
@@ -86,27 +96,21 @@ public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
 	 * 根据	entityId招对应的用户ids
 	 *  */
 	public Collection<String> getUsers(String entityId,Context context,ProcessInstance processInstance) {
-		Example example =new Example(SysUser.class);
-		example.createCriteria().andEqualTo("isValid", "1");
-		example.createCriteria().andEqualTo("sysOrganizationId", entityId);
-		List<SysUser> findList=sysUserService.selectByExample(example);
-		Collection<String> userids=new ArrayList<String>();
-		for(SysUser user:findList){
-			userids.add(user.getUserId());
-		}
-		return userids;
+		List<String> users=new ArrayList<String>();
+		users.add(entityId);
+		return users;
 	}
 
 	public boolean disable() {
-		return disabledSysOrganizationProvider;
+		return disabledSysOrganizationSysUserProvider;
 	}
 
-	public boolean isDisabledSysOrganizationProvider() {
-		return disabledSysOrganizationProvider;
+	public boolean isDisabledDeptAssigneeSysUserProvider() {
+		return disabledSysOrganizationSysUserProvider;
 	}
 
-	public void setDisabledSysOrganizationProvider(boolean disabledSysOrganizationProvider) {
-		this.disabledSysOrganizationProvider = disabledSysOrganizationProvider;
+	public void setDisabledDeptAssigneeSysUserProvider(boolean disabledSysOrganizationSysUserProvider) {
+		this.disabledSysOrganizationSysUserProvider = disabledSysOrganizationSysUserProvider;
 	}
 
 	
