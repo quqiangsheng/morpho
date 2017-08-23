@@ -88,6 +88,23 @@
 		<filter>sysUser,forceLogout,authc</filter>
 		<desc>报表模块 需要认证和授权</desc>
 	</define>
+	
+	<define>
+		<url>/uflo/deploy</url>
+		<filter>anon</filter>
+		<desc>工作流模板部署 免认证 在uflo同时是debug模式下才能成功部署</desc>
+	</define>
+	<define>
+		<url>/uflo/handlerlist</url>
+		<filter>anon</filter>
+		<desc>工作流HandlerList</desc>
+	</define>
+	<define>
+		<url>/uflo/assignproviderlist</url>
+		<filter>anon</filter>
+		<desc>工作流制定参与者列表</desc>
+	</define>
+	
 	<define>
 		<url>/uflo/**</url>
 		<filter>sysUser,forceLogout,authc</filter>

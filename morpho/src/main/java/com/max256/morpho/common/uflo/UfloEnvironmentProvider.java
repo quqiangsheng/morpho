@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.bstek.uflo.env.EnvironmentProvider;
+import com.max256.morpho.common.entity.SysUser;
 import com.max256.morpho.common.security.shiro.ShiroUtils;
 
 /**
@@ -50,7 +51,11 @@ public class UfloEnvironmentProvider implements EnvironmentProvider {
      */
     public String getLoginUser() {
     	//返回当前系统的登录用户
-    	String userName = ShiroUtils.getSysUser().getUserName();
+    	SysUser sysUser = ShiroUtils.getSysUser();
+    	String userName=null;
+    	if(sysUser!=null){
+    		userName=sysUser.getUserName();
+    	}
     	if(StringUtils.isBlank(userName)){
     		return "anonymous";
     	}else{
