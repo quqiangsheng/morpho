@@ -1,6 +1,5 @@
 package com.max256.morpho.common.uflo;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,25 +11,28 @@ import org.springframework.stereotype.Component;
 
 import com.bstek.uflo.env.Context;
 import com.bstek.uflo.model.ProcessInstance;
+import com.bstek.uflo.process.assign.AssigneeProvider;
 import com.bstek.uflo.process.assign.Entity;
 import com.bstek.uflo.process.assign.PageQuery;
-import com.bstek.uflo.process.assign.impl.AbstractAssigneeProvider;
+import com.max256.morpho.common.entity.SysRole;
 import com.max256.morpho.common.entity.SysUser;
+import com.max256.morpho.sys.service.SysRoleService;
 import com.max256.morpho.sys.service.SysUserService;
 
 import tk.mybatis.mapper.entity.Example;
 
-
 /**
- * uflo2流程任务指定者与系统用户相关联
+ * 与系统的角色岗位相关联
  * @author fbf
- *
+ * @since 2017年8月23日
  */
 @Component
-public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
-	@Resource(name="sysUserService")
+public class UfloSysRoleAssigneeProvider implements AssigneeProvider {
+	private boolean disabledSysRoleProvider=false;//默认启用
+	@Resource
 	private SysUserService sysUserService;
-	private boolean disabledUserAssigneeProvider=false;
+	@Resource
+	private SysRoleService sysRoleService;
 	/**
 	 * 设计器层面是否要用树形结构进行展示
 	 * @return 返回true，表示设计器会用树形加载当前任务处理人列表
@@ -42,7 +44,7 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @return 返回当前任务处理人提供者名称，比如员工列表，部门列表等
 	 */
 	public String getName() {
-		return "用户列表";
+		return "角色列表";
 	}
 	/**
 	 * 分页方式查询返回具体的任务处理人，可以是具体的人，也可以是部门等之类容器型对象
@@ -52,15 +54,15 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {	
 		int index=pageQuery.getPageIndex();
 		int size=pageQuery.getPageSize();
-		Example example =new Example(SysUser.class);
+		Example example =new Example(SysRole.class);
 		example.createCriteria().andEqualTo("isValid", "1");
-		List<SysUser> findList=sysUserService.selectByExampleAndRowBounds
+		List<SysRole> findList=sysRoleService.selectByExampleAndRowBounds
 				(example, new RowBounds((index-1)*size, size));
-		pageQuery.setRecordCount(sysUserService.selectCountByExample(example));
+		pageQuery.setRecordCount(sysRoleService.selectCountByExample(example));
 		
 		List<Entity> entitys=new ArrayList<Entity>();
-		for (SysUser sysUser : findList) {
-			entitys.add(new Entity(sysUser.getUserId(),sysUser.getUserName()));
+		for (SysRole sysRole : findList) {
+			entitys.add(new Entity(sysRole.getRoleId(),sysRole.getRoleName()));
 		}
 		pageQuery.setResult(entitys);
 	}
@@ -72,6 +74,10 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @return 返回一个或多个任务处理人的ID
 	 */
 	public Collection<String> getUsers(String entityId,Context context,ProcessInstance processInstance) {
+		//entituId是角色id根据角色id查找所有用户id
+		SysUser param=new SysUser();
+		param.setIsValid("1");
+		/*param.setSysRoleIds(sysRoleIds);*/
 		List<String> users=new ArrayList<String>();
 		users.add(entityId);
 		return users;
@@ -80,14 +86,13 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @return 是否禁用当前任务处理人提供器
 	 */
 	public boolean disable() {
-		return disabledUserAssigneeProvider;
+		return disabledSysRoleProvider;
 	}
 	
 	
 	public boolean isDisabledUserAssigneeProvider() {
-		return disabledUserAssigneeProvider;
+		return disabledSysRoleProvider;
 	}
-	
 
 	
 }
