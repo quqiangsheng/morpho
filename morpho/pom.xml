@@ -148,7 +148,7 @@
 		<itextpdf.version>5.5.11</itextpdf.version>
 		<ureport2-console.version>2.0.9-SNAPSHOT</ureport2-console.version>
 		<uflo-core.version>2.0.0</uflo-core.version>
-		<uflo-console.version>2.0.0</uflo-console.version>
+		<uflo-console.version>2.0.1-SNAPSHOT</uflo-console.version>
 		<fst.version>2.52</fst.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
@@ -1403,7 +1403,7 @@
 			<groupId>com.bstek.uflo</groupId>
 			<artifactId>uflo-console</artifactId>
 			<version>${uflo-console.version}</version>
-			<classifier>hibernate5</classifier>
+			<!-- <classifier>hibernate5</classifier> -->
 		</dependency>
 
 	</dependencies>

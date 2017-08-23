@@ -27,7 +27,7 @@ import tk.mybatis.mapper.entity.Example;
  */
 @Component
 public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
-	private boolean disabledDeptAssigneeProvider=false;//默认启用
+	private boolean disabledSysOrganizationProvider=false;//默认启用
 	@Resource
 	private SysUserService sysUserService;
 	@Resource
@@ -38,7 +38,7 @@ public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
 	}
 
 	public String getName() {
-		return "指定某个组织机构";
+		return "组织机构";
 	}
 
 	public void queryEntities(PageQuery<Entity> pageQuery, String parentId) {
@@ -98,15 +98,15 @@ public class UfloSysOrganizationAssigneeProvider implements AssigneeProvider {
 	}
 
 	public boolean disable() {
-		return disabledDeptAssigneeProvider;
+		return disabledSysOrganizationProvider;
 	}
 
 	public boolean isDisabledDeptAssigneeProvider() {
-		return disabledDeptAssigneeProvider;
+		return disabledSysOrganizationProvider;
 	}
 
-	public void setDisabledDeptAssigneeProvider(boolean disabledDeptAssigneeProvider) {
-		this.disabledDeptAssigneeProvider = disabledDeptAssigneeProvider;
+	public void setDisabledDeptAssigneeProvider(boolean disabledSysOrganizationProvider) {
+		this.disabledSysOrganizationProvider = disabledSysOrganizationProvider;
 	}
 
 	
