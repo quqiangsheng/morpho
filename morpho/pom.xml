@@ -146,7 +146,7 @@
 		<esapi.version>2.1.0.1</esapi.version>
 		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
 		<itextpdf.version>5.5.11</itextpdf.version>
-		<ureport2-console.version>2.0.9-SNAPSHOT</ureport2-console.version>
+		<ureport2-console.version>2.1.0-SNAPSHOT</ureport2-console.version>
 		<uflo-core.version>2.0.0</uflo-core.version>
 		<uflo-console.version>2.0.1-SNAPSHOT</uflo-console.version>
 		<fst.version>2.52</fst.version>

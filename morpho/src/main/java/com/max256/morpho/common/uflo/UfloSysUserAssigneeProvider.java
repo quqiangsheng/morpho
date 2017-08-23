@@ -27,10 +27,10 @@ import tk.mybatis.mapper.entity.Example;
  *
  */
 @Component
-public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
+public class UfloSysUserAssigneeProvider extends AbstractAssigneeProvider{
 	@Resource(name="sysUserService")
 	private SysUserService sysUserService;
-	private boolean disabledUserAssigneeProvider=false;
+	private boolean disabledSysUserAssigneeProvider=false;
 	/**
 	 * 设计器层面是否要用树形结构进行展示
 	 * @return 返回true，表示设计器会用树形加载当前任务处理人列表
@@ -80,12 +80,12 @@ public class UfloUserAssigneeProvider extends AbstractAssigneeProvider{
 	 * @return 是否禁用当前任务处理人提供器
 	 */
 	public boolean disable() {
-		return disabledUserAssigneeProvider;
+		return disabledSysUserAssigneeProvider;
 	}
 	
 	
-	public boolean isDisabledUserAssigneeProvider() {
-		return disabledUserAssigneeProvider;
+	public boolean isDisabledSysUserAssigneeProvider() {
+		return disabledSysUserAssigneeProvider;
 	}
 	
 
