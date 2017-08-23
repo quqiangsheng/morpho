@@ -47,19 +47,19 @@ public class UfloEnvironmentProvider implements EnvironmentProvider {
     public String getCategoryId() {
         return null;
     }
-    /* getLoginUser方法用于返回当前登录用户
+    /* getLoginUser方法用于返回当前登录用户的用户id 不是用户名！！！
      */
     public String getLoginUser() {
     	//返回当前系统的登录用户
     	SysUser sysUser = ShiroUtils.getSysUser();
-    	String userName=null;
+    	String userId=null;
     	if(sysUser!=null){
-    		userName=sysUser.getUserName();
+    		userId=sysUser.getUserId();
     	}
-    	if(StringUtils.isBlank(userName)){
+    	if(StringUtils.isBlank(userId)){
     		return "anonymous";
     	}else{
-    		return userName;
+    		return userId;
     	}
     }
 
