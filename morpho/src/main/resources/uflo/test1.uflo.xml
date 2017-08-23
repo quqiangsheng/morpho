@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uflo-process name="test1">
+   <start g="37,60,32,62" name="开始1">
+      <sequence-flow to="人工任务1"/>
+   </start>
+   <task g="223,87,115,50" assignment-type="Assignee" task-type="Normal" name="人工任务1" task-name="审批" allow-specify-assignee="false">
+      <sequence-flow to="结束1"/>
+      <assignee provider-id="ufloUserAssigneeProvider" name="用户名56" id="10056"/>
+   </task>
+   <end g="503,106,32,62" name="结束1" terminate="true"/>
+</uflo-process>
