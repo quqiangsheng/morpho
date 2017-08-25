@@ -83,6 +83,14 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                    	<!--规则管理 -->
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">规则管理</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="${ctx}/urule/frame">规则引擎</a>
+                            </li>
+                        </ul>
+                    </li>
                     
                     <li>
                     	<!--业务流程管理 -->

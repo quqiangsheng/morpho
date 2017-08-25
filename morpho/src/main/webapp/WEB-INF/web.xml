@@ -89,6 +89,15 @@
 	    <servlet-name>ufloServlet</servlet-name>
 	    <url-pattern>/uflo/*</url-pattern>
 	</servlet-mapping>
+	<!-- urule2入口 -->
+	<servlet>
+	    <servlet-name>uruleServlet</servlet-name>
+	    <servlet-class>com.bstek.urule.console.servlet.URuleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>uruleServlet</servlet-name>
+	    <url-pattern>/urule/*</url-pattern>
+	</servlet-mapping>
 
 	<!--springMVC前端控制器，用于加载springMVC的核心配置文件applicationContext-mvc.xml  -->
 	<servlet>
