@@ -149,6 +149,7 @@
 		<ureport2-console.version>2.1.0-SNAPSHOT</ureport2-console.version>
 		<uflo-core.version>2.0.0</uflo-core.version>
 		<uflo-console.version>2.0.1-SNAPSHOT</uflo-console.version>
+		<urule-console.version>2.0.3-SNAPSHOT</urule-console.version>
 		<fst.version>2.52</fst.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
@@ -157,18 +158,18 @@
 
 	<!-- 阿里云maven仓库 -->
 	<repositories>
-		<repository>
+		<!-- <repository>
 			<id>public</id>
 			<name>aliyun nexus</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<!-- <url>https://oss.sonatype.org/content/groups/public/</url> -->
+			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository> -->
 		<repository>
 			<id>bsdn</id>
 			<name>锐道开源产品仓库包含快照版本</name>
@@ -1393,6 +1394,7 @@
 			<artifactId>fst</artifactId>
 			<version>${fst.version}</version>
 		</dependency>
+		<!-- uflo2规则引擎 -->
 		<dependency>
 			<groupId>com.bstek.uflo</groupId>
 			<artifactId>uflo-core</artifactId>
@@ -1404,6 +1406,12 @@
 			<artifactId>uflo-console</artifactId>
 			<version>${uflo-console.version}</version>
 			<!-- <classifier>hibernate5</classifier> -->
+		</dependency>
+		<!-- urule2规则引擎 -->
+		<dependency>
+		    <groupId>com.bstek.urule</groupId>
+		    <artifactId>urule-console</artifactId>
+		    <version>${urule-console.version}</version>
 		</dependency>
 
 	</dependencies>

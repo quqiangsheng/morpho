@@ -1,6 +1,9 @@
 package com.max256.morpho.common.util;
 
 
+import java.io.Closeable;
+import java.io.IOException;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.nustaq.serialization.FSTConfiguration;
 import org.slf4j.Logger;
@@ -11,7 +14,8 @@ import org.slf4j.LoggerFactory;
  * 使用jdk的对象流的方式序列化
  * 需要注意序列化id和序列化接口的设置
  *
- * 20170818更新 改为使用fst序列化 更搞笑的序列化效率 兼容jdk序列化 可以强行序列化没有实现序列化接口的对象
+ * 20170818更新 改为使用fst序列化 更高效的序列化效率 兼容jdk序列化 可以强行序列化没有实现序列化接口的对象
+ * 20170825更新 保留jdk序列化
  * @author fbf
  * 
  */
@@ -22,6 +26,7 @@ public class ObjectStreamSerializeUtils {
 	 * Field log: slf4j日志
 	 * </p>
 	 */
+
 	@SuppressWarnings("unused")
 	private static final Logger LOG = LoggerFactory
 			.getLogger(ObjectStreamSerializeUtils.class);
@@ -33,15 +38,11 @@ public class ObjectStreamSerializeUtils {
 	 * @return 返回解析出来的对象 ，如果bytes为空返回null
 	 */
 	public static Object deserialize(byte[] bytes) {
-
-		if (isEmpty(bytes)) {
+		return fstDeserialize(bytes);
+		/*if (isEmpty(bytes)) {
 			return null;
 		}
-		// read
-		Object object = conf.asObject(bytes);
-		return object;
-
-		/*ByteArrayInputStream byteStream = null;
+		ByteArrayInputStream byteStream = null;
 		ObjectInputStream objectInputStream=null;
 		try {
 			 byteStream = new ByteArrayInputStream(bytes);
@@ -55,6 +56,21 @@ public class ObjectStreamSerializeUtils {
 			close(objectInputStream);
 		}
 		return null;*/
+	}
+
+	/**
+	 * fst反序列化
+	 * 
+	 * @param bytes
+	 * @return 返回解析出来的对象 ，如果bytes为空返回null
+	 */
+	public static Object fstDeserialize(byte[] bytes) {
+		if (isEmpty(bytes)) {
+			return null;
+		}
+		// read
+		Object object = conf.asObject(bytes);
+		return object;
 	}
 
 	/**
@@ -74,11 +90,7 @@ public class ObjectStreamSerializeUtils {
 	 * @return
 	 */
 	public static byte[] serialize(Object object) {
-		if (object == null) {
-			return new byte[0];
-		}
-		conf.setForceSerializable(true);
-		return conf.asByteArray(object);
+		return fstSerialize(object);
 
 		/*if (object == null) {
 			return new byte[0];
@@ -110,6 +122,22 @@ public class ObjectStreamSerializeUtils {
 		return new byte[0];*/
 	}
 
+	/**
+	 * fst序列化
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public static byte[] fstSerialize(Object object) {
+		if (object == null) {
+			return new byte[0];
+		}
+		conf.setForceSerializable(true);
+		return conf.asByteArray(object);
+
+	
+	}
+
 	private ObjectStreamSerializeUtils() {
 	}
 	
@@ -118,12 +146,13 @@ public class ObjectStreamSerializeUtils {
 	 * 序列化关闭流
 	 * @param closeable
 	 */
-	/*private static void close(Closeable closeable) {
+	@SuppressWarnings("unused")
+	private static void close(Closeable closeable) {
 		if (closeable != null)
 			try {
 				closeable.close();
 			} catch (IOException e) {
 				throw new RuntimeException("close object serialize stream error");
 			}
-	}*/
+	}
 }

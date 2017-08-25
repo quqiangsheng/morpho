@@ -44,6 +44,8 @@
 	<import resource="classpath:ureport-console-context.xml" />
 	<!-- uflo2流程引擎 -->
 	<import resource="classpath:uflo-console-context.xml" />
+	<!-- urule2的spring配置文件 -->
+	<import resource="classpath:urule-console-context.xml"/>
 	
 	
 	<!-- spring提供的邮件发送器 更复杂的需求可以使用本项目util.mail下的工具类 -->

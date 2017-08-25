@@ -83,11 +83,7 @@
 		<filter>sysUser,forceLogout,authc</filter>
 		<desc>系统模块 需要认证和授权</desc>
 	</define>
-	<define>
-		<url>/ureport/**</url>
-		<filter>sysUser,forceLogout,authc</filter>
-		<desc>报表模块 需要认证和授权</desc>
-	</define>
+	
 	
 	<define>
 		<url>/uflo/deploy</url>
@@ -104,11 +100,20 @@
 		<filter>anon</filter>
 		<desc>工作流制定参与者列表</desc>
 	</define>
-	
 	<define>
-		<url>/uflo/**</url>
+		<url>/urule/assignproviderlist</url>
+		<filter>anon</filter>
+		<desc>工作流指定参与者列表</desc>
+	</define>
+	<define>
+		<url>/urule/**</url>
 		<filter>sysUser,forceLogout,authc</filter>
-		<desc>工作流 需要认证和授权</desc>
+		<desc>urule规则引擎 需要认证和授权</desc>
+	</define>
+	<define>
+		<url>/ureport/**</url>
+		<filter>sysUser,forceLogout,authc</filter>
+		<desc>报表模块 需要认证和授权</desc>
 	</define>
 
 	
