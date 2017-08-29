@@ -70,7 +70,7 @@
 		<!-- mybatis通用mapper版本 -->
 		<mapper.version>3.4.3</mapper.version>
 		<!-- mybatis 分页插件版本 -->
-		<pagehelp.version>5.0.4</pagehelp.version>
+		<pagehelp.version>5.1.0</pagehelp.version>
 		<!-- mysql驱动版本 -->
 		<!-- Connector/J version Driver Type JDBC version MySQL Server version 
 			Status 5.1 4 3.0, 4.0, 4.1, 4.2 4.1, 5.0, 5.1, 5.5, 5.6, 5.7 Recommended 
@@ -129,7 +129,7 @@
 		<jsoup.version>1.9.2</jsoup.version>
 		<mail.version>1.4.7</mail.version>
 		<metadata-extractor.version>2.8.1</metadata-extractor.version>
-		<javamelody-core.version>1.68.1</javamelody-core.version>
+		<javamelody-core.version>1.69.0</javamelody-core.version>
 		<springfox-swagger2.version>2.7.0</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.7.0</springfox-swagger-ui.version>
 		<jodconverter-core.version>1.0.5</jodconverter-core.version>
@@ -159,7 +159,7 @@
 	<!-- 阿里云maven仓库 -->
 	<repositories>
 		<!-- <repository>
-			<id>public</id>
+			<id>aliyun nexus</id>
 			<name>aliyun nexus</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
