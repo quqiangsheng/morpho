@@ -6,13 +6,13 @@
 -  **morpho是一款JAVAEE应用开发框架及脚手架** 
 
 #项目重大更新进程
-- 自2015年10月份以来以成功运用于多个商业项目
-- 经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
+- 2015年10月份以来在此基础上开发了多个项目，经过内部使用 精简出公用的脚手架部分 并升级最新的依赖
 - 20170804更新 增加了代码生成器 详见https://git.oschina.net/max256/morpho-code-help
 - 20170818更新 新增功能excel报表推荐使用easypoi以整合 新增整合ureport2报表引擎推荐使用 更新最新依赖 修复已知bug
 - 20170821更新 增加了工作流支持包括流程设计器请试用 流程和用户表的关联请您根据情况自行完成 使用
                 uflo2完成https://github.com/youseries/uflo文档http://wiki.bsdn.org/display/UFLO/UFLO+Home
                 注意第一次请修改config.properties中hbm2ddl生成流程模块的自动建表 系统其他表结构使用对应的sql文件建表
+- 20170904更新 更新jar到最新 新增两种风格的在线表单构造生成器 管理员权限登录后可见 有需要可以使用 新增urule规则引擎 有需要可以使用
 
 #项目名称来历
 
@@ -73,6 +73,8 @@
 12.数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
 13.报表:ureport2  easypoi
 14.流程:uflow2
+15.规则引擎:urule2
+
 
 
 
@@ -93,10 +95,12 @@
 http://git.oschina.net/max256/morpho/wikis
 
 #技术交流
-QQ群：210722852 请备注来自 开源中国morpho项目
+- QQ群：210722852 
+- 请备注来自 开源中国morpho项目
 
-#项目作者:
-fbf: help~~~max256.com   ~~~替换成@
+#开发者:
+- fbf
+- help~~~max256.com   ~~~替换成@
 
 #项目捐助者:
 to do list
@@ -153,7 +157,7 @@ to do list
 - 账号less  密码admin 最小权限用户
 
 
-#关于使用sqlserver配置的注意事项 
+#关于使用sqlserver配置的注意事项 默认使用的是mysql(此部分只对需要使用sqlserver的用户有用)
 
 
 - 请手动建库morpho(或者根据您的情况自行决定)
