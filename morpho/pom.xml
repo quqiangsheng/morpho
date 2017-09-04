@@ -91,7 +91,7 @@
 		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 		<antlr.version>2.7.7</antlr.version>
 		<xstream.version>1.4.10</xstream.version>
-		<fastjson.version>1.2.36</fastjson.version>
+		<fastjson.version>1.2.38</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<guava.version>21.0</guava.version>
 		<joda-time.version>2.9.9</joda-time.version>
@@ -146,10 +146,10 @@
 		<esapi.version>2.1.0.1</esapi.version>
 		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
 		<itextpdf.version>5.5.11</itextpdf.version>
-		<ureport2-console.version>2.1.0-SNAPSHOT</ureport2-console.version>
+		<ureport2-console.version>2.1.1</ureport2-console.version>
 		<uflo-core.version>2.0.0</uflo-core.version>
 		<uflo-console.version>2.0.1-SNAPSHOT</uflo-console.version>
-		<urule-console.version>2.0.3-SNAPSHOT</urule-console.version>
+		<urule-console.version>2.0.4-SNAPSHOT</urule-console.version>
 		<fst.version>2.52</fst.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>

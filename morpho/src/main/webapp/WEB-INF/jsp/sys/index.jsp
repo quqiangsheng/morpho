@@ -164,14 +164,24 @@
 	                           <li><a class="J_menuItem" href="${ctx}/druid">数据库连接池监控</a>
 	                           </li>           
 	                           <li><a class="J_menuItem" href="${ctx}/swagger-ui.html">HTTP接口(开发人员选项)</a>
-	                           </li>      
+	                           </li> 
+	             
                             </shiro:hasRole>            
                         </ul>
                     </li>
-            
-                   
-                    
-
+                      
+                    <li>
+                        <a href="#"><i class="fa fa fa-bar-chart-o"></i> <span class="nav-label">代码生成</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <shiro:hasRole name="管理员">
+	                
+	                            <li><a class="J_menuItem" href="${ctx}/jslib/formBuilder-2.9.6/demo/index.html">html可视化表单制作</a>
+	                           </li> 
+	                            <li><a class="J_menuItem" href="${ctx}/jslib/layoutit-gh-pages/index.html">bootstrap3可视化布局</a>
+	                           </li>     
+                            </shiro:hasRole>            
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
