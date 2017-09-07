@@ -56,7 +56,7 @@
 		<!-- hibernate-validator版本 -->
 		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
 		<!-- shiro版本 -->
-		<shiro.version>1.3.2</shiro.version>
+		<shiro.version>1.4.0</shiro.version>
 		<!-- servlet版本 -->
 		<servlet.version>3.1.0</servlet.version>
 		<!-- Spring版本 -->
