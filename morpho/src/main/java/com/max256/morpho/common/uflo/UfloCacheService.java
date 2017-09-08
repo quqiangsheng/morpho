@@ -59,8 +59,15 @@ public class UfloCacheService implements CacheService {
 	public UfloCacheService() {
 		super();
 		if(SpringUtils.containsBean("redisTemplate")){
-			StringRedisTemplate findStringRedisTemplate=(StringRedisTemplate) SpringUtils.getBean("redisTemplate");
-			setRedisTemplate(findStringRedisTemplate);
+			Object find=SpringUtils.getBean("redisTemplate");
+			if(find instanceof StringRedisTemplate){
+				StringRedisTemplate findStringRedisTemplate=(StringRedisTemplate) find;	
+				setRedisTemplate(findStringRedisTemplate);
+			}else{
+				setRedisTemplate(null);
+			}
+			
+			
 		}else{
 			setRedisTemplate(null);
 		}
