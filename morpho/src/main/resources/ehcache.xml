@@ -102,7 +102,7 @@
 	<!-- 在线的session缓存 -->
 	<!-- name不能修改需要和shiro-ehcache配合使用时和它里面的activeSessionsCacheName的值对应 -->
 	<cache name="shiro-activeSessionCache" maxEntriesLocalHeap="10000"
-		eternal="true" timeToIdleSeconds="3600" timeToLiveSeconds="0"
+		eternal="true" timeToIdleSeconds="0" timeToLiveSeconds="0"
 		overflowToDisk="true" statistics="true">
 	</cache>
 	
