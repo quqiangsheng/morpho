@@ -13,7 +13,7 @@
                 uflo2完成https://github.com/youseries/uflo文档http://wiki.bsdn.org/display/UFLO/UFLO+Home
                 注意第一次请修改config.properties中hbm2ddl生成流程模块的自动建表 系统其他表结构使用对应的sql文件建表
 - 20170904更新 更新jar到最新 新增两种风格的在线表单构造生成器 管理员权限登录后可见 有需要可以使用 新增urule规则引擎 有需要可以使用
-- 20170912更新 修复bug 另创立了新的基于morpho-springboot的项目和本项目保持同步 https://git.oschina.net/max256/morpho-springboot正在开发中morpho-springboot不建议正式环境使用 正式发布会在此通知 注意的是morpho-springboot将不再支持hibernate更符合互联网业务的特征
+- 20170912更新 修复bug 另创立了新的基于morpho-springboot的项目和本项目保持同步 https://git.oschina.net/max256/morpho-springboot     正在开发中morpho-springboot不建议正式环境使用 正式发布会在此通知 注意的是morpho-springboot将不再支持hibernate更符合互联网业务的特征
 
 #项目名称来历
 
