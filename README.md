@@ -73,7 +73,7 @@
 11.其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
 12.数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
 13.报表:ureport2  easypoi
-14.流程:uflow2
+14.流程:uflo2
 15.规则引擎:urule2
 
 
@@ -177,7 +177,7 @@ to do list
 配置/morpho/src/main/resources/spring/applicationContext-mybatis.xml
 中的分页插件dialect为sqlserver或者sqlserver2012  前者适用2005、2008版本后者适用2012版本
 ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所以在非中文版本windows中乱码 请您明知这一点 如果需要nvarchar请自行修改表结构
-平且配置hibernate注解类型明确nvarchar 或者继承sqlserver驱动注册string到nvarchar的默认映射 请您考虑并解决
+并且配置hibernate注解类型明确nvarchar 或者继承sqlserver驱动注册string到nvarchar的默认映射 请您考虑并解决
 
 
 #开发步骤
