@@ -147,7 +147,7 @@
 		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
 		<itextpdf.version>5.5.11</itextpdf.version>
 		<ureport2-console.version>2.1.2-SNAPSHOT</ureport2-console.version>
-		<uflo-core.version>2.0.0</uflo-core.version>
+		<uflo-core.version>2.0.1-SNAPSHOT</uflo-core.version>
 		<uflo-console.version>2.0.1-SNAPSHOT</uflo-console.version>
 		<urule-console.version>2.0.4-SNAPSHOT</urule-console.version>
 		<fst.version>2.52</fst.version>
