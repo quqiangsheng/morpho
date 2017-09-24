@@ -174,6 +174,7 @@ public class R implements Serializable {
 					describe1.put(object, describe.get(object));
 					if(object.equals("class")){
 						//class跳过
+						describe1.remove(object);
 					}else{
 						//其他调用用户命令处理
 						wrapCommand.wrap(object, describe.get(object), describe1);
@@ -214,6 +215,7 @@ public class R implements Serializable {
 					describe1.put(object, describe.get(object));
 					if(object.equals("class")){
 						//class跳过
+						describe1.remove(object);
 					}else{
 						//其他调用用户命令处理
 						wrapCommand.wrap(object, describe.get(object), describe1);
