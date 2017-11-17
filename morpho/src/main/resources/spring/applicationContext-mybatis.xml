@@ -89,7 +89,7 @@
 
 
 		<!-- 缺省多个DruidDataSource的监控数据是各自独立的，在Druid-0.2.17版本之后，支持配置公用监控数据，配置参数为useGloalDataSourceStat。 -->
-		<!-- <property name="useGlobalDataSourceStat" value="true" /> -->
+		<property name="useGlobalDataSourceStat" value="true" />
 	</bean>
 
 	<!-- JNDI数据库访问 (需要的话放开注释) -->

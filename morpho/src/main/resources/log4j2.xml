@@ -90,7 +90,7 @@
 	
 	<!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
 	<Loggers>	
-	
+		
 		<root level="${OUTPUT_LOG_LEVEL}">
 			<appender-ref ref="console" />
 			<appender-ref ref="console_log" />
