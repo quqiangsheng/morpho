@@ -15,6 +15,7 @@
 - 20170904更新 更新jar到最新 新增两种风格的在线表单构造生成器 管理员权限登录后可见 有需要可以使用 新增urule规则引擎 有需要可以使用
 - 20170912更新 修复bug 另创立了新的基于morpho-springboot的项目和本项目保持同步 https://git.oschina.net/max256/morpho-springboot     正在开发中morpho-springboot不建议正式环境使用 正式发布会在此通知 注意的是morpho-springboot将不再支持hibernate更符合互联网业务的特征
 - 20170918更新 新增包装list到页面的json数据中包装新的自定义字段的功能 例如加入数据字典翻译信息 morpho-springboot初步可用 欢迎试用
+- 20171120更新 更新依赖到最新版修复了uflo ureport urule中的许多漏洞 增加JTA分布式事务支持但默认并不开启 提供操作说明按需取用 
 
 #项目名称来历
 
@@ -47,7 +48,7 @@
 #系统要求如下：
 1. jdk1.8及以上（1.7的话有一点需要自行适配的 有部分用了1.8的api 本想兼容1.7的最后还是没把持住~~~）
 2. tomcat8.0及以上 8.5.x系列未经测试不保证
-3. mysql5.5及以上(如果您要使用mysql的话)
+3. mysql5.5及以上(如果您要使用mysql的话)  (特别注意如果您要使用JTA分布式事务的话最好选用支持XA特性的数据库)
 4. oracle11g及以上(11g 12c测试通过 10g理论上应该也没有问题 未经测试)
 5. linux windows x86  32bit 64bit都支持
 6. 容器要求servlet3.1规范及以上实现
@@ -61,21 +62,20 @@
 
 
 
-1. 核心框架: Spring Framework4.3.8
-2. 数据库访问: Mybatis3.4.5 +hibernate5.2.10（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
+1. 核心框架: Spring Framework4.3.12
+2. 数据库访问: Mybatis3.4.5 +hibernate5.2.12（可选支持 框架已经集成 但脚手架部分并不依赖 如果您特别不喜欢hibernate可以直接移除）
 3. 视图框架: Spring MVC
 4. 页面视图: jsp
 5. 日志组件: log4j2
-6. 报表：jasperreport（支持中文）,poi,excel封装
+6. 报表：poi,easypoi,ureport2
 7. 缓存：ehcahce redis(非强制依赖 如果您不需要可以移除)
 8. 定时任务：quartz spring内置的调度器
-9. 权限：shiro 1.3.2
+9. 权限：shiro 1.4.0
 10.安全：esapi
 11.其他组件: apache commons系列 joda系列 spring系列 druid fastjson jackson springfox guava tk.mybatis.mapper3.4
 12.数据库：支持mysql oracle 默认mysql oracle需要做一点点配置即可 详见文档
-13.报表:ureport2  easypoi
-14.流程:uflo2
-15.规则引擎:urule2
+13.流程:uflo2
+14.规则引擎:urule2
 
 
 
