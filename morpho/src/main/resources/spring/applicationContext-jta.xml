@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	 xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<description>此配置文件是JTA和Atomikos相关</description>
+	<!-- 注意：本系统默认不启用JTA配置  关于JTA您需要明白可能是会损失性能来增加分布式事务处理能力的一种方式 请您自行评估是否启用JTA方式进行分布式事务 -->
+	<!-- 
+	如果需要Atomikos来实现JTA您需要注意以下方面
+	1 数据源要是支持XA事务的数据源比如mysql5.6及以上版本 oracle 支持事务的消息队列等
+	2涉及到修改的是application-mybatis和application-hibernate以及config.properties中多数据源链接地址的配置
+	
+	
+	详细步骤：
+	1修改druid数据源为 如果有多个数据源类似配置
+	<!-- 该bean只有在使用分布式事务时使用 -->
+	<!-- 
+	<bean id="druidDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
+        <property name="uniqueResourceName" value="druidDataSourceMaster"/>
+        <property name="xaDataSource" ref="druidDataSourceXA"/>
+    </bean> 
+    
+    <bean name="druidDataSourceXA" class="com.alibaba.druid.pool.xa.DruidXADataSource"  init-method="init" destroy-method="close">
+    -->
+    <!-- 以上两个bean配置成对出现  进行ioc注入实际使用时用的是AtomikosDataSourceBean的实例化bean	
+    2如果您同时使用hibernate还需要修改application-hibernate
+    	hibernate配置文件中增加
+    			<prop key="hibernate.transaction.coordinator_class">jta</prop>
+				<prop key="hibernate.transaction.jta.platform">com.atomikos.icatch.jta.hibernate4.AtomikosPlatform</prop>
+		这两项 其中com.atomikos.icatch.jta.hibernate4.AtomikosPlatform兼容hibernate4和5放心使用
+		取消 <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager>该事务管理器
+		增加以下事务管理器
+		<!-- 分布式事务配置 -->
+		<!-- 
+		<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+			init-method="init" destroy-method="close">
+			<description>atomikosTransactionManager UserTransactionManager
+			</description>
+			<property name="forceShutdown" value="true" />
+		</bean>
+	
+		<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+			<property name="transactionTimeout" value="600" />
+		</bean>
+		
+		<bean id="transactionManager"
+			class="org.springframework.transaction.jta.JtaTransactionManager">
+			<property name="transactionManager">
+				<ref bean="atomikosTransactionManager" />
+			</property>
+			<property name="userTransaction">
+				<ref bean="atomikosUserTransaction" />
+			</property>
+			<property name="allowCustomIsolationLevels" value="true" />
+		</bean> 
+		其中最后边的那个transactionManager是与spring整合使用spring aop或者注解来进行事务管理
+		-->
+	<!--
+	3如果您不使用hibernate
+	  请参考步骤二的后半部分按照操作 同时屏蔽application-mybatis中的
+	  <bean id="transactionManager"   class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  -->	
+	  
+	<!-- 具体的配置参数调优及意义请参考 Atomikos的官方文档-->
+
+</beans>
