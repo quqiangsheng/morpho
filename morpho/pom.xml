@@ -161,6 +161,7 @@
 			<id>aliyun nexus</id>
 			<name>aliyun nexus</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<!-- <name>锐道开源产品仓库包含快照版本</name> <url>http://nexus.bsdn.org/content/groups/public/</url> -->
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -168,9 +169,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<!-- <repository> <id>bsdn</id> <name>锐道开源产品仓库包含快照版本</name> <url>http://nexus.bsdn.org/content/groups/public/</url> 
-			<releases> <enabled>true</enabled> </releases> <snapshots> <enabled>true</enabled> 
-			</snapshots> </repository> -->
+
 		<repository>
 			<id>public</id>
 			<name>sonatype中央快照仓库</name>
@@ -367,7 +366,7 @@
 			<version>11.2.0.3</version> <scope>runtime</scope> </dependency> -->
 
 		<!-- jasperreport报表工具开始 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.1.1</version>
@@ -409,7 +408,7 @@
 					<groupId>commons-digester</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 		<!--jasperreports（6.1.1）中使用的 itext是com.lowagie.itext（itext-2.1.7.js3），而不是com.itextpdf.itextpdf（5.5.7） -->
 		<!-- 如需支持中文，则需加入iTextAsian.jar[和iTextAsianCmaps.jar]。用到的jar[s]可以在itext的GitHub源中找到。由于maven中没有这些依赖库，所以直接放入项目的lib文件夹中 -->
 		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
@@ -1412,7 +1411,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.4.2</version>
+				<version>2.20.1</version>
 				<configuration>
 					<skipTests>true</skipTests>
 				</configuration>
@@ -1443,7 +1442,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.0.1</version>
+				<version>3.0.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -1457,7 +1456,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.3</version>
+				<version>2.10.4</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -1479,7 +1478,7 @@
 			<plugin>
 				<!-- maven打包插件 -->
 				<artifactId>maven-war-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.2.0</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
@@ -1488,7 +1487,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.7.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -1500,7 +1499,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
+				<version>3.0.2</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>

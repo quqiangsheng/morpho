@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.max256.morpho.common.util.FileUtils;
 
-public class Test {
+public class Test2 {
 	
 	public static void main(String[] args) {
 		List<String> ss = FileUtils.findChildrenList(new File("C:\\Users\\admin\\.m2\\repository"), true);

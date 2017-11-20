@@ -6,6 +6,10 @@
    <task g="223,87,115,50" assignment-type="Assignee" task-type="Normal" name="人工任务1" task-name="审批" allow-specify-assignee="false">
       <sequence-flow to="结束1"/>
       <assignee provider-id="ufloUserAssigneeProvider" name="用户名56" id="10056"/>
+      <assignee provider-id="ufloSysOrganizationAssigneeProvider" name="财务公司" id="6"/>
+      <assignee provider-id="ufloSysOrganizationAssigneeProvider" name="技术部" id="4"/>
+      <assignee provider-id="ufloSysOrganizationAssigneeProvider" name="财务部" id="5"/>
+      <assignee provider-id="ufloSysOrganizationAssigneeProvider" name="软件公司" id="3"/>
    </task>
    <end g="503,106,32,62" name="结束1" terminate="true"/>
 </uflo-process>

@@ -6,24 +6,24 @@
 -->
 <application generated-by="eclipse" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_1.xsd">
 
-	<classpath>
-		<dir name="F:/workspace2-sts-3.8.3.RELEASE/morpho/target/classes">
+	<classpath>C:\Users\admin\svn\morpho\
+		<dir name="C:/Users/admin/svn/morpho/target/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="F:/workspace2-sts-3.8.3.RELEASE/morpho/target/m2e-jee/web-resources">
+			<dir name="C:/Users/admin/svn/morpho/target/m2e-jee/web-resources">
 				<exclude name="/"/>
 			</dir>
 		</link>
 		<link target="/">
-			<dir name="F:/workspace2-sts-3.8.3.RELEASE/target/m2e-wtp/web-resources">
+			<dir name="C:/Users/admin/svn/target/m2e-wtp/web-resources">
 				<exclude name="/"/>
 			</dir>
 		</link>
 		<link target="/">
-			<dir name="F:/workspace2-sts-3.8.3.RELEASE/morpho/src/main/webapp">
+			<dir name="C:/Users/admin/svn/morpho/src/main/webapp">
 			</dir>
 		</link>
 	</web>
