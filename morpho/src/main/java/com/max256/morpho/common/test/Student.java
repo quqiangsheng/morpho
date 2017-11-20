@@ -1,9 +1,17 @@
 package com.max256.morpho.common.test;
 
-public class Student {
+import com.max256.morpho.common.entity.SysUser;
+
+public class Student extends SysUser{
 
 	protected String phone;
 	protected String name;
+	
+	
+	@Override
+	public String toString() {
+		return super.toString()+"Student [phone=" + phone + ", name=" + name + "]";
+	}
 	public String getPhone() {
 		return phone;
 	}
