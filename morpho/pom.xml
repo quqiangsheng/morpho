@@ -151,6 +151,9 @@
 		<uflo-console.version>2.0.6-SNAPSHOT</uflo-console.version>
 		<urule-console.version>2.1.1-SNAPSHOT</urule-console.version>
 		<fst.version>2.56</fst.version>
+		<atomikos.version>4.0.4</atomikos.version>
+		<jta.version>1.1</jta.version>
+		<cglib.version>3.2.5</cglib.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 	</properties>
@@ -366,49 +369,17 @@
 			<version>11.2.0.3</version> <scope>runtime</scope> </dependency> -->
 
 		<!-- jasperreport报表工具开始 -->
-		<!-- <dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.1.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-beanutils</artifactId>
-					<groupId>commons-beanutils</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-logging</artifactId>
-					<groupId>commons-logging</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>xml-apis</artifactId>
-					<groupId>xml-apis</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-context</artifactId>
-					<groupId>org.springframework</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jackson-core</artifactId>
-					<groupId>com.fasterxml.jackson.core</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jackson-databind</artifactId>
-					<groupId>com.fasterxml.jackson.core</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jackson-annotations</artifactId>
-					<groupId>com.fasterxml.jackson.core</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>lucene-core</artifactId>
-					<groupId>org.apache.lucene</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>commons-digester</artifactId>
-					<groupId>commons-digester</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
+		<!-- <dependency> <groupId>net.sf.jasperreports</groupId> <artifactId>jasperreports</artifactId> 
+			<version>6.1.1</version> <exclusions> <exclusion> <artifactId>commons-beanutils</artifactId> 
+			<groupId>commons-beanutils</groupId> </exclusion> <exclusion> <artifactId>commons-logging</artifactId> 
+			<groupId>commons-logging</groupId> </exclusion> <exclusion> <artifactId>xml-apis</artifactId> 
+			<groupId>xml-apis</groupId> </exclusion> <exclusion> <artifactId>spring-context</artifactId> 
+			<groupId>org.springframework</groupId> </exclusion> <exclusion> <artifactId>jackson-core</artifactId> 
+			<groupId>com.fasterxml.jackson.core</groupId> </exclusion> <exclusion> <artifactId>jackson-databind</artifactId> 
+			<groupId>com.fasterxml.jackson.core</groupId> </exclusion> <exclusion> <artifactId>jackson-annotations</artifactId> 
+			<groupId>com.fasterxml.jackson.core</groupId> </exclusion> <exclusion> <artifactId>lucene-core</artifactId> 
+			<groupId>org.apache.lucene</groupId> </exclusion> <exclusion> <artifactId>commons-digester</artifactId> 
+			<groupId>commons-digester</groupId> </exclusion> </exclusions> </dependency> -->
 		<!--jasperreports（6.1.1）中使用的 itext是com.lowagie.itext（itext-2.1.7.js3），而不是com.itextpdf.itextpdf（5.5.7） -->
 		<!-- 如需支持中文，则需加入iTextAsian.jar[和iTextAsianCmaps.jar]。用到的jar[s]可以在itext的GitHub源中找到。由于maven中没有这些依赖库，所以直接放入项目的lib文件夹中 -->
 		<!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
@@ -1260,11 +1231,11 @@
 		<!-- javax.mail 开始 -->
 		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
 		<dependency>
-		    <groupId>com.sun.mail</groupId>
-		    <artifactId>javax.mail</artifactId>
-		    <version>${mail.version}</version>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>${mail.version}</version>
 		</dependency>
-		
+
 		<!-- javax.mail 结束 -->
 
 		<!-- 图像处理工具包 开始 -->
@@ -1403,6 +1374,44 @@
 			<artifactId>dozer</artifactId>
 			<version>5.5.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.atomikos/atomikos-util -->
+		<!-- JTA分布式事务中间件 如要使用 请自行评估是否需要使用 20160708发布 注意数据源要是用支持XA的数据源 -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.atomikos/transactions-jta -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jta</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<!-- 兼容hibernate5 -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-hibernate4</artifactId>
+			<version>${atomikos.version}</version>
+		</dependency>
+		<!-- javaee jta api 如果使用分布式事务需要配合使用 -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>${jta.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+		</dependency>
+
+
 
 	</dependencies>
 	<build>
@@ -1493,14 +1502,6 @@
 					<target>${java.version}</target>
 					<!-- true:跳过测试 -->
 					<skip>true</skip>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.0.2</version>
-				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
