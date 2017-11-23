@@ -45,8 +45,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJob>  implem
 	@Transactional
 	public void save(ScheduleJob scheduleJob) {
 		scheduleJob.setCreateTime(new Date());
-		scheduleJob.setStatus(ScheduleJob.STATUS_ACTIVATE);
-        insert(scheduleJob);
+        super.insert(scheduleJob);
         ScheduleUtils.createScheduleJob(scheduler, scheduleJob);
     }
 	
@@ -54,7 +53,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJob>  implem
 	@Transactional
 	public void update(ScheduleJob scheduleJob) {
         ScheduleUtils.updateScheduleJob(scheduler, scheduleJob);     
-        update(scheduleJob);
+        super.updateByPrimaryKey(scheduleJob);
     }
 
 	@Override
@@ -63,11 +62,12 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJob>  implem
     	for(Long jobId : jobIds){
     		ScheduleUtils.deleteScheduleJob(scheduler, jobId);
     		//删除数据
-    		deleteByPrimaryKey(jobId);
+    		super.deleteByPrimaryKey(jobId);
     	}
 	}
 
 	@Override
+	@Transactional
     public int updateBatch(Long[] jobIds, int status){
 		for (int i = 0; i < jobIds.length; i++) {
 			ScheduleJob selectByPrimaryKey = selectByPrimaryKey(jobIds[i]);
@@ -109,9 +109,12 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJob>  implem
 
 	@Override
 	public ScheduleJob queryObject(Long jobId) {
-		// TODO Auto-generated method stub
-		return null;
+		return selectByPrimaryKey(jobId);
 	}
+
+
+
+
 
     
 }
