@@ -16,7 +16,7 @@
 - 20170912更新 修复bug 另创立了新的基于morpho-springboot的项目和本项目保持同步 https://git.oschina.net/max256/morpho-springboot     正在开发中morpho-springboot不建议正式环境使用 正式发布会在此通知 注意的是morpho-springboot将不再支持hibernate更符合互联网业务的特征
 - 20170918更新 新增包装list到页面的json数据中包装新的自定义字段的功能 例如加入数据字典翻译信息 morpho-springboot初步可用 欢迎试用
 - 20171120更新 更新依赖到最新版修复了uflo ureport urule中的许多漏洞 增加JTA分布式事务支持但默认并不开启 提供操作说明按需取用 
-- 20171123更新 增加了基于数据库存储的quartz定时任务管理功能 另外不推荐使用jasperreport已移除 以后版本更新对应的数据库将主要更新mysql版本 其他数据库版本没有太多精力维护 请熟悉其他数据库的用户自行从mysql版转换 提交PR贡献一份力量 本次更新请重新运行mysql脚本 注意这是初始化脚本 如果升级的话请根据涉及的表执行部分sql即可 另外 代码生成器 将在近期重写~
+- 20171123更新 增加了基于数据库存储的quartz定时任务管理功能 另外不推荐使用jasperreport已移除 以后版本更新对应的数据库将主要更新mysql版本和oracle版本 其他数据库版本没有太多精力维护 请熟悉其他数据库的用户自行从mysql版转换 提交PR贡献一份力量 本次更新请重新运行mysql脚本 注意这是初始化脚本 如果升级的话请根据涉及的表执行部分sql即可 另外 代码生成器 将在近期重写~
 
 #项目名称来历
 
@@ -181,6 +181,8 @@ to do list
 中的分页插件dialect为sqlserver或者sqlserver2012  前者适用2005、2008版本后者适用2012版本
 ps:建表语句默认使用varchar表示字符串类型没有使用nvarchar所以在非中文版本windows中乱码 请您明知这一点 如果需要nvarchar请自行修改表结构
 并且配置hibernate注解类型明确nvarchar 或者继承sqlserver驱动注册string到nvarchar的默认映射 请您考虑并解决
+
+- sqlserver用户特别注意：目前的sqlserver脚本在最新版程序中不能直接用 请参考mysql版本或者oracle版本自行建表 quartz的sql脚本请在quartz官方下载并执行   由于没有精力和sqlserver各种版本的环境 以后将不在更新该脚本 欢迎大家贡献已修改好的sqlserver脚本 将合并到主分支
 
 
 #开发步骤
