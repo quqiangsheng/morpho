@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -31,6 +32,7 @@ public class ScheduleJob implements Serializable {
 	/**
 	 * 任务id
 	 */
+	@Id
 	@Column(name="job_id")
 	private Long jobId;
 

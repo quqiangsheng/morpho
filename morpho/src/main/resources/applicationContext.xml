@@ -58,7 +58,7 @@
 
 	
 	<!--  quartz任务调度模块  可以用 需要的话放开配置 -->
-	<!-- <import resource="spring/applicationContext-quartz.xml"/> -->
+	<import resource="spring/applicationContext-quartz.xml"/>
 
 	<!-- 开启AOP监听 只对当前配置文件有效 -->
 	<!-- <aop:aspectj-autoproxy 

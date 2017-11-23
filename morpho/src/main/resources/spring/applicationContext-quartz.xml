@@ -9,7 +9,6 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
 	">
-	<!--Quartz非集群环境配置-->
 	<!--本配置文件是quartz任务调度相关信息  -->
 	
 	
@@ -18,83 +17,51 @@
 							<version>1.2.4</version> 
 		存在jar包冲突 暂时禁用掉了	shiro-quartz	
 		
-		以解决重新编译了shiro-quartz来支持	quartz2.2.2		
-							 -->
-	
-            
-    <!-- 集成方式：JobDetailFactoryBean，并且任务类需要继承QuartzJobBean-->
-    
-    <!-- 定义jobDetail 有两种方式 -->
-    <!-- A：使用 MethodInvokingJobDetailFactoryBean -->
-    <!-- For times when you just need to invoke a method on a specific object --> 
-  <!--   <bean id=simpleJobDetail class=org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean>   
-      <property name="targetObject" ref="myBean">     
-    	  <property name="targetMethod" value="printMessage">  </property>
-      </property>
-    </bean>  -->
-    <!-- 以上作业配置简单调用了 myBean 的 printMessage 方法，myBean 是一个简单的 POJO。 -->
-
-
-
-    <!-- B：使用 JobDetailFactoryBean
-		  如果你需要更高级的设置，需要给作业传递数据，想更加灵活的话就使用这种方式。
-     -->    
-     <!-- 定义jobDetail -->   
-	 <!-- jobClass 关联到一个继承自 QuartzJobBean 的类，它实现了 Quartz 作业接口。调用到这个作业的时候，它的 executeInternal 将被执行。
-			  jobDataMap 允许我们给相关作业 bean 传递一些数据。在这个例子里，我们将 ScheduledJob 将要使用到的 'anotherBean' 传递给它。	
-	 -->
-	 
-	 
-	<bean id="jobDetail"
-		class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="com.max256.morpho.common.quartz.SpringQuartzTest"></property>
-		<!-- durability 表示任务完成之后是否依然保留到数据库，默认false -->
-		<property name="durability" value="false" />
-		<!-- 在这个例子中，jobDataAsMap没有用，此目标类中接受的参数 -->
-		<!-- 
-			<property name="jobDataAsMap"> 
-				<map>
-					 <entry key="service"><value>abc</value></entry> 
-				</map>
-		     </property> 
-		 -->
-
-	</bean>
-    
-    <!-- 定义simpleTrigger触发器 -->
-    <!--     
-    <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
-        <property name="jobDetail" ref="jobDetail"></property>
-        <property name="repeatCount">
-            <value>8</value>
+		以解决重新编译了shiro-quartz来支持	quartz2.2.2		-->
+							 
+ 
+	 <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 本系统自己的mysql数据源 -->
+        <property name="dataSource" ref="druidDataSource" />
+        <!-- quartzProperties配置 -->
+        <property name="quartzProperties">
+            <props>
+            	<!-- scheduler实例名字 -->
+                <prop key="org.quartz.scheduler.instanceName">QuartzScheduler</prop>
+                <!-- schedulerId建议AUTO适应各种情况 -->
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+                <!-- 线程池配置 -->
+                <prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>
+                <!-- 线程池线程数量默认10 -->
+                <prop key="org.quartz.threadPool.threadCount">10</prop>
+                <!-- 线程优先级 默认5 -->
+                <prop key="org.quartz.threadPool.threadPriority">5</prop>
+                <!-- JobStore 配置 -->
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
+                <!-- 集群配置 -->
+                <prop key="org.quartz.jobStore.isClustered">false</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">15000</prop>
+                <prop key="org.quartz.jobStore.maxMisfiresToHandleAtATime">1</prop>
+                <!-- #60秒  默认值 -->
+                <prop key="org.quartz.jobStore.misfireThreshold">60000</prop>
+				<!-- 表前缀 -->
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+            </props>
         </property>
-        <property name="repeatInterval">
-            <value>1000</value>
-        </property>
-        <property name="startDelay">
-            <value>4</value>
-        </property>
-    </bean> 
-    -->
-    
-    <!-- 另一种触发器是CornTrigger -->
 
-	<bean id="cronTriggerBean"
-		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="jobDetail"></property>
-		<!--corn表达式  -->
-       <property name="cronExpression" value="0/10 * * * * ?"/>
-	</bean>
-	
-	<!-- 定义核心调度器 -->
-	<bean id="trigger"
-		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="cronTriggerBean" />
-			</list>
-		</property>
-	</bean>
+        <!--延时启动 -->
+        <property name="startupDelay" value="30" />
+
+        <property name="applicationContextSchedulerContextKey" value="applicationContextSchedulerContextKey" />
+
+        <!--可选，QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true" />
+
+        <!-- 设置自动启动   默认为true -->
+        <property name="autoStartup" value="true" />
+
+    </bean>
+
 <!-- 
 
 

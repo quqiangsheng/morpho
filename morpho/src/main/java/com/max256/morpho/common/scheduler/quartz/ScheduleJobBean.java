@@ -30,7 +30,7 @@ public class ScheduleJobBean extends QuartzJobBean {
 	
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-    	//ScheduleJob
+    	//ScheduleJob定时任务的bean 方法 参数等
         ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
         
         //获取spring bean 记录日志
@@ -38,11 +38,11 @@ public class ScheduleJobBean extends QuartzJobBean {
         
         //数据库保存执行记录
         ScheduleJobLog log = new ScheduleJobLog();
-        log.setJobId(scheduleJob.getJobId());
-        log.setBeanName(scheduleJob.getBeanName());
-        log.setMethodName(scheduleJob.getMethodName());
-        log.setParams(scheduleJob.getParams());
-        log.setCreateTime(new Date());
+        log.setJobId(scheduleJob.getJobId());//jobId
+        log.setBeanName(scheduleJob.getBeanName());//spring bean name
+        log.setMethodName(scheduleJob.getMethodName());//方法名字
+        log.setParams(scheduleJob.getParams());//实际传入的参数 可以为空
+        log.setCreateTime(new Date());//人物创建时间
         
         //任务开始时间
         long startTime = System.currentTimeMillis();
@@ -50,7 +50,7 @@ public class ScheduleJobBean extends QuartzJobBean {
         try {
             //执行任务
         	if(logger.isInfoEnabled()){
-        		logger.info("任务准备执行，任务ID：" + scheduleJob.getJobId());
+        		logger.info("任务准备执行,任务ID:" + scheduleJob.getJobId());
         	}
             ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(),
             		scheduleJob.getMethodName(), scheduleJob.getParams());
@@ -77,6 +77,7 @@ public class ScheduleJobBean extends QuartzJobBean {
 			log.setStatus(0);
 			log.setErrorInfo(StringUtils.substring(e.toString(), 0, 500));
 		}finally {
+			//设置日志LogId主键并持久化
 			log.setLogId(UUIDUtils.get32UUID());
 			scheduleJobLogService.insert(log);
 		}

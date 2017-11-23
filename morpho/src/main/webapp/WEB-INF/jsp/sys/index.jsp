@@ -109,6 +109,22 @@
                             
                         </ul>
                     </li>
+                    <li>
+                    	<!--定时任务 -->
+                        <a href="#"><i class="fa fa-table"></i> <span class="nav-label">定时任务</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                          <shiro:hasPermission name="sys:schedulejob:page">
+                         	<li><a class="J_menuItem" href="${ctx}/sys/schedulejob/schedulejobpage">定时任务管理</a>
+                            </li>
+                          </shiro:hasPermission>
+                          <shiro:hasPermission name="sys:schedulejoblog:page">
+                            <li><a class="J_menuItem" href="${ctx}/sys/schedulejoblog/schedulejoblogpage">定时任务日志</a>
+                            </li>
+                          </shiro:hasPermission>
+
+                            
+                        </ul>
+                    </li>
                     
                   	 <li>
                     	<!--系统设置 -->
