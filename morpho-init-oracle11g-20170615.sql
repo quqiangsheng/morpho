@@ -393,40 +393,38 @@ ALTER TABLE "SYS_USER" ADD PRIMARY KEY ("UUID");
 -- ----------------------------
 -- Table structure for schedule_job
 -- ----------------------------
--- Create table
-create table schedule_job
+create table SCHEDULE_JOB
 (
-  job_id          number not null,
-  bean_name       varchar2(200),
-  method_name     varchar2(100),
-  params          varchar2(2000),
-  cron_expression varchar2(150),
-  status          number,
-  remark          varchar2(255),
-  create_time     date
+  job_id          NUMBER(19) not null,
+  bean_name       VARCHAR2(255 CHAR),
+  create_time     TIMESTAMP(6),
+  cron_expression VARCHAR2(255 CHAR),
+  method_name     VARCHAR2(255 CHAR),
+  params          VARCHAR2(255 CHAR),
+  remark          VARCHAR2(255 CHAR),
+  status          NUMBER(10)
 )
-;
--- Create/Recreate primary, unique and foreign key constraints 
-alter table schedule_job
-  add constraint schedule_job_pid primary key (JOB_ID);
+alter table SCHEDULE_JOB
+  add primary key (JOB_ID);
+
+
 
 -- Create table
-create table schedule_job_log
+create table SCHEDULE_JOB_LOG
 (
-  log_id      varchar2(32) not null,
-  job_id      number not null,
-  bean_name   varchar2(200),
-  method_name varchar2(100),
-  params      varchar2(2000),
-  status      number,
-  create_time date,
-  times       number,
-  error_info  varchar2(255)
+  log_id      VARCHAR2(255 CHAR) not null,
+  bean_name   VARCHAR2(255 CHAR),
+  create_time TIMESTAMP(6),
+  error_info  VARCHAR2(255 CHAR),
+  job_id      NUMBER(19),
+  method_name VARCHAR2(255 CHAR),
+  params      VARCHAR2(255 CHAR),
+  status      NUMBER(10),
+  times       NUMBER(19)
 )
-;
--- Create/Recreate primary, unique and foreign key constraints 
-alter table schedule_job_log
-  add constraint schedule_job_log_pid primary key (LOG_ID);
+
+alter table SCHEDULE_JOB_LOG
+  add primary key (LOG_ID);
 
 --
 -- A hint submitted by a user: Oracle DB MUST be created as "shared" and the 
