@@ -14,12 +14,9 @@
 		<property name="slowSqlMillis" value="30000" />
 		<property name="logSlowSql" value="true" />
 		<property name="mergeSql" value="true" />
-		<!-- 指定mysql -->
-		<property name="dbType" value="mysql" />
 	</bean>
 	<!-- 防御sql注入的filter:wall -->
 	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
-		<property name="dbType" value="mysql" />
 		<property name="config" ref="wallConfig"></property>
 	</bean>
 	<!-- 数据库类型 目录 mysql META-INF/druid/wall/mysql Oracle META-INF/druid/wall/oracle 
