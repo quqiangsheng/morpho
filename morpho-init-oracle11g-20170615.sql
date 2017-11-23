@@ -150,7 +150,168 @@ CREATE TABLE "SYS_RESOURCE" (
 -- ----------------------------
 
 
-INSERT INTO "SYS_RESOURCE"(`UUID`,`RESOURCE_ID`,`IS_VALID`,`RESOURCE_NAME`,`PARENT_ID`,`PERMISSION`,`RESOURCE_TYPE`,`RESOURCE_URL`) values ('0',0,'1','资源树根',-1,'*','1',''),('1',1,'1','通信加密',0,'transfer:encrypt:*','1','/encrypt/'),('10',10,'1','删除',8,'sys:code:delete','2','/sys/syscode/delete'),('11',11,'1','数据字典页面访问',8,'sys:code:page','2','/sys/syscode/syscode'),('12',12,'1','新增',8,'sys:code:create','2','/sys/syscode/createsyscode'),('13',13,'1','修改',8,'sys:code:update','2','/sys/syscode/updatesyscode'),('14',14,'1','系统日志管理',0,'sys:log:*','1','/sys/syslog/'),('15',15,'1','查询',14,'sys:log:query','2','/sys/syslog/list'),('16',16,'1','页面访问',14,'sys:log:page','2','/sys/syslog/syslog'),('17',17,'1','组织机构管理',0,'sys:organization:*','1','/sys/sysorganization/'),('18',18,'1','查询',17,'sys:organization:query','2','/sys/sysorganization/tree'),('19',19,'1','删除',17,'sys:organization:delete','2','/sys/sysorganization/delete'),('2',2,'1','通信加密密钥交换',1,'transfer:encrypt:start','2','/encrypt/getserverpublickey'),('20',20,'1','新增',17,'sys:organization:create','2','/sys/sysorganization/add'),('21',21,'1','更新',17,'sys:organization:update','2','/sys/sysorganization/update'),('22',22,'1','页面访问',17,'sys:organization:page','2','/sys/sysorganization/sysorganization'),('23',23,'1','资源权限管理',0,'sys:resource:*','1','/sys/sysresource/'),('24',24,'1','查询',23,'sys:resource:query','2','/sys/sysresource/tree'),('25',25,'1','删除',23,'sys:resource:delete','2','/sys/sysresource/delete'),('26',26,'1','新增',23,'sys:resource:create','2','/sys/sysresource/add'),('27',27,'1','更新',23,'sys:resource:update','2','/sys/sysresource/update'),('28',28,'1','页面访问',23,'sys:resource:page','2','/sys/sysresource/sysresource'),('29',29,'1','角色管理',0,'sys:role:*','1','/sys/sysrole/'),('3',3,'1','通信加密解密示例',1,'transfer:encrypt:demo','2','/encrypt/encrypt'),('30',30,'1','查询',29,'sys:role:query','2','/sys/sysrole/list'),('31',31,'1','删除',29,'sys:role:delete','2','/sys/sysrole/delete'),('32',32,'1','新增',29,'sys:role:create','2','/sys/sysrole/createsysrole'),('33',33,'1','更新',29,'sys:role:update','2','/sys/sysrole/updatesysrole'),('34',34,'1','页面访问',29,'sys:role:page','2','/sys/sysrole/sysrole'),('35',35,'1','用户管理',0,'sys:user:*','1','/sys/sysuser/'),('36',36,'1','查询',35,'sys:user:query','2','/sys/sysuser/list'),('37',37,'1','删除',35,'sys:user:delete','2','/sys/sysuser/delete'),('38',38,'1','页面访问',35,'sys:user:page','2','/sys/sysuser/sysuser'),('39',39,'1','新增',35,'sys:user:create','2','/sys/sysuser/createsysuser'),('4',4,'1','Session管理',0,'sys:session:*','1','/sys/httpsession/'),('40',40,'1','更新',35,'sys:user:update','2','/sys/sysuser/updatesysuser'),('41',41,'1','定时任务日志',0,'sys:schedulejoblog:*','1','/sys/schedulejoblog'),('42',42,'1','定时任务日志页面访问',41,'sys:schedulejoblog:page','2','/sys/schedulejoblog/schedulejoblogpage'),('43',43,'1','查询',41,'sys:schedulejoblog:query','2','/sys/schedulejoblog/list'),('44',44,'1','定时任务管理',0,'sys:schedulejob:*','1','/sys/schedulejob'),('45',45,'1','定时任务页面访问',44,'sys:schedulejob:page','2','/sys/schedulejob/schedulejobpage'),('46',46,'1','查询详细信息',44,'sys:schedulejob:query','2','/sys/schedulejob/uuid/{jobId}'),('47',47,'1','删除',44,'sys:schedulejob:delete','2','/sys/schedulejob/delete'),('48',48,'1','查询',44,'sys:schedulejob:query','2','/sys/schedulejob/list'),('49',49,'1','新增',44,'sys:schedulejob:add','2','/sys/schedulejob/add'),('5',5,'1','查询',4,'sys:session:query','2','/sys/httpsession/list'),('50',50,'1','修改',44,'sys:schedulejob:update','2','/sys/schedulejob/updateschedulejob'),('51',51,'1','立即执行',44,'sys:schedulejob:run','2','/sys/schedulejob/run'),('52',52,'1','暂停执行',44,'sys:schedulejob:pause','2','/sys/schedulejob/pause'),('53',53,'1','恢复执行',44,'sys:schedulejob:resume','2','/sys/schedulejob/resume'),('6',6,'1','删除',4,'sys:session:delete','2','/sys/httpsession/delete'),('7',7,'1','session管理页面访问',4,'sys:session:page','2','/sys/httpsession/httpsession'),('8',8,'1','数据字典管理',0,'sys:code:*','1','/sys/syscode/'),('9',9,'1','查询',8,'sys:code:query','2','/sys/syscode/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('0', 0, '1', '资源树根', -1, '*', '1', null);
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('1', 1, '1', '通信加密', 0, 'transfer:encrypt:*', '1', '/encrypt/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('10', 10, '1', '删除', 8, 'sys:code:delete', '2', '/sys/syscode/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('11', 11, '1', '数据字典页面访问', 8, 'sys:code:page', '2', '/sys/syscode/syscode');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('12', 12, '1', '新增', 8, 'sys:code:create', '2', '/sys/syscode/createsyscode');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('13', 13, '1', '修改', 8, 'sys:code:update', '2', '/sys/syscode/updatesyscode');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('14', 14, '1', '系统日志管理', 0, 'sys:log:*', '1', '/sys/syslog/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('15', 15, '1', '查询', 14, 'sys:log:query', '2', '/sys/syslog/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('16', 16, '1', '页面访问', 14, 'sys:log:page', '2', '/sys/syslog/syslog');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('17', 17, '1', '组织机构管理', 0, 'sys:organization:*', '1', '/sys/sysorganization/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('18', 18, '1', '查询', 17, 'sys:organization:query', '2', '/sys/sysorganization/tree');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('19', 19, '1', '删除', 17, 'sys:organization:delete', '2', '/sys/sysorganization/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('2', 2, '1', '通信加密密钥交换', 1, 'transfer:encrypt:start', '2', '/encrypt/getserverpublickey');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('20', 20, '1', '新增', 17, 'sys:organization:create', '2', '/sys/sysorganization/add');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('21', 21, '1', '更新', 17, 'sys:organization:update', '2', '/sys/sysorganization/update');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('22', 22, '1', '页面访问', 17, 'sys:organization:page', '2', '/sys/sysorganization/sysorganization');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('23', 23, '1', '资源权限管理', 0, 'sys:resource:*', '1', '/sys/sysresource/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('24', 24, '1', '查询', 23, 'sys:resource:query', '2', '/sys/sysresource/tree');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('25', 25, '1', '删除', 23, 'sys:resource:delete', '2', '/sys/sysresource/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('26', 26, '1', '新增', 23, 'sys:resource:create', '2', '/sys/sysresource/add');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('27', 27, '1', '更新', 23, 'sys:resource:update', '2', '/sys/sysresource/update');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('28', 28, '1', '页面访问', 23, 'sys:resource:page', '2', '/sys/sysresource/sysresource');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('29', 29, '1', '角色管理', 0, 'sys:role:*', '1', '/sys/sysrole/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('3', 3, '1', '通信加密解密示例', 1, 'transfer:encrypt:demo', '2', '/encrypt/encrypt');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('30', 30, '1', '查询', 29, 'sys:role:query', '2', '/sys/sysrole/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('31', 31, '1', '删除', 29, 'sys:role:delete', '2', '/sys/sysrole/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('32', 32, '1', '新增', 29, 'sys:role:create', '2', '/sys/sysrole/createsysrole');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('33', 33, '1', '更新', 29, 'sys:role:update', '2', '/sys/sysrole/updatesysrole');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('34', 34, '1', '页面访问', 29, 'sys:role:page', '2', '/sys/sysrole/sysrole');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('35', 35, '1', '用户管理', 0, 'sys:user:*', '1', '/sys/sysuser/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('36', 36, '1', '查询', 35, 'sys:user:query', '2', '/sys/sysuser/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('37', 37, '1', '删除', 35, 'sys:user:delete', '2', '/sys/sysuser/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('38', 38, '1', '页面访问', 35, 'sys:user:page', '2', '/sys/sysuser/sysuser');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('39', 39, '1', '新增', 35, 'sys:user:create', '2', '/sys/sysuser/createsysuser');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('4', 4, '1', 'Session管理', 0, 'sys:session:*', '1', '/sys/httpsession/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('40', 40, '1', '更新', 35, 'sys:user:update', '2', '/sys/sysuser/updatesysuser');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('41', 41, '1', '定时任务日志', 0, 'sys:schedulejoblog:*', '1', '/sys/schedulejoblog');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('42', 42, '1', '定时任务日志页面访问', 41, 'sys:schedulejoblog:page', '2', '/sys/schedulejoblog/schedulejoblogpage');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('43', 43, '1', '查询', 41, 'sys:schedulejoblog:query', '2', '/sys/schedulejoblog/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('44', 44, '1', '定时任务管理', 0, 'sys:schedulejob:*', '1', '/sys/schedulejob');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('45', 45, '1', '定时任务页面访问', 44, 'sys:schedulejob:page', '2', '/sys/schedulejob/schedulejobpage');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('46', 46, '1', '查询详细信息', 44, 'sys:schedulejob:query', '2', '/sys/schedulejob/uuid/{jobId}');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('47', 47, '1', '删除', 44, 'sys:schedulejob:delete', '2', '/sys/schedulejob/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('48', 48, '1', '查询', 44, 'sys:schedulejob:query', '2', '/sys/schedulejob/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('49', 49, '1', '新增', 44, 'sys:schedulejob:add', '2', '/sys/schedulejob/add');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('5', 5, '1', '查询', 4, 'sys:session:query', '2', '/sys/httpsession/list');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('50', 50, '1', '修改', 44, 'sys:schedulejob:update', '2', '/sys/schedulejob/updateschedulejob');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('51', 51, '1', '立即执行', 44, 'sys:schedulejob:run', '2', '/sys/schedulejob/run');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('52', 52, '1', '暂停执行', 44, 'sys:schedulejob:pause', '2', '/sys/schedulejob/pause');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('53', 53, '1', '恢复执行', 44, 'sys:schedulejob:resume', '2', '/sys/schedulejob/resume');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('6', 6, '1', '删除', 4, 'sys:session:delete', '2', '/sys/httpsession/delete');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('7', 7, '1', 'session管理页面访问', 4, 'sys:session:page', '2', '/sys/httpsession/httpsession');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('8', 8, '1', '数据字典管理', 0, 'sys:code:*', '1', '/sys/syscode/');
+
+insert into SYS_RESOURCE (UUID, RESOURCE_ID, IS_VALID, RESOURCE_NAME, PARENT_ID, PERMISSION, RESOURCE_TYPE, RESOURCE_URL)
+values ('9', 9, '1', '查询', 8, 'sys:code:query', '2', '/sys/syscode/list');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -170,7 +331,7 @@ CREATE TABLE "SYS_ROLE" (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO "SYS_ROLE" VALUES ('2', '管理员拥有全部权限', '1', '1', '0,1,2,3,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,4,5,6,7,8,10,11,12,13,9', '管理员');
+INSERT INTO "SYS_ROLE" VALUES ('2', '管理员拥有全部权限', '1', '1', '0,1,2,3,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,4,5,6,7,8,10,11,12,13,9,41,42,43,44,45,46,47,48,49,50,51,52,53', '管理员');
 INSERT INTO "SYS_ROLE" VALUES ('a9edc635b8384903a7d923c88ca52f93', '最小权限', '2', '1', '2,3', '最小权限');
 
 -- ----------------------------
@@ -247,7 +408,7 @@ create table schedule_job
 ;
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table schedule_job
-  add constraint pid primary key (JOB_ID);
+  add constraint schedule_job_pid primary key (JOB_ID);
 
 -- Create table
 create table schedule_job_log
@@ -265,7 +426,7 @@ create table schedule_job_log
 ;
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table schedule_job_log
-  add constraint pid primary key (LOG_ID);
+  add constraint schedule_job_log_pid primary key (LOG_ID);
 
 --
 -- A hint submitted by a user: Oracle DB MUST be created as "shared" and the 
