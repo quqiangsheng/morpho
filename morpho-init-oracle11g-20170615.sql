@@ -148,47 +148,9 @@ CREATE TABLE "SYS_RESOURCE" (
 -- ----------------------------
 -- Records of sys_resource
 -- ----------------------------
-INSERT INTO "SYS_RESOURCE" VALUES ('0', '0', '1', '资源树根', '-1', '*', '1', '');
-INSERT INTO "SYS_RESOURCE" VALUES ('1', '1', '1', '通信加密', '0', 'transfer:encrypt:*', '1', '/encrypt/');
-INSERT INTO "SYS_RESOURCE" VALUES ('10', '10', '1', '删除', '8', 'sys:code:delete', '2', '/sys/syscode/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('11', '11', '1', '数据字典页面访问', '8', 'sys:code:page', '2', '/sys/syscode/syscode');
-INSERT INTO "SYS_RESOURCE" VALUES ('12', '12', '1', '新增', '8', 'sys:code:create', '2', '/sys/syscode/createsyscode');
-INSERT INTO "SYS_RESOURCE" VALUES ('13', '13', '1', '修改', '8', 'sys:code:update', '2', '/sys/syscode/updatesyscode');
-INSERT INTO "SYS_RESOURCE" VALUES ('14', '14', '1', '系统日志管理', '0', 'sys:log:*', '1', '/sys/syslog/');
-INSERT INTO "SYS_RESOURCE" VALUES ('15', '15', '1', '查询', '14', 'sys:log:query', '2', '/sys/syslog/list');
-INSERT INTO "SYS_RESOURCE" VALUES ('16', '16', '1', '页面访问', '14', 'sys:log:page', '2', '/sys/syslog/syslog');
-INSERT INTO "SYS_RESOURCE" VALUES ('17', '17', '1', '组织机构管理', '0', 'sys:organization:*', '1', '/sys/sysorganization/');
-INSERT INTO "SYS_RESOURCE" VALUES ('18', '18', '1', '查询', '17', 'sys:organization:query', '2', '/sys/sysorganization/tree');
-INSERT INTO "SYS_RESOURCE" VALUES ('19', '19', '1', '删除', '17', 'sys:organization:delete', '2', '/sys/sysorganization/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('2', '2', '1', '通信加密密钥交换', '1', 'transfer:encrypt:start', '2', '/encrypt/getserverpublickey');
-INSERT INTO "SYS_RESOURCE" VALUES ('20', '20', '1', '新增', '17', 'sys:organization:create', '2', '/sys/sysorganization/add');
-INSERT INTO "SYS_RESOURCE" VALUES ('21', '21', '1', '更新', '17', 'sys:organization:update', '2', '/sys/sysorganization/update');
-INSERT INTO "SYS_RESOURCE" VALUES ('22', '22', '1', '页面访问', '17', 'sys:organization:page', '2', '/sys/sysorganization/sysorganization');
-INSERT INTO "SYS_RESOURCE" VALUES ('23', '23', '1', '资源权限管理', '0', 'sys:resource:*', '1', '/sys/sysresource/');
-INSERT INTO "SYS_RESOURCE" VALUES ('24', '24', '1', '查询', '23', 'sys:resource:query', '2', '/sys/sysresource/tree');
-INSERT INTO "SYS_RESOURCE" VALUES ('25', '25', '1', '删除', '23', 'sys:resource:delete', '2', '/sys/sysresource/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('26', '26', '1', '新增', '23', 'sys:resource:create', '2', '/sys/sysresource/add');
-INSERT INTO "SYS_RESOURCE" VALUES ('27', '27', '1', '更新', '23', 'sys:resource:update', '2', '/sys/sysresource/update');
-INSERT INTO "SYS_RESOURCE" VALUES ('28', '28', '1', '页面访问', '23', 'sys:resource:page', '2', '/sys/sysresource/sysresource');
-INSERT INTO "SYS_RESOURCE" VALUES ('29', '29', '1', '角色管理', '0', 'sys:role:*', '1', '/sys/sysrole/');
-INSERT INTO "SYS_RESOURCE" VALUES ('3', '3', '1', '通信加密解密示例', '1', 'transfer:encrypt:demo', '2', '/encrypt/encrypt');
-INSERT INTO "SYS_RESOURCE" VALUES ('30', '30', '1', '查询', '29', 'sys:role:query', '2', '/sys/sysrole/list');
-INSERT INTO "SYS_RESOURCE" VALUES ('31', '31', '1', '删除', '29', 'sys:role:delete', '2', '/sys/sysrole/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('32', '32', '1', '新增', '29', 'sys:role:create', '2', '/sys/sysrole/createsysrole');
-INSERT INTO "SYS_RESOURCE" VALUES ('33', '33', '1', '更新', '29', 'sys:role:update', '2', '/sys/sysrole/updatesysrole');
-INSERT INTO "SYS_RESOURCE" VALUES ('34', '34', '1', '页面访问', '29', 'sys:role:page', '2', '/sys/sysrole/sysrole');
-INSERT INTO "SYS_RESOURCE" VALUES ('35', '35', '1', '用户管理', '0', 'sys:user:*', '1', '/sys/sysuser/');
-INSERT INTO "SYS_RESOURCE" VALUES ('36', '36', '1', '查询', '35', 'sys:user:query', '2', '/sys/sysuser/list');
-INSERT INTO "SYS_RESOURCE" VALUES ('37', '37', '1', '删除', '35', 'sys:user:delete', '2', '/sys/sysuser/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('38', '38', '1', '页面访问', '35', 'sys:user:page', '2', '/sys/sysuser/sysuser');
-INSERT INTO "SYS_RESOURCE" VALUES ('39', '39', '1', '新增', '35', 'sys:user:create', '2', '/sys/sysuser/createsysuser');
-INSERT INTO "SYS_RESOURCE" VALUES ('4', '4', '1', 'Session管理', '0', 'sys:session:*', '1', '/sys/httpsession/');
-INSERT INTO "SYS_RESOURCE" VALUES ('40', '40', '1', '更新', '35', 'sys:user:update', '2', '/sys/sysuser/updatesysuser');
-INSERT INTO "SYS_RESOURCE" VALUES ('5', '5', '1', '查询', '4', 'sys:session:query', '2', '/sys/httpsession/list');
-INSERT INTO "SYS_RESOURCE" VALUES ('6', '6', '1', '删除', '4', 'sys:session:delete', '2', '/sys/httpsession/delete');
-INSERT INTO "SYS_RESOURCE" VALUES ('7', '7', '1', 'session管理页面访问', '4', 'sys:session:page', '2', '/sys/httpsession/httpsession');
-INSERT INTO "SYS_RESOURCE" VALUES ('8', '8', '1', '数据字典管理', '0', 'sys:code:*', '1', '/sys/syscode/');
-INSERT INTO "SYS_RESOURCE" VALUES ('9', '9', '1', '查询', '8', 'sys:code:query', '2', '/sys/syscode/list');
+
+
+INSERT INTO "SYS_RESOURCE"(`UUID`,`RESOURCE_ID`,`IS_VALID`,`RESOURCE_NAME`,`PARENT_ID`,`PERMISSION`,`RESOURCE_TYPE`,`RESOURCE_URL`) values ('0',0,'1','资源树根',-1,'*','1',''),('1',1,'1','通信加密',0,'transfer:encrypt:*','1','/encrypt/'),('10',10,'1','删除',8,'sys:code:delete','2','/sys/syscode/delete'),('11',11,'1','数据字典页面访问',8,'sys:code:page','2','/sys/syscode/syscode'),('12',12,'1','新增',8,'sys:code:create','2','/sys/syscode/createsyscode'),('13',13,'1','修改',8,'sys:code:update','2','/sys/syscode/updatesyscode'),('14',14,'1','系统日志管理',0,'sys:log:*','1','/sys/syslog/'),('15',15,'1','查询',14,'sys:log:query','2','/sys/syslog/list'),('16',16,'1','页面访问',14,'sys:log:page','2','/sys/syslog/syslog'),('17',17,'1','组织机构管理',0,'sys:organization:*','1','/sys/sysorganization/'),('18',18,'1','查询',17,'sys:organization:query','2','/sys/sysorganization/tree'),('19',19,'1','删除',17,'sys:organization:delete','2','/sys/sysorganization/delete'),('2',2,'1','通信加密密钥交换',1,'transfer:encrypt:start','2','/encrypt/getserverpublickey'),('20',20,'1','新增',17,'sys:organization:create','2','/sys/sysorganization/add'),('21',21,'1','更新',17,'sys:organization:update','2','/sys/sysorganization/update'),('22',22,'1','页面访问',17,'sys:organization:page','2','/sys/sysorganization/sysorganization'),('23',23,'1','资源权限管理',0,'sys:resource:*','1','/sys/sysresource/'),('24',24,'1','查询',23,'sys:resource:query','2','/sys/sysresource/tree'),('25',25,'1','删除',23,'sys:resource:delete','2','/sys/sysresource/delete'),('26',26,'1','新增',23,'sys:resource:create','2','/sys/sysresource/add'),('27',27,'1','更新',23,'sys:resource:update','2','/sys/sysresource/update'),('28',28,'1','页面访问',23,'sys:resource:page','2','/sys/sysresource/sysresource'),('29',29,'1','角色管理',0,'sys:role:*','1','/sys/sysrole/'),('3',3,'1','通信加密解密示例',1,'transfer:encrypt:demo','2','/encrypt/encrypt'),('30',30,'1','查询',29,'sys:role:query','2','/sys/sysrole/list'),('31',31,'1','删除',29,'sys:role:delete','2','/sys/sysrole/delete'),('32',32,'1','新增',29,'sys:role:create','2','/sys/sysrole/createsysrole'),('33',33,'1','更新',29,'sys:role:update','2','/sys/sysrole/updatesysrole'),('34',34,'1','页面访问',29,'sys:role:page','2','/sys/sysrole/sysrole'),('35',35,'1','用户管理',0,'sys:user:*','1','/sys/sysuser/'),('36',36,'1','查询',35,'sys:user:query','2','/sys/sysuser/list'),('37',37,'1','删除',35,'sys:user:delete','2','/sys/sysuser/delete'),('38',38,'1','页面访问',35,'sys:user:page','2','/sys/sysuser/sysuser'),('39',39,'1','新增',35,'sys:user:create','2','/sys/sysuser/createsysuser'),('4',4,'1','Session管理',0,'sys:session:*','1','/sys/httpsession/'),('40',40,'1','更新',35,'sys:user:update','2','/sys/sysuser/updatesysuser'),('41',41,'1','定时任务日志',0,'sys:schedulejoblog:*','1','/sys/schedulejoblog'),('42',42,'1','定时任务日志页面访问',41,'sys:schedulejoblog:page','2','/sys/schedulejoblog/schedulejoblogpage'),('43',43,'1','查询',41,'sys:schedulejoblog:query','2','/sys/schedulejoblog/list'),('44',44,'1','定时任务管理',0,'sys:schedulejob:*','1','/sys/schedulejob'),('45',45,'1','定时任务页面访问',44,'sys:schedulejob:page','2','/sys/schedulejob/schedulejobpage'),('46',46,'1','查询详细信息',44,'sys:schedulejob:query','2','/sys/schedulejob/uuid/{jobId}'),('47',47,'1','删除',44,'sys:schedulejob:delete','2','/sys/schedulejob/delete'),('48',48,'1','查询',44,'sys:schedulejob:query','2','/sys/schedulejob/list'),('49',49,'1','新增',44,'sys:schedulejob:add','2','/sys/schedulejob/add'),('5',5,'1','查询',4,'sys:session:query','2','/sys/httpsession/list'),('50',50,'1','修改',44,'sys:schedulejob:update','2','/sys/schedulejob/updateschedulejob'),('51',51,'1','立即执行',44,'sys:schedulejob:run','2','/sys/schedulejob/run'),('52',52,'1','暂停执行',44,'sys:schedulejob:pause','2','/sys/schedulejob/pause'),('53',53,'1','恢复执行',44,'sys:schedulejob:resume','2','/sys/schedulejob/resume'),('6',6,'1','删除',4,'sys:session:delete','2','/sys/httpsession/delete'),('7',7,'1','session管理页面访问',4,'sys:session:page','2','/sys/httpsession/httpsession'),('8',8,'1','数据字典管理',0,'sys:code:*','1','/sys/syscode/'),('9',9,'1','查询',8,'sys:code:query','2','/sys/syscode/list');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -266,3 +228,235 @@ ALTER TABLE "SYS_ROLE" ADD PRIMARY KEY ("UUID");
 -- Primary Key structure for table sys_user
 -- ----------------------------
 ALTER TABLE "SYS_USER" ADD PRIMARY KEY ("UUID");
+
+-- ----------------------------
+-- Table structure for schedule_job
+-- ----------------------------
+-- Create table
+create table schedule_job
+(
+  job_id          number not null,
+  bean_name       varchar2(200),
+  method_name     varchar2(100),
+  params          varchar2(2000),
+  cron_expression varchar2(150),
+  status          number,
+  remark          varchar2(255),
+  create_time     date
+)
+;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table schedule_job
+  add constraint pid primary key (JOB_ID);
+
+-- Create table
+create table schedule_job_log
+(
+  log_id      varchar2(32) not null,
+  job_id      number not null,
+  bean_name   varchar2(200),
+  method_name varchar2(100),
+  params      varchar2(2000),
+  status      number,
+  create_time date,
+  times       number,
+  error_info  varchar2(255)
+)
+;
+-- Create/Recreate primary, unique and foreign key constraints 
+alter table schedule_job_log
+  add constraint pid primary key (LOG_ID);
+
+--
+-- A hint submitted by a user: Oracle DB MUST be created as "shared" and the 
+-- job_queue_processes parameter  must be greater than 2
+-- However, these settings are pretty much standard after any
+-- Oracle install, so most users need not worry about this.
+--
+-- Many other users (including the primary author of Quartz) have had success
+-- runing in dedicated mode, so only consider the above as a hint ;-)
+--
+
+delete from qrtz_fired_triggers;
+delete from qrtz_simple_triggers;
+delete from qrtz_simprop_triggers;
+delete from qrtz_cron_triggers;
+delete from qrtz_blob_triggers;
+delete from qrtz_triggers;
+delete from qrtz_job_details;
+delete from qrtz_calendars;
+delete from qrtz_paused_trigger_grps;
+delete from qrtz_locks;
+delete from qrtz_scheduler_state;
+
+drop table qrtz_calendars;
+drop table qrtz_fired_triggers;
+drop table qrtz_blob_triggers;
+drop table qrtz_cron_triggers;
+drop table qrtz_simple_triggers;
+drop table qrtz_simprop_triggers;
+drop table qrtz_triggers;
+drop table qrtz_job_details;
+drop table qrtz_paused_trigger_grps;
+drop table qrtz_locks;
+drop table qrtz_scheduler_state;
+
+
+CREATE TABLE qrtz_job_details
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    JOB_NAME  VARCHAR2(200) NOT NULL,
+    JOB_GROUP VARCHAR2(200) NOT NULL,
+    DESCRIPTION VARCHAR2(250) NULL,
+    JOB_CLASS_NAME   VARCHAR2(250) NOT NULL, 
+    IS_DURABLE VARCHAR2(1) NOT NULL,
+    IS_NONCONCURRENT VARCHAR2(1) NOT NULL,
+    IS_UPDATE_DATA VARCHAR2(1) NOT NULL,
+    REQUESTS_RECOVERY VARCHAR2(1) NOT NULL,
+    JOB_DATA BLOB NULL,
+    CONSTRAINT QRTZ_JOB_DETAILS_PK PRIMARY KEY (SCHED_NAME,JOB_NAME,JOB_GROUP)
+);
+CREATE TABLE qrtz_triggers
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    JOB_NAME  VARCHAR2(200) NOT NULL, 
+    JOB_GROUP VARCHAR2(200) NOT NULL,
+    DESCRIPTION VARCHAR2(250) NULL,
+    NEXT_FIRE_TIME NUMBER(13) NULL,
+    PREV_FIRE_TIME NUMBER(13) NULL,
+    PRIORITY NUMBER(13) NULL,
+    TRIGGER_STATE VARCHAR2(16) NOT NULL,
+    TRIGGER_TYPE VARCHAR2(8) NOT NULL,
+    START_TIME NUMBER(13) NOT NULL,
+    END_TIME NUMBER(13) NULL,
+    CALENDAR_NAME VARCHAR2(200) NULL,
+    MISFIRE_INSTR NUMBER(2) NULL,
+    JOB_DATA BLOB NULL,
+    CONSTRAINT QRTZ_TRIGGERS_PK PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    CONSTRAINT QRTZ_TRIGGER_TO_JOBS_FK FOREIGN KEY (SCHED_NAME,JOB_NAME,JOB_GROUP) 
+      REFERENCES QRTZ_JOB_DETAILS(SCHED_NAME,JOB_NAME,JOB_GROUP) 
+);
+CREATE TABLE qrtz_simple_triggers
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    REPEAT_COUNT NUMBER(7) NOT NULL,
+    REPEAT_INTERVAL NUMBER(12) NOT NULL,
+    TIMES_TRIGGERED NUMBER(10) NOT NULL,
+    CONSTRAINT QRTZ_SIMPLE_TRIG_PK PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    CONSTRAINT QRTZ_SIMPLE_TRIG_TO_TRIG_FK FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP) 
+	REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_cron_triggers
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    CRON_EXPRESSION VARCHAR2(120) NOT NULL,
+    TIME_ZONE_ID VARCHAR2(80),
+    CONSTRAINT QRTZ_CRON_TRIG_PK PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    CONSTRAINT QRTZ_CRON_TRIG_TO_TRIG_FK FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP) 
+      REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_simprop_triggers
+  (          
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    STR_PROP_1 VARCHAR2(512) NULL,
+    STR_PROP_2 VARCHAR2(512) NULL,
+    STR_PROP_3 VARCHAR2(512) NULL,
+    INT_PROP_1 NUMBER(10) NULL,
+    INT_PROP_2 NUMBER(10) NULL,
+    LONG_PROP_1 NUMBER(13) NULL,
+    LONG_PROP_2 NUMBER(13) NULL,
+    DEC_PROP_1 NUMERIC(13,4) NULL,
+    DEC_PROP_2 NUMERIC(13,4) NULL,
+    BOOL_PROP_1 VARCHAR2(1) NULL,
+    BOOL_PROP_2 VARCHAR2(1) NULL,
+    CONSTRAINT QRTZ_SIMPROP_TRIG_PK PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    CONSTRAINT QRTZ_SIMPROP_TRIG_TO_TRIG_FK FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP) 
+      REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_blob_triggers
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    BLOB_DATA BLOB NULL,
+    CONSTRAINT QRTZ_BLOB_TRIG_PK PRIMARY KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+    CONSTRAINT QRTZ_BLOB_TRIG_TO_TRIG_FK FOREIGN KEY (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP) 
+        REFERENCES QRTZ_TRIGGERS(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_calendars
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    CALENDAR_NAME  VARCHAR2(200) NOT NULL, 
+    CALENDAR BLOB NOT NULL,
+    CONSTRAINT QRTZ_CALENDARS_PK PRIMARY KEY (SCHED_NAME,CALENDAR_NAME)
+);
+CREATE TABLE qrtz_paused_trigger_grps
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    TRIGGER_GROUP  VARCHAR2(200) NOT NULL, 
+    CONSTRAINT QRTZ_PAUSED_TRIG_GRPS_PK PRIMARY KEY (SCHED_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_fired_triggers 
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    ENTRY_ID VARCHAR2(95) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    INSTANCE_NAME VARCHAR2(200) NOT NULL,
+    FIRED_TIME NUMBER(13) NOT NULL,
+    SCHED_TIME NUMBER(13) NOT NULL,
+    PRIORITY NUMBER(13) NOT NULL,
+    STATE VARCHAR2(16) NOT NULL,
+    JOB_NAME VARCHAR2(200) NULL,
+    JOB_GROUP VARCHAR2(200) NULL,
+    IS_NONCONCURRENT VARCHAR2(1) NULL,
+    REQUESTS_RECOVERY VARCHAR2(1) NULL,
+    CONSTRAINT QRTZ_FIRED_TRIGGER_PK PRIMARY KEY (SCHED_NAME,ENTRY_ID)
+);
+CREATE TABLE qrtz_scheduler_state 
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    INSTANCE_NAME VARCHAR2(200) NOT NULL,
+    LAST_CHECKIN_TIME NUMBER(13) NOT NULL,
+    CHECKIN_INTERVAL NUMBER(13) NOT NULL,
+    CONSTRAINT QRTZ_SCHEDULER_STATE_PK PRIMARY KEY (SCHED_NAME,INSTANCE_NAME)
+);
+CREATE TABLE qrtz_locks
+  (
+    SCHED_NAME VARCHAR2(120) NOT NULL,
+    LOCK_NAME  VARCHAR2(40) NOT NULL, 
+    CONSTRAINT QRTZ_LOCKS_PK PRIMARY KEY (SCHED_NAME,LOCK_NAME)
+);
+
+create index idx_qrtz_j_req_recovery on qrtz_job_details(SCHED_NAME,REQUESTS_RECOVERY);
+create index idx_qrtz_j_grp on qrtz_job_details(SCHED_NAME,JOB_GROUP);
+
+create index idx_qrtz_t_j on qrtz_triggers(SCHED_NAME,JOB_NAME,JOB_GROUP);
+create index idx_qrtz_t_jg on qrtz_triggers(SCHED_NAME,JOB_GROUP);
+create index idx_qrtz_t_c on qrtz_triggers(SCHED_NAME,CALENDAR_NAME);
+create index idx_qrtz_t_g on qrtz_triggers(SCHED_NAME,TRIGGER_GROUP);
+create index idx_qrtz_t_state on qrtz_triggers(SCHED_NAME,TRIGGER_STATE);
+create index idx_qrtz_t_n_state on qrtz_triggers(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP,TRIGGER_STATE);
+create index idx_qrtz_t_n_g_state on qrtz_triggers(SCHED_NAME,TRIGGER_GROUP,TRIGGER_STATE);
+create index idx_qrtz_t_next_fire_time on qrtz_triggers(SCHED_NAME,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_st on qrtz_triggers(SCHED_NAME,TRIGGER_STATE,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_misfire on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME);
+create index idx_qrtz_t_nft_st_misfire on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_STATE);
+create index idx_qrtz_t_nft_st_misfire_grp on qrtz_triggers(SCHED_NAME,MISFIRE_INSTR,NEXT_FIRE_TIME,TRIGGER_GROUP,TRIGGER_STATE);
+
+create index idx_qrtz_ft_trig_inst_name on qrtz_fired_triggers(SCHED_NAME,INSTANCE_NAME);
+create index idx_qrtz_ft_inst_job_req_rcvry on qrtz_fired_triggers(SCHED_NAME,INSTANCE_NAME,REQUESTS_RECOVERY);
+create index idx_qrtz_ft_j_g on qrtz_fired_triggers(SCHED_NAME,JOB_NAME,JOB_GROUP);
+create index idx_qrtz_ft_jg on qrtz_fired_triggers(SCHED_NAME,JOB_GROUP);
+create index idx_qrtz_ft_t_g on qrtz_fired_triggers(SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP);
+create index idx_qrtz_ft_tg on qrtz_fired_triggers(SCHED_NAME,TRIGGER_GROUP);
+
+
