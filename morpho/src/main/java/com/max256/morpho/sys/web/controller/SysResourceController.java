@@ -302,7 +302,8 @@ public class SysResourceController extends AbstractBaseController {
 			@RequestParam(defaultValue="" ,name="uuid") String uuid,
 			@RequestParam(defaultValue="" ,name="permission") String permission,
 			@RequestParam(defaultValue="" ,name="isValid") String isValid,
-			@RequestParam(defaultValue="" ,name="resourceUrl") String resourceUrl){
+			@RequestParam(defaultValue="" ,name="resourceUrl") String resourceUrl,
+			@RequestParam(defaultValue="" ,name="pid") String pid){
 		GeneralReturnData<String> result=new GeneralReturnData<>();
 		//参数校验
 		if(StringUtils.isBlank(uuid)
@@ -327,6 +328,9 @@ public class SysResourceController extends AbstractBaseController {
 		findSysResource.setIsValid(isValid);
 		findSysResource.setPermission(permission);
 		findSysResource.setResourceUrl(resourceUrl);
+		if(StringUtils.isNotBlank(pid)&&!findSysResource.getParentId().equals(Integer.parseInt(pid))&&!findSysResource.getResourceId().equals(Integer.parseInt(pid))){
+			findSysResource.setParentId(Integer.parseInt(pid));
+		}
 		sysResourceService.updateByPrimaryKey(findSysResource);
 		result.setInfo("修改成功");
 		result.setStatus("1");

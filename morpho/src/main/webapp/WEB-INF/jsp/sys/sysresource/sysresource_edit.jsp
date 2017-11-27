@@ -93,7 +93,7 @@ MgrSysResource.hideDeptSelectTree = function() {
  * 收集数据
  */
 MgrSysResource.collectData = function() {
-    this.set('uuid').set('permission').set('resourceUrl').set('isValid');
+    this.set('uuid').set('permission').set('resourceUrl').set('isValid').set('pid');
 }
 
 

@@ -335,6 +335,11 @@ public class SysOrganizationController extends AbstractBaseController {
 				return result;
 			}
 		}
+		if(pid.equals(findSysOrganization.getOrgId())){
+			result.setInfo("该组织机构的上级组织不能是自己");
+			result.setStatus("0");
+			return result;
+		}
 		
 		//修改
 		findSysOrganization.setOrgName(orgName);
