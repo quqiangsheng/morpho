@@ -3,6 +3,7 @@ package com.max256.morpho.common.dao.impl;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -23,19 +24,18 @@ import org.springframework.stereotype.Repository;
 
 import com.max256.morpho.common.dao.BaseDao;
 
-
-@SuppressWarnings({"unchecked","rawtypes", "deprecation"})
+@SuppressWarnings({ "unchecked", "rawtypes", "deprecation" })
 @Repository("baseDao")
 @Primary
 /**
- * BaseDaoImpl
- * 封装了常用功能的BaseDao基于hibernate5实现
- * 本系统可以同时支持hibernate5和mybatis 
- * 其中mybtais是必备 hibernate5根据您的需要可以选择使用也可以不使用
- * 如果使用hibernate5您可能会用到本类 本类封装了hibernate5的常用api
+ * BaseDaoImpl 封装了常用功能的BaseDao基于hibernate5实现 本系统可以同时支持hibernate5和mybatis
+ * 其中mybtais是必备 hibernate5根据您的需要可以选择使用也可以不使用 如果使用hibernate5您可能会用到本类
+ * 本类封装了hibernate5的常用api
+ * 
  * @author fbf
  *
- * @param <T> 实体类
+ * @param <T>
+ *            实体类
  */
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
@@ -45,35 +45,31 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
-
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
 
 	/**
 	 * 获取序列的下一个值
 	 * 
 	 * @param seqName
 	 *            序列名称
-	 * @return 序列下一个值  取不到返回null
+	 * @return 序列下一个值 取不到返回null
 	 */
 	public Long getSeqNextval(String seqName) {
 		String sql = "select " + seqName + ".Nextval from dual";
 		BigDecimal nextval = (BigDecimal) getObjectBySql(sql);
-		if(nextval!=null){
+		if (nextval != null) {
 			return nextval.longValue();
-		}else{
-			return null;	
+		} else {
+			return null;
 		}
-		
-	}
 
+	}
 
 	/**
 	 * 通过sql获取单个数据
@@ -89,7 +85,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return null;
 	}
 
-
 	/**
 	 * 从sql语句中获取String
 	 * 
@@ -101,11 +96,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		Object obj = getObjectBySql(sql);
 		if (obj instanceof String) {
 			return (String) obj;
-		}else{
+		} else {
 			return null;
 		}
 	}
-
 
 	/**
 	 * 从sql语句中获取long
@@ -116,23 +110,22 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 	 */
 	@SuppressWarnings("null")
 	public long getLongBySql(String sql) {
-		Object find=getObjectBySql(sql);
-		if(find==null){
+		Object find = getObjectBySql(sql);
+		if (find == null) {
 			return (Long) null;
 		}
-		if(find instanceof Number){
+		if (find instanceof Number) {
 			return NumberUtils.toLong(find.toString());
 		}
-		//判断是否是Long
-		Boolean isNum=NumberUtils.isNumber((String) find);
-		if(isNum){
+		// 判断是否是Long
+		Boolean isNum = NumberUtils.isNumber((String) find);
+		if (isNum) {
 			return NumberUtils.toLong(find.toString());
-		}else{
+		} else {
 			return (Long) null;
 		}
-		
-	}
 
+	}
 
 	/**
 	 * 获得当前事务的session
@@ -143,10 +136,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return sessionFactory.getCurrentSession();
 	}
 
-
-	/* 
-	 * 保存新的实体对象	 
-	 * */
+	/*
+	 * 保存新的实体对象
+	 */
 	@Override
 	public Serializable save(T o) {
 		if (o != null) {
@@ -155,8 +147,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return null;
 	}
 
-
-	/* 
+	/*
 	 * 保存新的实体对象列表
 	 */
 	@Override
@@ -170,12 +161,10 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return null;
 	}
 
-
 	@Override
 	public T getById(Class<T> c, Serializable id) {
 		return (T) getSession().get(c, id);
 	}
-
 
 	@Override
 	public T getByHql(String hql) {
@@ -187,13 +176,19 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return null;
 	}
 
-
 	@Override
 	public T getByHql(String hql, Map<String, Object> params) {
 		Query q = getSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		List<T> l = q.list();
@@ -203,7 +198,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return null;
 	}
 
-
 	@Override
 	public void delete(T o) {
 		if (o != null) {
@@ -211,7 +205,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 			getSession().flush();
 		}
 	}
-
 
 	@Override
 	public void update(T o) {
@@ -221,7 +214,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 
-
 	@Override
 	public void saveOrUpdate(T o) {
 		if (o != null) {
@@ -230,98 +222,115 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 	}
 
-
-	
 	@Override
 	public List<T> findByHql(String hql) {
 		Query q = getSession().createQuery(hql);
 		return q.list();
 	}
 
-
 	@Override
 	public List<T> findByHql(String hql, Map<String, Object> params) {
 		Query q = getSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.list();
 	}
-
 
 	@Override
 	public List<T> findByHql(String hql, Map<String, Object> params, int page, int size) {
 		Query q = getSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
 	}
-
 
 	@Override
 	public List<T> findByHql(String hql, int page, int size) {
 		Query q = getSession().createQuery(hql);
 		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
 	}
-	
-	
+
 	@Override
 	public List findByHql(String hql, Class resultTransformerCalss) {
 		Query q = getSession().createQuery(hql);
-		if(null!=resultTransformerCalss&&resultTransformerCalss instanceof Class){	
+		if (null != resultTransformerCalss && resultTransformerCalss instanceof Class) {
 			q.setResultTransformer(Transformers.aliasToBean(resultTransformerCalss));
 		}
 		return q.list();
 	}
 
-
 	@Override
-	public List findByHql(String hql, Map<String, Object> params,Class resultTransformerCalss) {
+	public List findByHql(String hql, Map<String, Object> params, Class resultTransformerCalss) {
 		Query q = getSession().createQuery(hql);
-		if(null!=resultTransformerCalss&&resultTransformerCalss instanceof Class){	
+		if (null != resultTransformerCalss && resultTransformerCalss instanceof Class) {
 			q.setResultTransformer(Transformers.aliasToBean(resultTransformerCalss));
 		}
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.list();
 	}
 
-
 	@Override
-	public List findByHql(String hql, int page, int size,Class resultTransformerCalss) {
+	public List findByHql(String hql, int page, int size, Class resultTransformerCalss) {
 		Query q = getSession().createQuery(hql);
-		if(null!=resultTransformerCalss&&resultTransformerCalss instanceof Class){	
+		if (null != resultTransformerCalss && resultTransformerCalss instanceof Class) {
 			q.setResultTransformer(Transformers.aliasToBean(resultTransformerCalss));
 		}
 		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
 	}
 
-
 	@Override
-	public List findByHql(String hql, Map<String, Object> params, int page,int size, Class resultTransformerCalss) {
-		
+	public List findByHql(String hql, Map<String, Object> params, int page, int size, Class resultTransformerCalss) {
+
 		Query q = getSession().createQuery(hql);
-		if(null!=resultTransformerCalss&&resultTransformerCalss instanceof Class){	
+		if (null != resultTransformerCalss && resultTransformerCalss instanceof Class) {
 			q.setResultTransformer(Transformers.aliasToBean(resultTransformerCalss));
 		}
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
-		
+
 	}
-
-
 
 	@Override
 	public long countByHql(String hql) {
@@ -329,18 +338,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return (long) q.uniqueResult();
 	}
 
-
 	@Override
 	public long countByHql(String hql, Map<String, Object> params) {
 		Query q = getSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return (long) q.uniqueResult();
 	}
-
 
 	@Override
 	public int executeHql(String hql) {
@@ -348,18 +362,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return q.executeUpdate();
 	}
 
-
 	@Override
 	public int executeHql(String hql, Map<String, Object> params) {
 		Query q = getSession().createQuery(hql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.executeUpdate();
 	}
-
 
 	@Override
 	public List<Map> findBySql(String sql) {
@@ -367,38 +386,49 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 	}
 
-
 	@Override
 	public List<Map> findBySql(String sql, int page, int size) {
 		SQLQuery q = getSession().createSQLQuery(sql);
-		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size)
+				.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 	}
 
-
-	
 	@Override
 	public List<Map> findBySql(String sql, Map<String, Object> params) {
 		SQLQuery q = getSession().createSQLQuery(sql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 	}
-
 
 	@Override
 	public List<Map> findBySql(String sql, Map<String, Object> params, int page, int size) {
 		SQLQuery q = getSession().createSQLQuery(sql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
-		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
+		return q.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size)
+				.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
 	}
-
 
 	@Override
 	public int executeSql(String sql) {
@@ -406,18 +436,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return q.executeUpdate();
 	}
 
-
 	@Override
 	public int executeSql(String sql, Map<String, Object> params) {
 		SQLQuery q = getSession().createSQLQuery(sql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return q.executeUpdate();
 	}
-
 
 	@Override
 	public BigInteger countBySql(String sql) {
@@ -425,18 +460,23 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return (BigInteger) q.uniqueResult();
 	}
 
-
 	@Override
 	public BigInteger countBySql(String sql, Map<String, Object> params) {
 		SQLQuery q = getSession().createSQLQuery(sql);
 		if (params != null && !params.isEmpty()) {
 			for (String key : params.keySet()) {
-				q.setParameter(key, params.get(key));
+				Object obj = params.get(key);
+				if (obj instanceof Collection<?>) {
+					q.setParameterList(key, (Collection<?>) obj);
+				} else if (obj instanceof Object[]) {
+					q.setParameterList(key, (Object[]) obj);
+				} else {
+					q.setParameter(key, obj);
+				}
 			}
 		}
 		return (BigInteger) q.uniqueResult();
 	}
-
 
 	@Override
 	public List<T> findByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders) {
@@ -450,9 +490,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return criteria.list();
 	}
 
-
 	@Override
-	public List<T> findByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders, int page, int size) {
+	public List<T> findByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders, int page,
+			int size) {
 		Criteria criteria = getSession().createCriteria(persistentClass);
 		for (Criterion criterion : criterions) {
 			criteria.add(criterion);
@@ -463,9 +503,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return criteria.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
 	}
 
-
 	@Override
-	public List<?> sumByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders, Projection projection) {
+	public List<?> sumByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders,
+			Projection projection) {
 		Criteria criteria = getSession().createCriteria(persistentClass);
 		for (Criterion criterion : criterions) {
 			criteria.add(criterion);
@@ -477,9 +517,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return criteria.list();
 	}
 
-
 	@Override
-	public List<?> sumByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders, Projection projection, int page, int size) {
+	public List<?> sumByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders,
+			Projection projection, int page, int size) {
 		Criteria criteria = getSession().createCriteria(persistentClass);
 		for (Criterion criterion : criterions) {
 			criteria.add(criterion);
@@ -490,7 +530,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		criteria.setProjection(projection);
 		return criteria.setFirstResult((page > 0 ? page - 1 : 0) * size).setMaxResults(size).list();
 	}
-
 
 	@Override
 	public Long countByCriteria(Class<T> persistentClass, List<Criterion> criterions, List<Order> orders) {
@@ -511,7 +550,5 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 		return null;
 	}
-
-
 
 }
