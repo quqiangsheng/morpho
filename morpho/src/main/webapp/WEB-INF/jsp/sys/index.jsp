@@ -79,6 +79,8 @@
                     	<!--报表管理 -->
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">报表管理</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                        	<li><a class="J_menuItem" href="${ctx}/report/list">查看报表</a>
+                            </li>
                             <li><a class="J_menuItem" href="${ctx}/ureport/designer">报表设计器</a>
                             </li>
                         </ul>

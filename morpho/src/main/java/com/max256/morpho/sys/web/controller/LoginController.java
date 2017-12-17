@@ -91,5 +91,13 @@ public class LoginController extends AbstractBaseController {
 		return "sys/firstscreen";
 	}
 	
+	/**
+	 * 到报表列表页
+	 */
+	@RequestMapping("/report/list")
+	public String goReportListPage(){
+		return "sys/ureportlist";
+	}
+	
 	
 }

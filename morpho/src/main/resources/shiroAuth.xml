@@ -115,6 +115,11 @@
 		<filter>sysUser,forceLogout,authc</filter>
 		<desc>报表模块 需要认证和授权</desc>
 	</define>
+	<define>
+		<url>/report/**</url>
+		<filter>sysUser,forceLogout,authc</filter>
+		<desc>报表模块 需要认证和授权</desc>
+	</define>
 
 	
 	<!-- 其他的放行 读取被文件由上到下匹配 注意这一点 -->
