@@ -38,7 +38,7 @@
 <!-- jquery -->
 <script src="${pageContext.request.contextPath}/statics/libs/jquery.min.js"></script>
 <!-- vue mvvc -->
-<script src="${pageContext.request.contextPath}/statics/libs/vue.min.js"></script>
+<script src="${pageContext.request.contextPath}/statics/libs/vue.js"></script>
 <!-- vue配合使用路由 -->
 <script src="${pageContext.request.contextPath}/statics/libs/router.js"></script>
 <!-- bootstrap js -->
