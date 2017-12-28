@@ -134,15 +134,19 @@ var vm = new Vue({
 			    	var reports = r;
 			    	for ( var report of reports) {
 			    		for ( var reportreturnDataItem of report.reportFiles) {
+			    			let nowdatetime=new Date();
+			    			let datetime ="-" + nowdatetime.getFullYear() + "-" + (nowdatetime.getMonth() + 1) + "-" + nowdatetime.getDate() + "-" 
+			    							+nowdatetime.getHours()+ "-" + nowdatetime.getMinutes()+"-"+nowdatetime.getSeconds();
+			    			let exportName=reportreturnDataItem.name.substr(0,(reportreturnDataItem.name.length-12))+datetime;
 			    			list_map.push({storeType:report.name,
 			    							storePrefixName:report.prefix,
 			    							reportName:reportreturnDataItem.name,
-								            designerUrl:'ureport/designer?_u='+report.prefix+reportreturnDataItem.name,
-							             	previewUrl:'ureport/preview?_u='+report.prefix+reportreturnDataItem.name,
-								            pdfOnlineUrl:'ureport/pdf/show?_u='+report.prefix+reportreturnDataItem.name,
-								            wordUrl:'ureport/word?_u='+report.prefix+reportreturnDataItem.name,
-											excelUrl:'ureport/excel?_u='+report.prefix+reportreturnDataItem.name,
-								            pdfUrl:'ureport/pdf?_u='+report.prefix+reportreturnDataItem.name,
+								            designerUrl:'ureport/designer?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
+							             	previewUrl:'ureport/preview?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
+								            pdfOnlineUrl:'ureport/pdf/show?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
+								            wordUrl:'ureport/word?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
+											excelUrl:'ureport/excel?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
+								            pdfUrl:'ureport/pdf?_u='+report.prefix+reportreturnDataItem.name+"&_n="+exportName,
 			    							reportUpdateDate:reportreturnDataItem.updateDate
 			    							});
 						}
