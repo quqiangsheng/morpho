@@ -68,14 +68,14 @@
 		<!-- mybatis-spring版本 -->
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<!-- mybatis通用mapper版本 -->
-		<mapper.version>3.4.5</mapper.version>
+		<mapper.version>3.4.6</mapper.version>
 		<!-- mybatis 分页插件版本 -->
 		<pagehelp.version>5.1.2</pagehelp.version>
 		<!-- mysql驱动版本 -->
 		<!-- Connector/J version Driver Type JDBC version MySQL Server version 
 			Status 5.1 4 3.0, 4.0, 4.1, 4.2 4.1, 5.0, 5.1, 5.5, 5.6, 5.7 Recommended 
 			version -->
-		<mysql.version>5.1.44</mysql.version>
+		<mysql.version>5.1.45</mysql.version>
 		<postgresql.version>42.1.4</postgresql.version>
 		<sqlserver.version>4.0</sqlserver.version>
 		<!-- hibernate版本 -->
@@ -91,7 +91,7 @@
 		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 		<antlr.version>2.7.7</antlr.version>
 		<xstream.version>1.4.10</xstream.version>
-		<fastjson.version>1.2.43</fastjson.version>
+		<fastjson.version>1.2.44</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<guava.version>23.0</guava.version>
 		<joda-time.version>2.9.9</joda-time.version>
