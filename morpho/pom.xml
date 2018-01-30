@@ -44,7 +44,7 @@
 		<!-- CXF版本 -->
 		<cxf.version>3.1.14</cxf.version>
 		<!-- Jackson版本 -->
-		<jackson.version>2.9.3</jackson.version>
+		<jackson.version>2.9.4</jackson.version>
 		<!-- POI版本 -->
 		<poi.version>3.17</poi.version>
 		<!-- log4j2版本 Log4j 2.4 and greater requires Java 7 -->
@@ -54,13 +54,13 @@
 		<!-- Ant版本 -->
 		<ant.version>1.9.9</ant.version>
 		<!-- hibernate-validator版本 -->
-		<hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
+		<hibernate-validator.version>5.4.2.Final</hibernate-validator.version>
 		<!-- shiro版本 -->
 		<shiro.version>1.4.0</shiro.version>
 		<!-- servlet版本 -->
 		<servlet.version>3.1.0</servlet.version>
 		<!-- Spring版本 -->
-		<spring.version>4.3.13.RELEASE</spring.version>
+		<spring.version>4.3.14.RELEASE</spring.version>
 		<!-- jodd邮件工具 -->
 		<jodd.version>3.9.1</jodd.version>
 		<!-- mybatis版本 -->
@@ -68,15 +68,15 @@
 		<!-- mybatis-spring版本 -->
 		<mybatis-spring.version>1.3.1</mybatis-spring.version>
 		<!-- mybatis通用mapper版本 -->
-		<mapper.version>3.4.6</mapper.version>
+		<mapper.version>3.5.2</mapper.version>
 		<!-- mybatis 分页插件版本 -->
-		<pagehelp.version>5.1.2</pagehelp.version>
+		<pagehelper.version>5.1.2</pagehelper.version>
 		<!-- mysql驱动版本 -->
 		<!-- Connector/J version Driver Type JDBC version MySQL Server version 
 			Status 5.1 4 3.0, 4.0, 4.1, 4.2 4.1, 5.0, 5.1, 5.5, 5.6, 5.7 Recommended 
 			version -->
 		<mysql.version>5.1.45</mysql.version>
-		<postgresql.version>42.1.4</postgresql.version>
+		<postgresql.version>42.2.1</postgresql.version>
 		<sqlserver.version>4.0</sqlserver.version>
 		<!-- hibernate版本 -->
 		<hibernate.version>5.2.12.Final</hibernate.version>
@@ -91,12 +91,12 @@
 		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 		<antlr.version>2.7.7</antlr.version>
 		<xstream.version>1.4.10</xstream.version>
-		<fastjson.version>1.2.44</fastjson.version>
+		<fastjson.version>1.2.45</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<guava.version>23.0</guava.version>
 		<joda-time.version>2.9.9</joda-time.version>
 		<jedis.version>2.9.0</jedis.version>
-		<spring-data-redis.version>1.8.8.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>1.8.10.RELEASE</spring-data-redis.version>
 		<jboss-logging.version>3.3.1.Final</jboss-logging.version>
 		<aspectjweaver.version>1.8.13</aspectjweaver.version>
 		<pinyin4j.version>2.5.1</pinyin4j.version>
@@ -119,8 +119,8 @@
 		<commons-codec.version>1.11</commons-codec.version>
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<commons-httpclient.version>3.1</commons-httpclient.version>
-		<httpmime.version>4.5.4</httpmime.version>
-		<httpclient.version>4.5.4</httpclient.version>
+		<httpmime.version>4.5.5</httpmime.version>
+		<httpclient.version>4.5.5</httpclient.version>
 		<tagsoup.version>1.2.1</tagsoup.version>
 		<xalan.version>2.7.2</xalan.version>
 		<nekohtml.version>1.9.22</nekohtml.version>
@@ -134,7 +134,7 @@
 		<springfox-swagger-ui.version>2.7.0</springfox-swagger-ui.version>
 		<jodconverter-core.version>1.0.5</jodconverter-core.version>
 		<classmate.version>1.3.4</classmate.version>
-		<netty-all.version>4.1.18.Final</netty-all.version>
+		<netty-all.version>4.1.20.Final</netty-all.version>
 		<disruptor.version>3.3.7</disruptor.version>
 		<easypoi.version>3.0.3</easypoi.version>
 		<!-- jstl版本 -->
@@ -146,12 +146,12 @@
 		<esapi.version>2.1.0.1</esapi.version>
 		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
 		<itextpdf.version>5.5.12</itextpdf.version>
-		<ureport2-console.version>2.2.3</ureport2-console.version>
-		<uflo-core.version>2.1.0</uflo-core.version>
-		<uflo-console.version>2.1.0</uflo-console.version>
-		<urule-console.version>2.1.3</urule-console.version>
-		<fst.version>2.56</fst.version>
-		<atomikos.version>4.0.5</atomikos.version>
+		<ureport2-console.version>2.2.5-SNAPSHOT</ureport2-console.version>
+		<uflo-core.version>2.1.1</uflo-core.version>
+		<uflo-console.version>2.1.1</uflo-console.version>
+		<urule-console.version>2.1.5-SNAPSHOT</urule-console.version>
+		<fst.version>2.57</fst.version>
+		<atomikos.version>4.0.6</atomikos.version>
 		<jta.version>1.1</jta.version>
 		<cglib.version>3.2.5</cglib.version>
 		<!-- 防止compile中文乱码 -->
@@ -160,18 +160,18 @@
 
 	<!-- 阿里云maven仓库 -->
 	<repositories>
-		<repository>
+		<!-- <repository>
 			<id>aliyun nexus</id>
 			<name>aliyun nexus</name>
 			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-			<!-- <name>锐道开源产品仓库包含快照版本</name> <url>http://nexus.bsdn.org/content/groups/public/</url> -->
+			<name>锐道开源产品仓库包含快照版本</name> <url>http://nexus.bsdn.org/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository> -->
 
 		<repository>
 			<id>public</id>
@@ -281,7 +281,7 @@
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
-			<version>${pagehelp.version}</version>
+			<version>${pagehelper.version}</version>
 		</dependency>
 		<!-- mysql驱动 -->
 		<dependency>
