@@ -64,11 +64,11 @@
 		<!-- jodd邮件工具 -->
 		<jodd.version>3.9.1</jodd.version>
 		<!-- mybatis版本 -->
-		<mybatis.version>3.4.5</mybatis.version>
+		<mybatis.version>3.4.6</mybatis.version>
 		<!-- mybatis-spring版本 -->
-		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+		<mybatis-spring.version>1.3.2</mybatis-spring.version>
 		<!-- mybatis通用mapper版本 -->
-		<mapper.version>3.5.2</mapper.version>
+		<mapper.version>4.0.0</mapper.version>
 		<!-- mybatis 分页插件版本 -->
 		<pagehelper.version>5.1.2</pagehelper.version>
 		<!-- mysql驱动版本 -->
@@ -91,13 +91,13 @@
 		<antlr-runtime.version>3.5.2</antlr-runtime.version>
 		<antlr.version>2.7.7</antlr.version>
 		<xstream.version>1.4.10</xstream.version>
-		<fastjson.version>1.2.45</fastjson.version>
+		<fastjson.version>1.2.47</fastjson.version>
 		<junit.version>4.12</junit.version>
 		<guava.version>23.0</guava.version>
 		<joda-time.version>2.9.9</joda-time.version>
 		<jedis.version>2.9.0</jedis.version>
 		<spring-data-redis.version>1.8.10.RELEASE</spring-data-redis.version>
-		<jboss-logging.version>3.3.1.Final</jboss-logging.version>
+		<jboss-logging.version>3.3.2.Final</jboss-logging.version>
 		<aspectjweaver.version>1.8.13</aspectjweaver.version>
 		<pinyin4j.version>2.5.1</pinyin4j.version>
 		<jxls.version>1.0.6</jxls.version>
@@ -124,19 +124,19 @@
 		<tagsoup.version>1.2.1</tagsoup.version>
 		<xalan.version>2.7.2</xalan.version>
 		<nekohtml.version>1.9.22</nekohtml.version>
-		<druid.version>1.1.6</druid.version>
+		<druid.version>1.1.9</druid.version>
 		<sigar.version>1.6.4</sigar.version>
 		<jsoup.version>1.11.2</jsoup.version>
 		<mail.version>1.6.0</mail.version>
 		<metadata-extractor.version>2.10.1</metadata-extractor.version>
-		<javamelody-core.version>1.70.0</javamelody-core.version>
-		<springfox-swagger2.version>2.7.0</springfox-swagger2.version>
-		<springfox-swagger-ui.version>2.7.0</springfox-swagger-ui.version>
+		<javamelody-core.version>1.71.0</javamelody-core.version>
+		<springfox-swagger2.version>2.8.0</springfox-swagger2.version>
+		<springfox-swagger-ui.version>2.8.0</springfox-swagger-ui.version>
 		<jodconverter-core.version>1.0.5</jodconverter-core.version>
 		<classmate.version>1.3.4</classmate.version>
-		<netty-all.version>4.1.20.Final</netty-all.version>
-		<disruptor.version>3.3.7</disruptor.version>
-		<easypoi.version>3.0.3</easypoi.version>
+		<netty-all.version>4.1.22.Final</netty-all.version>
+		<disruptor.version>3.4.1</disruptor.version>
+		<easypoi.version>3.1.0</easypoi.version>
 		<!-- jstl版本 -->
 		<jstl.version>1.2</jstl.version>
 		<!-- jsp taglib版本 -->
@@ -144,16 +144,17 @@
 		<!-- freemarker模版引擎版本 -->
 		<freemarker.version>2.3.23</freemarker.version>
 		<esapi.version>2.1.0.1</esapi.version>
-		<java-uuid-generator.version>3.1.4</java-uuid-generator.version>
-		<itextpdf.version>5.5.12</itextpdf.version>
-		<ureport2-console.version>2.2.5-SNAPSHOT</ureport2-console.version>
-		<uflo-core.version>2.1.1</uflo-core.version>
-		<uflo-console.version>2.1.1</uflo-console.version>
-		<urule-console.version>2.1.5-SNAPSHOT</urule-console.version>
+		<java-uuid-generator.version>3.1.5</java-uuid-generator.version>
+		<itextpdf.version>5.5.13</itextpdf.version>
+		<ureport2-console.version>2.2.6</ureport2-console.version>
+		<uflo-core.version>2.1.2</uflo-core.version>
+		<uflo-console.version>2.1.2</uflo-console.version>
+		<urule-console.version>2.1.5</urule-console.version>
 		<fst.version>2.57</fst.version>
 		<atomikos.version>4.0.6</atomikos.version>
 		<jta.version>1.1</jta.version>
-		<cglib.version>3.2.5</cglib.version>
+		<cglib.version>3.2.6</cglib.version>
+		<spring-kafka.version>2.1.4.RELEASE</spring-kafka.version>
 		<!-- 防止compile中文乱码 -->
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 	</properties>
@@ -1386,7 +1387,12 @@
 			<artifactId>cglib</artifactId>
 			<version>${cglib.version}</version>
 		</dependency>
-
+		<!-- apache kafka支持 -->
+		<dependency>
+		  <groupId>org.springframework.kafka</groupId>
+		  <artifactId>spring-kafka</artifactId>
+		  <version>${spring-kafka.version}</version>
+		</dependency>
 
 
 	</dependencies>
