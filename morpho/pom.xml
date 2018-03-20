@@ -277,6 +277,13 @@
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper</artifactId>
 			<version>${mapper.version}</version>
+			<exclusions>
+				<!--如果同时使用hibernate和mapper需要在这里排除mapper依赖的jpa-api这里和hibernate版本的jpa有所不同 如果不使用hibernate请不要排除依赖 -->
+				<exclusion>
+					<groupId>javax.persistence</groupId>
+					<artifactId>persistence-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--分页插件 -->
 		<dependency>
